@@ -1,5 +1,9 @@
+import { Lading } from "./pages/Lading";
+
 function App() {
-  return <div></div>;
+  return (
+    <Lading />
+  )
 }
 
 export default App;
