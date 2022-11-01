@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         "bg-page": "#000212",
+        "bg-form": "#0D0F19",
         "footer-landing-1": "#000212",
         "footer-landing-2": "#09061E",
 
@@ -21,6 +22,7 @@ module.exports = {
         "purple-2": "#B59BFF",
 
         "msg-error": "#601212",
+
         "btn-del": "#8D1414",
       },
       visibility: ["group-hover"],
