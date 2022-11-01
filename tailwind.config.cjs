@@ -15,6 +15,7 @@ module.exports = {
         "grey-2": "#B4BCD0",
         "grey-3": "#C9C9C9",
         "grey-4": "#FFFFFF",
+        "alternative-grey": "#D9D9D9",
 
         "purple-1": "#575BC6",
         "purple-2": "#B59BFF",
@@ -22,6 +23,7 @@ module.exports = {
         "msg-error": "#601212",
         "btn-del": "#8D1414",
       },
+      visibility: ["group-hover"],
     },
   },
   plugins: [],
