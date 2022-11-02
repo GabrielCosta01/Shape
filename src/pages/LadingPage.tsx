@@ -5,6 +5,7 @@ import { ReactLogo } from "../components/ReactLogo/ReactLogo";
 import { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 
 export const LandingPage = () => {
   useEffect(() => {
@@ -37,13 +38,12 @@ export const LandingPage = () => {
       </header>
 
       <main>
-        <section className="h-full	flex flex-col justify-around items-center gap-5 mt-14">
+        <section className="h-full	flex flex-col justify-around items-center gap-5  z-10">
           <div
-            className="flex flex-col justify-center items-center gap-5"
+            className="flex flex-col justify-center items-center"
             data-aos="zoom-in"
             data-aos-duration="800"
           >
-            {/* <img className="w-10/12" src={react} alt="logo React" /> */}
             <ReactLogo />
             <div className="flex flex-col justify-center items-center gap-1">
               <img className="w-5/12" src={shapeLogo} alt="logo React" />
@@ -57,6 +57,7 @@ export const LandingPage = () => {
           >
             Uma ferramenta comum que pode poupar muito tempo seu.
           </h3>
+          <CircleAnimation />
           <div
             data-aos="fade-up"
             className="max-w-2xl mx-80 mt-52 flex flex-row self-start items-center justify-center gap-1 text-purple-2 text-lg"
