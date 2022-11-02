@@ -1,9 +1,7 @@
-import { Lading } from "./pages/Lading";
+import { LandingPage } from "./pages/LadingPage";
 
 function App() {
-  return (
-    <Lading />
-  )
+  return <LandingPage />;
 }
 
 export default App;
