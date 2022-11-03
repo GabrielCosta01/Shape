@@ -33,14 +33,14 @@ module.exports = {
         "purple-1": "#575BC6",
         "purple-2": "#B59BFF",
 
-        "msg-error": "#601212",
+        "msg-error": "#8D1414",
         "btn-del": "#8D1414",
       },
       margin: {
         leftLibs: "0 0 0 20%",
       },
       height: {
-        "heightSection": "85vh",
+        heightSection: "85vh",
       },
     },
   },
