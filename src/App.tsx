@@ -1,5 +1,12 @@
+import { DashboardPage } from "./pages/DashboardPage";
+import Register from "./pages/RegisterPage";
+
 function App() {
-  return <div></div>;
+  return (
+    <>
+      <Register />
+    </>
+  );
 }
 
 export default App;
