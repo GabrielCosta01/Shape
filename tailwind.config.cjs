@@ -36,6 +36,12 @@ module.exports = {
         "msg-error": "#601212",
         "btn-del": "#8D1414",
       },
+      margin: {
+        leftLibs: "0 0 0 20%",
+      },
+      height: {
+        "heightSection": "85vh",
+      },
     },
   },
   plugins: [],
