@@ -1,10 +1,10 @@
-import { HeaderDashboard } from "./components/HeaderDashboard/HeaderDashboard";
+import RoutesMain from "./routes/RoutesMain";
 
 function App() {
   return (
-    <div>
-      <HeaderDashboard />
-    </div>
+    <>
+      <RoutesMain />
+    </>
   );
 }
 
