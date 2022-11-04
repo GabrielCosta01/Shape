@@ -11,6 +11,7 @@ module.exports = {
         "button-gradient-1": "#673FD7",
         "button-gradient-2": "#455EB5",
 
+        "grey-0": "#292A35",
         "grey-1": "#454343",
         "grey-2": "#B4BCD0",
         "grey-3": "#C9C9C9",

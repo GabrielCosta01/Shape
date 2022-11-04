@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../validation/login";
 import { useEffect } from "react";
 import circulo from "../assets/circulo.svg";
 import logo from "../assets/logo.png";
 import { api } from "../services/api";
+import { ClassNames } from "@emotion/react";
 
 interface ILogin {
   email: string;
@@ -13,7 +14,7 @@ interface ILogin {
 }
                                     
 export const LoginPage = () => {
-  const navigate = useNavigate();
+ 
   const {
     register,
     handleSubmit,
@@ -25,23 +26,26 @@ export const LoginPage = () => {
   useEffect(() => {
     const token = window.localStorage.getItem("@shape:token");
     if (token) {
-      navigate("/dashboard");
+      <Navigate to="/dashboard" replace={false} />
     }
   }, []);
 
   const loginUser = (data: ILogin) => {
     api
       .post("/login", data)
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        localStorage.setItem("@shape:token" , resp.data.accessToken)
+        console.log(resp)
+      })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="flex content-center items-center mx-auto">
-      <img src={circulo} alt="shape" className="mx-auto w-888 h-888" />
-      <form className="absolute flex flex-col h-900 bg-grey-1">
-        <button onClick={() => navigate("/")}>
-          <img src={logo} alt="home" className="bg-black" />
+      <img src={circulo} alt="shape" className="mx-auto"/>
+      <form className="absolute top-4 h-[450px] w-96 max-w-[90%] justify-around items-center flex flex-col bg-grey-0 left-[15px]" onSubmit={handleSubmit(loginUser)}>
+        <button onClick={() => <Navigate to="/" replace={false} />}>
+          <img src={logo} alt="home" className="h-7" />
         </button>
 
         <input
@@ -52,27 +56,27 @@ export const LoginPage = () => {
           type="text"
           {...register("email")}
         />
-        <span className="text-white text-sm input-text text-opacity-60	 absolute left-0 top-2.5  mx-4 transition duration-250 ">
+        <span className=" ">
           Email
         </span>
 
         <input
-          className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
+          className="w-[17.188rem] h-[2.438rem] text-white border-2 px-4
              border-border-Inputs bg-transparent rounded focus:border-button-register outline-none
              transition duration-250
              "
           type="text"
           {...register("password")}
         />
-        <span className="text-white text-sm input-text text-opacity-60	 absolute left-0 top-2.5  mx-4 transition duration-250 ">
+        <span className="">
           Senha
         </span>
 
-        <button type="submit">Log In</button>
+        <button type="submit" className="w-[275px] h-[41px] bg-purple-1 text-grey-4 rounded-md">Log In</button>
+ 
+        <p className="text-grey-1">Ainda não possui cadastro ?</p>
 
-        <p>Ainda não possui cadastro ?</p>
-
-        <button onClick={() => navigate("/register")}>Cadastrar</button>
+        <button className="text-grey-4 rounded-md bg-grey-1 w-[275px] h-[41px]"  onClick={() => <Navigate to="/register" replace={false} />} >Cadastrar</button>
       </form>
     </div>
   );
