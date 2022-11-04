@@ -6,12 +6,17 @@ import saida from "../../assets/saida.svg";
 import EditProfileModal from "../Modals/EditProfileModal";
 import handleModalStore from "../../stores/handleModalStore";
 import EditAvaliabeModal from "../Modals/EditAvaliabeModal";
+import { Link, Navigate } from "react-router-dom";
 
 export const HeaderDashboard = () => {
   const [openModal] = handleModalStore((state) => [state.openModal]);
   const [openModalAvaliable] = handleModalStore((state) => [
     state.openModalAvaliable,
   ]);
+
+  const backToHome = () => {
+    localStorage.clear();
+  };
   return (
     <>
       <header className="flex h-20 justify-around gap-40 items-center border-b-2 border-solid border-gray-900">
@@ -50,9 +55,13 @@ export const HeaderDashboard = () => {
 
               <figure className="flex p-1.5">
                 <img src={saida} alt="Sair da conta" />
-                <span className="pl-1.5 text-xs font-medium cursor-pointer">
+                <Link
+                  to={"/"}
+                  onClick={() => backToHome()}
+                  className="pl-1.5 text-xs font-medium cursor-pointer"
+                >
                   Sair da conta
-                </span>
+                </Link>
               </figure>
             </div>
           </div>

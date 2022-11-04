@@ -1,6 +1,5 @@
 import handleModalStore from "../../stores/handleModalStore";
 import Modal from "react-modal";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 export interface IAvaliable {
@@ -16,57 +15,54 @@ const EditAvaliabeModal = () => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      background: "none",
+      backgroundColor: "rgba(255, 255, 255, 1)",
     },
   };
 
   const [modalAvaliableIsOpen] = handleModalStore((state) => [
     state.modalAvaliableIsOpen,
   ]);
+
   const [closeModalAvaliable] = handleModalStore((state) => [
     state.closeModalAvaliable,
   ]);
 
-  const FormModalAvaliable = () => {
-    const { register, handleSubmit } = useForm<IAvaliable>();
-    const [avaliableShape] = handleModalStore((state) => [
-      state.avaliableShape,
-    ]);
+  const { register, handleSubmit } = useForm<IAvaliable>();
+  const [avaliableShape] = handleModalStore((state) => [state.avaliableShape]);
 
-    return (
-      <Modal
-        isOpen={modalAvaliableIsOpen}
-        onRequestClose={closeModalAvaliable}
-        style={customStyles}
-        contentLabel="Example Modal"
-        ariaHideApp={false}
-        className="absolute"
+  return (
+    <Modal
+      isOpen={modalAvaliableIsOpen}
+      onRequestClose={closeModalAvaliable}
+      style={customStyles}
+      contentLabel="Example Modal"
+      ariaHideApp={false}
+      className="absolute"
+    >
+      <form
+        className="flex items-start flex-col p-10 gap-5 bg-bg-form w-96 min-h-full rounded-md"
+        onSubmit={handleSubmit(avaliableShape)}
       >
-        <form
-          className="flex items-start flex-col p-10 gap-5 bg-bg-form w-96 min-h-full rounded-md"
-          onSubmit={handleSubmit(avaliableShape)}
-        >
-          <div className="min-w-full flex justify-center">
-            <h1 className="text-xl text-white">Avalie o Shape!</h1>
-          </div>
+        <div className="min-w-full flex justify-center">
+          <h1 className="text-xl text-white">Avalie o Shape!</h1>
+        </div>
 
-          <label htmlFor="user" className="text-grey-4 text-xs">
-            Qual seu feedback?
-          </label>
-          <input
-            type="text"
-            id="user"
-            placeholder="Feedback"
-            className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
-            {...register("rate")}
-          />
+        <label htmlFor="user" className="text-grey-4 text-xs">
+          Qual seu feedback?
+        </label>
+        <input
+          type="text"
+          id="user"
+          placeholder="Feedback"
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
+          {...register("rate")}
+        />
 
-          <button className="min-w-full bg-purple-1 h-10 rounded text-grey-4 text-xs mt-2 hover:animate-pulse">
-            Avaliar
-          </button>
-        </form>
-      </Modal>
-    );
-  };
+        <button className="min-w-full bg-purple-1 h-10 rounded text-grey-4 text-xs mt-2 hover:animate-pulse">
+          Avaliar
+        </button>
+      </form>
+    </Modal>
+  );
 };
 export default EditAvaliabeModal;

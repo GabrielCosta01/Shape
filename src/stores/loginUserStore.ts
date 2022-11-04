@@ -1,7 +1,7 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import create from "zustand";
 
-import { IData } from "../components/Login/formLogin";
+import { IData } from "../components/Login/FormLogin";
 import { api } from "../services/api";
 
 interface ILoginStore {
@@ -25,8 +25,6 @@ export const loginUserStore = create<ILoginStore>((set) => ({
 
       localStorage.setItem("@shape:token", request.data.accessToken);
       localStorage.setItem("@shape:userId", request.data.user.id);
-
-      set(() => ({ isLogged: true }));
     } catch (error) {
       console.error(error);
       set(() => ({ isLoading: false }));
