@@ -11,6 +11,9 @@ export interface IEditProfile {
 
 const EditProfileModal = () => {
   const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(69, 67, 67, 0.6)",
+    },
     content: {
       top: "50%",
       left: "50%",
@@ -18,7 +21,7 @@ const EditProfileModal = () => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      backgroundColor: "#ff0000",
+      background: "none",
     },
   };
 
