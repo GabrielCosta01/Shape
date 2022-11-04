@@ -9,7 +9,7 @@ export const RegisterPage = () => {
     <main className="w-screen	h-screen flex items-center	justify-center 	flex-col bg-radial bg-center bg-no-repeat bg-888px		">
       <aside className="flex flex-col  items-center	  max-w-xs  w-[22.25rem] pb-5	 bg-bg-formRegister	z-10 rounded-md">
         <nav className=" flex  flex-col">
-          <Link to="">
+          <Link to="/">
             <img src={logo} alt="Logo" className=" h-7 ml-3 mt-7		mb-2	" />
           </Link>
           <p className="text-grey-1 text-base	 mb-6	">Crie sua conta</p>
