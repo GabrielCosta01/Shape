@@ -1,6 +1,4 @@
-
 import RoutesMain from "./routes/RoutesMain";
-
 
 function App() {
   return (

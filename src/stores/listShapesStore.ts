@@ -20,8 +20,10 @@ export const listShapesStore = create<IListShapeStore>((set) => ({
   isLoading: false,
   shapes: [],
   list: async () => {
+
     const userId = localStorage.getItem("@shape:userId");
     const token = localStorage.getItem("@shape:token");
+
     try {
       set(() => ({ isLoading: true }));
 
