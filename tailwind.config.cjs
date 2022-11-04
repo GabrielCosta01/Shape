@@ -15,7 +15,10 @@ module.exports = {
       },
       colors: {
         "bg-page": "#000212",
+
+        "bg-form": "#0D0F19",
         "bg-formRegister": "#0D0F19",
+
         "footer-landing-1": "#000212",
         "footer-landing-2": "#09061E",
 
@@ -29,9 +32,17 @@ module.exports = {
         "grey-2": "#B4BCD0",
         "grey-3": "#C9C9C9",
         "grey-4": "#FFFFFF",
+        "alternative-grey": "#D9D9D9",
 
         "purple-1": "#575BC6",
         "purple-2": "#B59BFF",
+
+
+        "msg-error": "#601212",
+
+        "btn-del": "#8D1414",
+      },
+      visibility: ["group-hover"],
 
         "msg-error": "#8D1414",
         "btn-del": "#8D1414",
@@ -42,6 +53,7 @@ module.exports = {
       height: {
         heightSection: "85vh",
       },
+
     },
   },
   plugins: [],
