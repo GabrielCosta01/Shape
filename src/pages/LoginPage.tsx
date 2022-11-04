@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import logo from ".././assets/logo.png";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import { ButtonLoginRegister } from "../components/Button/ButtonLoginRegister";
-import FormLogin from "../components/Login/formLogin";
-import { UserLogged } from "../components/IsLogged/userLogged";
+import { UserLogged } from "../components/IsLogged/UserLogged";
+import FormLogin from "../components/Login/FormLogin";
 
 const LoginPage = () => {
   return (
