@@ -34,9 +34,4 @@ export const listShapesStore = create<IListShapeStore>((set) => ({
       console.error(error);
     }
   },
-
-
-
-
-
 }));

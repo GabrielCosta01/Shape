@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { api } from "../../../services/api";
 import { ButtonLoginRegister } from "../../Button/ButtonLoginRegister";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaRegister } from "../../../schemas/registerSchema";
+import { registerUserStore } from "../../../stores/registerUserStore";
+import { Alert } from "@mui/material";
 
-import * as yup from "yup";
-
-interface IData {
+export interface IData {
   username: string;
   email: string;
   image: string;
@@ -13,19 +13,6 @@ interface IData {
 }
 
 export default function FormRegister() {
-  const schemaRegister = yup.object().shape({
-    username: yup.string().required("Insira o usuario"),
-    email: yup
-      .string()
-      .required("Insira o Email")
-      .email("Insira um email válido"),
-    image: yup.string().required("Insira a Imagem"),
-    password: yup
-      .string()
-      .required("Cadastre a senha")
-      .min(6, "Minimo 6 caracteres"),
-  });
-
   const {
     register,
     handleSubmit,
@@ -34,16 +21,14 @@ export default function FormRegister() {
     resolver: yupResolver(schemaRegister),
   });
 
-  function dataRegister(data: IData) {
-    api
-      .post("signup", data)
-      .then((response) => console.log("RegistroComSucesso =>", response))
-      .catch((error) => console.log("Registro com erro =>", error));
-  }
+  const [registerUser, isLoading] = registerUserStore((state) => [
+    state.registerUser,
+    state.isLoading,
+  ]);
 
   return (
     <section>
-      <form className="flex  flex-col" onSubmit={handleSubmit(dataRegister)}>
+      <form className="flex  flex-col" onSubmit={handleSubmit(registerUser)}>
         <label className=" flex flex-col mb-8 relative">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
@@ -62,7 +47,6 @@ export default function FormRegister() {
             {errors.username && errors.username.message}
           </span>
         </label>
-
         <label className=" flex flex-col mb-8 relative">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
@@ -81,7 +65,6 @@ export default function FormRegister() {
             {errors.email && errors.email.message}
           </span>
         </label>
-
         <label className=" flex flex-col mb-8 relative ">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
@@ -101,7 +84,6 @@ export default function FormRegister() {
             {errors.image && errors.image.message}
           </span>
         </label>
-
         <label className=" flex flex-col mb-8 relative">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
@@ -121,12 +103,12 @@ export default function FormRegister() {
             {errors.password && errors.password.message}
           </span>
         </label>
-
         <ButtonLoginRegister
           text={"Criar conta"}
           style={
             "bg-button-register w-[17.188rem] h-[2.563rem] text-xs  rounded-md	font-semibold shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 hover:ease-out	duration-300 text-white	"
           }
+          loading={isLoading}
         />
       </form>
     </section>
