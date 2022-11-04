@@ -3,7 +3,6 @@ import logo from ".././assets/logo.png";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import FormLogin from "../components/Login/FormLogin";
 import { UserLogged } from "../components/IsLogged/UserLogged";
-UserLogged;
 
 const LoginPage = () => {
   return (
