@@ -2,6 +2,7 @@ import create from "zustand";
 import { api } from "../services/api";
 
 interface IShapes {
+  libs: [];
   command: string;
   package: string;
   tool: string;
