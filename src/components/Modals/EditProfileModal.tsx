@@ -36,7 +36,7 @@ const EditProfileModal = () => {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       style={customStyles}
-      contentLabel="Example Modal"
+      contentLabel="ExampleModal"
       ariaHideApp={false}
       className="absolute"
     >
