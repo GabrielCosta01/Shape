@@ -25,6 +25,8 @@ export const loginUserStore = create<ILoginStore>((set) => ({
 
       localStorage.setItem("@shape:token", request.data.accessToken);
       localStorage.setItem("@shape:userId", request.data.user.id);
+
+      set(() => ({ isLogged: true }));
     } catch (error) {
       console.error(error);
       set(() => ({ isLoading: false }));
