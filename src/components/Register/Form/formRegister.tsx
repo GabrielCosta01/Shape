@@ -30,7 +30,6 @@ export default function FormRegister() {
   ]);
 
   useEffect(() => {
-    console.log(isOk);
     if (isOk === 1) {
       toast("Cadastro realizado com sucesso!", "success", 2500);
     } else if (isOk === 2) {
