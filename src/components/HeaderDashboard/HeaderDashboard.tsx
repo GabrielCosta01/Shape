@@ -15,7 +15,11 @@ export const HeaderDashboard = () => {
     state.openModalAvaliable,
   ]);
 
-  const [isOk, logout] = loginUserStore((state) => [state.isOk, state.logout]);
+  const [isOk, logout, user] = loginUserStore((state) => [
+    state.isOk,
+    state.logout,
+    state.user,
+  ]);
 
   const backToHome = () => {
     localStorage.clear();
@@ -28,14 +32,14 @@ export const HeaderDashboard = () => {
         <img src={logo} alt="shape-logo" className=" w-21 h-7" />
         <div className="flex flex-col items-end gap-0 group h-12 justify-center relative">
           <img
-            src={userImg}
+            src={user?.image}
             alt="usuário-foto"
             className=" w-8 h-8 rounded-full border-2 border-solid border-button-gradient-1 cursor-pointer z-10"
           />
 
           <div className="bg-grey-4 w-44 rounded-md absolute mt-40 invisible group-hover:visible group">
             <div className="p-2">
-              <span className="text-xs font-medium">@user.name</span>
+              <span className="text-xs font-medium">{`@${user?.username}`}</span>
             </div>
             <div className=" flex flex-col bg-grey-4 rounded-md">
               <figure className="flex p-1.5">

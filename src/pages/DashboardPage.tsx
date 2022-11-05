@@ -5,6 +5,7 @@ import { AnimationNotShapes } from "../components/AnimationNotShapes/AnimationNo
 import { ContainerShapes } from "../components/ContainerShapes/ContainerShapes";
 import { HeaderDashboard } from "../components/HeaderDashboard/HeaderDashboard";
 import { listShapesStore } from "../stores/listShapesStore";
+import { loginUserStore } from "../stores/loginUserStore";
 
 export const DashboardPage = () => {
   const [isLoading, shapes, list] = listShapesStore((state) => [
@@ -12,6 +13,8 @@ export const DashboardPage = () => {
     state.shapes,
     state.list,
   ]);
+
+  const [user] = loginUserStore((state) => [state.user]);
 
   useEffect(() => {
     list();
