@@ -10,9 +10,7 @@ module.exports = {
       boxShadow: {
         "btn-register": "1px 4px 18px 4px rgba(87, 91, 198, 1)",
       },
-      backgroundImage: {
-        radial: "url('./src/assets/Degrade-Radial-Fundo.png')",
-      },
+
       colors: {
         "bg-page": "#000212",
 
