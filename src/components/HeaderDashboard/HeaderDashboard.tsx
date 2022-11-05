@@ -7,6 +7,7 @@ import EditProfileModal from "../Modals/EditProfileModal";
 import EditAvaliabeModal from "../Modals/EditAvaliabeModal";
 import { Link } from "react-router-dom";
 import handleModalStore from "../../stores/handleModalStore";
+import { loginUserStore } from "../../stores/loginUserStore";
 
 export const HeaderDashboard = () => {
   const [openModal] = handleModalStore((state) => [state.openModal]);
@@ -14,8 +15,12 @@ export const HeaderDashboard = () => {
     state.openModalAvaliable,
   ]);
 
+  const [isOk, logout] = loginUserStore((state) => [state.isOk, state.logout]);
+
   const backToHome = () => {
     localStorage.clear();
+
+    logout();
   };
   return (
     <>

@@ -5,6 +5,7 @@ import { schemaLogin } from "../../schemas/loginSchema";
 import { ButtonLoginRegister } from "../Button/ButtonLoginRegister";
 import { toastStore } from "../../stores/toastStore";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export interface IData {
   username: string;
@@ -30,9 +31,13 @@ const FormLogin = () => {
 
   const [toast] = toastStore((state) => [state.toast]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (isOk === 1) {
+      console.log(isOk);
       toast("Login realizado com sucesso", "success", 2500);
+      navigate("/dashboard");
     } else if (isOk === 2) {
       toast("Opss... Ocorreu um problema", "error", 2500);
     }

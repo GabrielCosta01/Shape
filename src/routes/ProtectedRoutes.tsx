@@ -1,9 +1,9 @@
 import { ReactNode, useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { authStore } from "../stores/authStore";
+import { loginUserStore } from "../stores/loginUserStore";
 
 const ProtectedRoutes = ({ children }: any) => {
-  const [user, requestUser] = authStore((state) => [
+  const [user, requestUser] = loginUserStore((state) => [
     state.user,
     state.requestUser,
   ]);

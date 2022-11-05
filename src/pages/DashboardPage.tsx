@@ -15,8 +15,6 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     list();
-    console.log(shapes);
-    console.log(isLoading);
   }, []);
 
   return (
