@@ -14,7 +14,7 @@ export const registerUserStore = create<IRegisterStore>((set, get) => ({
     try {
       set(() => ({ isLoading: true }));
       const request = await api.post("signup", data);
-      console.log(request);
+
       set(() => ({ isLoading: false, isOk: 1 }));
     } catch (error) {
       console.error(error);
