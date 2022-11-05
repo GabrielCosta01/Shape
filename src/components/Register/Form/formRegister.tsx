@@ -3,7 +3,8 @@ import { ButtonLoginRegister } from "../../Button/ButtonLoginRegister";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../../schemas/registerSchema";
 import { registerUserStore } from "../../../stores/registerUserStore";
-import { Alert } from "@mui/material";
+import { useEffect } from "react";
+import { toastStore } from "../../../stores/toastStore";
 
 export interface IData {
   username: string;
@@ -13,6 +14,7 @@ export interface IData {
 }
 
 export default function FormRegister() {
+  const [toast] = toastStore((state) => [state.toast]);
   const {
     register,
     handleSubmit,
@@ -21,10 +23,19 @@ export default function FormRegister() {
     resolver: yupResolver(schemaRegister),
   });
 
-  const [registerUser, isLoading] = registerUserStore((state) => [
+  const [registerUser, isLoading, isOk] = registerUserStore((state) => [
     state.registerUser,
     state.isLoading,
+    state.isOk,
   ]);
+
+  useEffect(() => {
+    if (isOk === 1) {
+      toast("Cadastro realizado com sucesso!", "success", 2500);
+    } else if (isOk === 2) {
+      toast("Opss... Ocorreu um problema", "error", 2500);
+    }
+  }, [isOk]);
 
   return (
     <section>
