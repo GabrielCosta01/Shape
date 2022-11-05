@@ -4,6 +4,8 @@ import { Alert } from "@mui/material";
 import { loginUserStore } from "../../stores/loginUserStore";
 import { schemaLogin } from "../../schemas/loginSchema";
 import { ButtonLoginRegister } from "../Button/ButtonLoginRegister";
+import { toastStore } from "../../stores/toastStore";
+import { useEffect } from "react";
 
 export interface IData {
   username: string;
@@ -21,10 +23,21 @@ const FormLogin = () => {
     resolver: yupResolver(schemaLogin),
   });
 
-  const [registerUser, isLoading] = loginUserStore((state) => [
+  const [registerUser, isLoading, isOk] = loginUserStore((state) => [
     state.loginUser,
     state.isLoading,
+    state.isOk,
   ]);
+
+  const [toast] = toastStore((state) => [state.toast]);
+
+  useEffect(() => {
+    if (isOk === 1) {
+      toast("Login realizado com sucesso", "success", 2500);
+    } else if (isOk === 2) {
+      toast("Opss... Ocorreu um problema", "error", 2500);
+    }
+  }, [isOk]);
 
   return (
     <section>
