@@ -1,5 +1,5 @@
-import { Alert, Slide, Snackbar } from "@mui/material";
-import { ReactNode, useEffect, useState } from "react";
+import { Alert, Snackbar } from "@mui/material";
+import { useEffect, useState } from "react";
 import { IToast, toastStore } from "../../stores/toastStore";
 import { ToastTransition } from "../ToastTransition/ToastTransition";
 
@@ -26,14 +26,16 @@ export const Toast = ({ toast }: IToastProps) => {
   }, [isLeaving]);
 
   return (
-    <Snackbar
-      open={true}
-      TransitionComponent={ToastTransition}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-    >
-      <Alert variant="filled" severity={toast.mode} sx={{ width: "100%" }}>
-        {toast.message}
-      </Alert>
-    </Snackbar>
+    <li>
+      <Snackbar
+        open={true}
+        TransitionComponent={ToastTransition}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert variant="filled" severity={toast.mode} sx={{ width: "100%" }}>
+          {toast.message}
+        </Alert>
+      </Snackbar>
+    </li>
   );
 };

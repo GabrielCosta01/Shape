@@ -8,7 +8,7 @@ export interface IToast {
   ms: number;
 }
 
-type modeColor = "success" | "info" | "warning" | "error";
+export type modeColor = "success" | "info" | "warning" | "error";
 
 interface IToastStore {
   listToast: IToast[];
