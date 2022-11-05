@@ -3,6 +3,7 @@ import { RegisterPage } from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { LandingPage } from "../pages/LadingPage";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const RoutesMain = () => {
   return (
@@ -11,7 +12,9 @@ const RoutesMain = () => {
         <Route path="/cadastro" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+        </Route>
 
         <Route path="/" element={<LandingPage />} />
       </Routes>

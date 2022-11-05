@@ -1,7 +1,5 @@
-import { Navigate, useNavigate } from "react-router-dom";
 import create from "zustand";
-
-import { IData } from "../components/Login/formLogin";
+import { IData } from "../components/Login/FormLogin";
 import { api } from "../services/api";
 
 interface ILoginStore {
