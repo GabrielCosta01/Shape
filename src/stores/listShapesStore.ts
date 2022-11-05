@@ -2,6 +2,7 @@ import create from "zustand";
 import { api } from "../services/api";
 
 interface IShapes {
+  libs: [];
   command: string;
   package: string;
   tool: string;
@@ -20,8 +21,10 @@ export const listShapesStore = create<IListShapeStore>((set) => ({
   isLoading: false,
   shapes: [],
   list: async () => {
+
     const userId = localStorage.getItem("@shape:userId");
     const token = localStorage.getItem("@shape:token");
+
     try {
       set(() => ({ isLoading: true }));
 

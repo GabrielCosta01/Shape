@@ -28,12 +28,18 @@ export const DashboardPage = () => {
         <>
           <ContainerShapes>
             {shapes.length ? (
-              shapes.map((element) => (
-                // FAÇA A LOGICA PRA RENDERIZAR OS CARDS AQUI
-                <h1 key={element.id} className="text-purple-1">
-                  TENHO SHAPES
-                </h1>
-              ))
+              shapes.map((element) => {
+                return (
+                  <div key={element.id}>
+                    <h2>{element.command}</h2>
+                    <p>{element.libs}</p>
+                    <div>
+                      <button>Detalhes</button>
+                      <button>Deletar</button>
+                    </div>
+                  </div>
+                );
+              })
             ) : (
               <>
                 <div className="mt-20">
