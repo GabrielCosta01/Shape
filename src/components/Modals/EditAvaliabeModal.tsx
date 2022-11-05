@@ -7,20 +7,9 @@ export interface IAvaliable {
 }
 
 const EditAvaliabeModal = () => {
-  const [modalAvaliableIsOpen] = handleModalStore((state) => [
-    state.modalAvaliableIsOpen,
-  ]);
-
-  const [closeModalAvaliable] = handleModalStore((state) => [
-    state.closeModalAvaliable,
-  ]);
-
-  const { register, handleSubmit } = useForm<IAvaliable>();
-  const [avaliableShape] = handleModalStore((state) => [state.avaliableShape]);
-
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(69, 67, 67, 0.6)",
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
     },
     content: {
       top: "50%",
@@ -32,6 +21,15 @@ const EditAvaliabeModal = () => {
       background: "none",
     },
   };
+
+  const [avaliableShape, closeModalAvaliable, modalAvaliableIsOpen] =
+    handleModalStore((state) => [
+      state.avaliableShape,
+      state.closeModalAvaliable,
+      state.modalAvaliableIsOpen,
+    ]);
+
+  const { register, handleSubmit } = useForm<IAvaliable>();
 
   return (
     <Modal

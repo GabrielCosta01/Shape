@@ -30,6 +30,7 @@ module.exports = {
         "grey-2": "#B4BCD0",
         "grey-3": "#C9C9C9",
         "grey-4": "#FFFFFF",
+        "grey-5": "#86878c",
         "alternative-grey": "#D9D9D9",
 
         "purple-1": "#575BC6",
@@ -47,5 +48,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };
