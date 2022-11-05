@@ -5,6 +5,7 @@ import { schemaRegister } from "../../../schemas/registerSchema";
 import { registerUserStore } from "../../../stores/registerUserStore";
 import { useEffect } from "react";
 import { toastStore } from "../../../stores/toastStore";
+import { useNavigate } from "react-router-dom";
 
 export interface IData {
   username: string;
@@ -29,9 +30,12 @@ export default function FormRegister() {
     state.isOk,
   ]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (isOk === 1) {
       toast("Cadastro realizado com sucesso!", "success", 2500);
+      navigate("/login");
     } else if (isOk === 2) {
       toast("Opss... Ocorreu um problema", "error", 2500);
     }

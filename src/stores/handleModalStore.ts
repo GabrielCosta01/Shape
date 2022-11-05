@@ -38,7 +38,6 @@ const handleModalStore = create<IModal>((set) => ({
     try {
       const userId = localStorage.getItem("@shape:userId");
       const request = await api.post(`/600/users/${userId}/rates`, data);
-      console.log(request);
     } catch (error) {}
   },
 
@@ -46,7 +45,6 @@ const handleModalStore = create<IModal>((set) => ({
     try {
       const userId = localStorage.getItem("@shape:userId");
       const request = await api.patch(`/600/users/${userId}`, data);
-      console.log(request);
     } catch (error) {}
   },
 }));
