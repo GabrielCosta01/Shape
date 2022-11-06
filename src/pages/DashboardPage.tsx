@@ -10,6 +10,21 @@ import  Modal  from "react-modal";
 import { useState } from "react";
 
 export const DashboardPage = () => {
+  
+  const listLibs = [
+    {
+      'react-router-dom': {
+        javascript: 'react-router-dom',
+        typescript: '@types/router-dom'
+      },
+      'react-hook-form':{
+        javascript: 'react-hook-form',
+        typescript: 'react-hook-form'
+      }
+    },
+  
+  ]
+
   const [ isOpenModal ,  isCloseModal] = createShapeContainer((state) => [
     state.isOpenModal,
     state.isCloseModal
