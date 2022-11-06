@@ -12,7 +12,11 @@ export interface IEditProfile {
 const EditProfileModal = () => {
   const customStyles = {
     overlay: {
+<<<<<<< HEAD
       backgroundColor: "rgba(15, 15, 15, 0.50)",
+=======
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+>>>>>>> b72d1f058739c75d935eff36a21fc9e2a4599ebd
     },
     content: {
       top: "50%",
@@ -26,10 +30,11 @@ const EditProfileModal = () => {
   };
 
   const { register, handleSubmit } = useForm<IEditProfile>();
-  const [editProfile] = handleModalStore((state) => [state.editProfile]);
-
-  const [modalIsOpen] = handleModalStore((state) => [state.modalIsOpen]);
-  const [closeModal] = handleModalStore((state) => [state.closeModal]);
+  const [editProfile, modalIsOpen, closeModal] = handleModalStore((state) => [
+    state.editProfile,
+    state.modalIsOpen,
+    state.closeModal,
+  ]);
 
   return (
     <Modal

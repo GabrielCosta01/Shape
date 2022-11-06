@@ -6,6 +6,8 @@ import { ContainerShapes } from "../components/ContainerShapes/ContainerShapes";
 import { HeaderDashboard } from "../components/HeaderDashboard/HeaderDashboard";
 import { listShapesStore } from "../stores/listShapesStore";
 import { loginUserStore } from "../stores/loginUserStore";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { EditShapeModal } from "../components/Modals/EditShapeModal";
 
 export const DashboardPage = () => {
   const [isLoading, shapes, list] = listShapesStore((state) => [
@@ -65,6 +67,8 @@ export const DashboardPage = () => {
           </ContainerShapes>
         </>
       )}
+      <IoMdAddCircleOutline className="text-purple-1 hover:text-grey-3 duration-300 text-5xl absolute right-0 bottom-0 m-5 cursor-pointer " />
+      <EditShapeModal />
     </>
   );
 };

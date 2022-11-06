@@ -67,7 +67,7 @@ export const loginUserStore = create<ILoginStore>((set) => ({
 
         set(() => ({ user: data }));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   },
