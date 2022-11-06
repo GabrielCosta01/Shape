@@ -7,7 +7,7 @@ interface IShapes {
   package: string;
   tool: string;
   language: string;
-  userId: number;
+  userId: number | string;
   id: number;
 }
 
@@ -21,7 +21,6 @@ export const listShapesStore = create<IListShapeStore>((set) => ({
   isLoading: false,
   shapes: [],
   list: async () => {
-
     const userId = localStorage.getItem("@shape:userId");
     const token = localStorage.getItem("@shape:token");
 
@@ -30,7 +29,7 @@ export const listShapesStore = create<IListShapeStore>((set) => ({
 
       api.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await api.get(`/600/users/${userId}/shapes`);
-
+      console.log(data);
       set(() => ({ shapes: data, isLoading: false }));
     } catch (error) {
       set(() => ({ isLoading: false }));
