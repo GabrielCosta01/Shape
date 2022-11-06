@@ -35,7 +35,6 @@ const FormLogin = () => {
 
   useEffect(() => {
     if (isOk === 1) {
-      console.log(isOk);
       toast("Login realizado com sucesso", "success", 2500);
       navigate("/dashboard");
     } else if (isOk === 2) {
