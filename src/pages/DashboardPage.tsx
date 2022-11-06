@@ -8,6 +8,7 @@ import { listShapesStore } from "../stores/listShapesStore";
 import { loginUserStore } from "../stores/loginUserStore";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { EditShapeModal } from "../components/Modals/EditShapeModal";
+import { CardShapes } from "../components/CardShapes/CardShapes";
 
 export const DashboardPage = () => {
   const [isLoading, shapes, list] = listShapesStore((state) => [
@@ -31,18 +32,11 @@ export const DashboardPage = () => {
         <>
           <ContainerShapes>
             {shapes.length ? (
-              shapes.map((element) => {
-                return (
-                  <div key={element.id}>
-                    <h2>{element.command}</h2>
-                    <p>{element.libs}</p>
-                    <div>
-                      <button>Detalhes</button>
-                      <button>Deletar</button>
-                    </div>
-                  </div>
-                );
-              })
+              <ul className="mt-20 p-2 grid grid-cols-3 grid-flow-row gap-20 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
+                {shapes.map((element) => (
+                  <CardShapes key={element.id} shape={element} />
+                ))}
+              </ul>
             ) : (
               <>
                 <div className="mt-20">
@@ -58,12 +52,12 @@ export const DashboardPage = () => {
             )}
           </ContainerShapes>
           <ContainerShapes>
-            <div className="mt-28 border-t-2 border-solid border-gray-900 w-full ">
+            <div className="mt-28 border-t-2 border-solid border-gray-900 w-full absolute bottom-0">
               <h3 className="text-purple-1 text-lg font-semibold text-center mt-6 ">
                 Suas bibliotecas mais utilizadas
               </h3>
+              <AnimationNotLib />
             </div>
-            <AnimationNotLib />
           </ContainerShapes>
         </>
       )}
