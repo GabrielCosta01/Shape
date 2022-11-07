@@ -3,8 +3,11 @@ import { createShapeContainer } from "../../stores/createShapeStore";
 import { librariesContainer } from "../../stores/libsData";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
+import { useState } from "react";
 
 export const CreateShapeModal = () => {
+  const [selectLang, setSelectLang] = useState();
+
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
     state.isOpenModal,
@@ -34,9 +37,6 @@ export const CreateShapeModal = () => {
     console.log(data);
   };
 
-  const handleLibs = (elem: string) => {
-    console.log(elem);
-  };
   return (
     <Modal
       isOpen={isModal}
@@ -140,19 +140,21 @@ export const CreateShapeModal = () => {
               id="language"
               defaultValue={"bothOptions"}
               required
-              {...register("language")}
               className={
                 "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
               }
+              {...register("language", {
+                onChange: (e) => setSelectLang(e.target.value),
+              })}
             >
               <option disabled value="bothOptions" className="bg-bg-form">
                 Typescript ou Javascript
               </option>
               <option value="javascript" className="bg-bg-form">
-                JavaScript
+                Javascript
               </option>
               <option value="typescript" className="bg-bg-form">
-                TypeScript
+                Typescript
               </option>
             </select>
           </div>
@@ -161,17 +163,30 @@ export const CreateShapeModal = () => {
           <h3 className="text-grey-5 text-base">
             Quais bibliotecas você deseja?
           </h3>
-          <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
-            {listLibrarie.map((elem) => (
-              <li
-                className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-                key={elem.name}
-                onClick={() => handleLibs(elem.name)}
-              >
-                {elem.name}
-              </li>
-            ))}
-          </ul>
+
+          {selectLang === "javascript" ? (
+            <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
+              {listLibrarie.map(({ javascript }) => (
+                <li
+                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                  key={javascript}
+                >
+                  <p>{javascript}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
+              {listLibrarie.map(({ typescript }) => (
+                <li
+                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                  key={typescript}
+                >
+                  <p>{typescript}</p>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="flex flex-row justify-center gap-8">
