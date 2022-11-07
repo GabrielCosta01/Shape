@@ -4,6 +4,7 @@ import { librariesContainer } from "../../stores/libsData";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
@@ -35,12 +36,22 @@ export const CreateShapeModal = () => {
   const { register, handleSubmit, formState } = useForm();
 
   const handleLibs = (javascript: string) => {
-    setSelectLibs([...selectLibs, javascript]);
+    !selectLibs.includes(javascript)
+      ? setSelectLibs([...selectLibs, javascript])
+      : console.log("Tecnologia já adicionada");
     console.log(selectLibs);
-    register("libs", { deps: [] });
   };
 
-  const date = (data: object) => {
+  const date = async (data: object) => {
+    try {
+      const userId = localStorage.getItem("@shape:userId");
+
+      const request = await api.post(`/600/users/${userId}/shapes`, data);
+
+      console.log(request);
+    } catch (error) {}
+
+    register("libs", { value: selectLibs });
     console.log(data);
   };
 
@@ -192,7 +203,7 @@ export const CreateShapeModal = () => {
                   className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
                   key={typescript}
                 >
-                  <p onClick={() => setSelectLibs(typescript)}>{name}</p>
+                  <p onClick={() => handleLibs(typescript)}>{name}</p>
                 </li>
               ))}
             </ul>
