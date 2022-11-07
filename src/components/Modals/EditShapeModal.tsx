@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
 
 export const EditShapeModal = () => {
+
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",
