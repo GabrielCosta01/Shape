@@ -1,120 +1,183 @@
-import  Modal  from "react-modal";
-import { createShapeContainer } from '../../stores/createShapeStore';
-import { librariesContainer } from '../../stores/libsData';
-// import { LiLibrarie } from '../librarieLi/lilibrarie';
+import Modal from "react-modal";
+import { createShapeContainer } from "../../stores/createShapeStore";
+import { librariesContainer } from "../../stores/libsData";
 import { useForm } from "react-hook-form";
-
+import { IoClose } from "react-icons/io5";
 
 export const CreateShapeModal = () => {
-    const [ isModal , isOpenModal , isCloseModal ] = createShapeContainer((state) => [
-        state.isModal,
-        state.isOpenModal,
-        state.isCloseModal
-    ])
+  const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
+    state.isModal,
+    state.isOpenModal,
+    state.isCloseModal,
+  ]);
 
-    const [ listLibraries ] = librariesContainer((state) => [
-        state.listLibraries
-    ])
+  const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
 
-    const customStyles = {
-        overlay: {backgroundColor: "rgba(69, 67, 67, 0.6)"},
-        content: {
-          width: '65vw',
-          height: '80vh',
-          backgroundColor: '#09061E',
-          display: 'flex',
-          alignItems: 'center',
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      }
-    
-    const { register , handleSubmit , formState } = useForm();
+  const customStyles = {
+    overlay: { backgroundColor: "rgba(69, 67, 67, 0.6)" },
+    content: {
+      backgroundColor: "#09061E",
+      display: "flex",
+      alignItems: "center",
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
 
-    const date = (data:object)=>{
-        console.log(data);
-        
-    }
-    return(
-        <Modal
-            isOpen={isModal}
-            onRequestClose={isCloseModal}
-            style={customStyles}       contentLabel="Example Modal"
-            ariaHideApp={false}
-            className="absolute"
-        >
-            <form onSubmit={handleSubmit(date)}>
-                <main className="w-full h-full flex flex-col justify-center gap-1 items-center">
+  const { register, handleSubmit, formState } = useForm();
 
-                    <h1 className="text-grey-5 text-2xl">Crie seu shape</h1>
+  const date = (data: object) => {
+    console.log(data);
+  };
+  return (
+    <Modal
+      isOpen={isModal}
+      onRequestClose={isCloseModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+      ariaHideApp={false}
+      className="absolute"
+    >
+      <form
+        className="flex flex-col p-8 gap-5 bg-bg-form rounded-md"
+        onSubmit={handleSubmit(date)}
+      >
+        <div className="flex items-center justify-between">
+          <h3 className="text-white text-2xl text font-medium">
+            Crie seu Shape
+          </h3>
+          <IoClose className="text-white text-3xl" />
+        </div>
+        <div className="flex items-center flex-row gap-20 mt-8">
+          <div className="flex flex-col">
+            <label
+              htmlFor="command"
+              className="text-grey-5 text-base mb-2 ml-1"
+            >
+              Qual comando você deseja usar?
+            </label>
+            <input
+              type="text"
+              id="command"
+              required
+              className="text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-purple-1 hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+              placeholder="Comando"
+              {...register("command")}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="package"
+              className="text-grey-5 text-base mb-2 ml-1 pr-9"
+            >
+              Qual gerenciador de pacote?
+            </label>
+            <select
+              id="package"
+              defaultValue={"bothOptions"}
+              required
+              {...register("package")}
+              className={
+                "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+              }
+            >
+              <option disabled value="bothOptions" className="bg-bg-form">
+                Yarn ou NPM
+              </option>
+              <option value="npm" className="bg-bg-form">
+                NPM
+              </option>
+              <option value="yarn" className="bg-bg-form">
+                Yarn
+              </option>
+            </select>
+          </div>
+        </div>
+        <div className="flex items-center flex-row gap-20 mt-8">
+          <div className="flex flex-col">
+            <label
+              htmlFor="package"
+              className="text-grey-5 text-base mb-2 ml-1 pr-2"
+            >
+              Qual ferramente de construção?
+            </label>
+            <select
+              id="package"
+              defaultValue={"bothOptions"}
+              required
+              {...register("tool")}
+              className={
+                "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+              }
+            >
+              <option disabled value="bothOptions" className="bg-bg-form">
+                Vite ou Create-React-App
+              </option>
+              <option value="create-react-app" className="bg-bg-form">
+                Create React App
+              </option>
+              <option value="vite" className="bg-bg-form">
+                Vite
+              </option>
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="language"
+              className="text-grey-5 text-base mb-2 ml-1 "
+            >
+              Qual linguagem de programação?
+            </label>
+            <select
+              id="language"
+              defaultValue={"bothOptions"}
+              required
+              {...register("language")}
+              className={
+                "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+              }
+            >
+              <option disabled value="bothOptions" className="bg-bg-form">
+                Typescript ou Javascript
+              </option>
+              <option value="javascript" className="bg-bg-form">
+                JavaScript
+              </option>
+              <option value="typescript" className="bg-bg-form">
+                TypeScript
+              </option>
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-col items-center mt-8">
+          <h3 className="text-grey-5 text-base">
+            Quais bibliotecas você deseja?
+          </h3>
+          <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
+            {listLibrarie.map((elem) => (
+              <li
+                className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                key={elem.name}
+              >
+                {elem.name}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-                    <section className="w-full flex justify-center flex-wrap gap-3">
-                    
-                    <div className="w-5/12 gap-2 flex flex-col	items-center text-center">
-                        <label className="text-grey-5 w-11/12">Qual o nome do comando?</label>
-                        <input {...register('nameComand')} className="w-11/12 text-grey-5 p-2 border-2  border-purple-1  rounded bg-inherit" placeholder="Nome do comando" type="text"/>
-                        <p className="text-red-900"></p>
-                    </div>
-
-                    <div className="w-5/12 gap-2 flex flex-col	items-center ">
-                        
-                        <label className="text-grey-5">Qual o gerenciador de pacotes?</label>
-                        
-                        <select {...register('manager')} className="p-2 rounded text-grey-5 border-2 border-purple-1 w-11/12  bg-footer-landing-2">
-                        <option disabled >NPM ou Yarn</option>
-                        <option value="npm">NPM</option>
-                        <option value="yarn">YARN</option>
-                        </select>
-
-                    </div>
-
-                    <div className="w-5/12 gap-2 flex flex-col	items-center ">
-                        <label className="text-grey-5">Qual ferramenta de construção?</label>
-                        <select {...register('tool')} className="p-2 rounded text-grey-5 border-2 border-purple-1 w-11/12  bg-footer-landing-2" placeholder="">
-                        <option disabled selected>Create React App ou Vite</option>
-                        <option value="create react-app">Create React App</option>
-                        <option value="vite">Vite</option>
-                        </select>
-                    </div>
-
-                    <div className="w-5/12 gap-2 flex flex-col	items-center ">
-                        <label className="text-grey-5">Qual linguagem de programação?</label>
-                        <select {...register('language')} className="p-2 rounded text-grey-5 border-2 border-purple-1 w-11/12  bg-footer-landing-2">
-                        <option disabled selected>Javascript ou Typescript</option>
-                        <option value="javascript">Javascript</option>
-                        <option value="typescript">Typescript</option>
-                        </select>
-                    </div>
-
-                    </section>
-
-                    <h4 className="text-grey-5 mt-4">Quais bibliotecas você deseja?</h4>
-
-                    <section className="w-full flex justify-center flex-wrap">
-                        <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-4 overflow-x-auto max-w-xl p-1 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
-                                {/* <LibrarieLi listLibraries={listLibraries} /> */}
-
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">React router-dom</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">React hook/form</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">React hook-form/resolver</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">Zustand</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">React Modal</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">React Joyride</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">Styled-Components</li>
-                                <li className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14">TailwindCSS</li>
-                        
-                        </ul>
-                    </section>
-
-                    <button type="submit" className="font-medium bg-gradient-to-r from-button-gradient-2 to-button-gradient-1 shadow-md hover:ease-in duration-200 hover:shadow-purple-1/50 px-3 py-1 rounded-lg flex items-center">Criar Shape</button>
-                
-                </main>
-            </form>
-
-        </Modal>
-    )
+        <div className="flex flex-row justify-center gap-8">
+          <button className="bg-button-register p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
+            Criar
+          </button>
+          <button className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
+            Fechar
+          </button>
+        </div>
+      </form>
+    </Modal>
+  );
 };
