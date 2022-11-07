@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
+  const [selectLibs, setSelectLibs] = useState();
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
@@ -37,6 +38,10 @@ export const CreateShapeModal = () => {
     console.log(data);
   };
 
+  const handleLibs = (javascript: string) => {
+    setSelectLibs([...selectLibs, javascript]);
+    console.log(selectLibs);
+  };
   return (
     <Modal
       isOpen={isModal}
@@ -170,6 +175,7 @@ export const CreateShapeModal = () => {
                 <li
                   className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
                   key={javascript}
+                  onClick={() => handleLibs(javascript)}
                 >
                   <p>{javascript}</p>
                 </li>
