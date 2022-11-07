@@ -25,16 +25,12 @@ export const EditShapeModal = () => {
   return (
     <Modal
       isOpen={false}
-      //   onRequestClose={}
       style={customStyles}
       contentLabel="Example Modal"
       ariaHideApp={false}
       className="absolute"
     >
-      <form
-        className="flex flex-col p-8 gap-5 bg-bg-form rounded-md"
-        // onSubmit={handleSubmit()}
-      >
+      <form className="flex flex-col p-8 gap-5 bg-bg-form rounded-md">
         <div className="flex items-center justify-between">
           <h3 className="text-white text-2xl text font-medium">
             Edite seu Shape

@@ -9,7 +9,7 @@ export interface IAvaliable {
 const EditAvaliabeModal = () => {
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.75)",
+      backgroundColor: "rgba(15, 15, 15, 0.50)",
     },
     content: {
       top: "50%",
