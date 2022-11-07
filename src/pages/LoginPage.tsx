@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import logo from ".././assets/logo.png";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
-import { ButtonLoginRegister } from "../components/Button/ButtonLoginRegister";
 import FormLogin from "../components/Login/FormLogin";
-import { UserLogged } from "../components/IsLogged/UserLogged";
+import { motion } from "framer-motion";
 
 const LoginPage = () => {
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <main className="w-screen	h-screen flex items-center	justify-center 	flex-col bg-radial bg-center bg-no-repeat bg-888px		">
         <aside className="flex flex-col  items-center	  max-w-xs  w-[22.25rem] pb-5	 bg-bg-formRegister	z-10 rounded-md">
           <nav className=" flex items-center flex-col">
@@ -35,7 +39,7 @@ const LoginPage = () => {
         </aside>
         <CircleAnimation />
       </main>
-    </>
+    </motion.div>
   );
 };
 

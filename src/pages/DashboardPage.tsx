@@ -30,7 +30,12 @@ export const DashboardPage = () => {
   }, []);
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <HeaderDashboard />
       {isLoading ? (
         <AnimationLoading />
@@ -85,6 +90,6 @@ export const DashboardPage = () => {
       />
       <CreateShapeModal />
       <EditShapeModal />
-    </>
+    </motion.div>
   );
 };

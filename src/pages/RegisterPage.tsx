@@ -1,14 +1,18 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from ".././assets/logo.png";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import FormRegister from "../components/Register/Form/formRegister";
-import { registerUserStore } from "../stores/registerUserStore";
-import { toastStore } from "../stores/toastStore";
+
+import { motion } from "framer-motion";
 
 export const RegisterPage = () => {
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <main className="w-screen	h-screen flex items-center	justify-center 	flex-col bg-radial bg-center bg-no-repeat bg-888px		">
         <aside className="flex flex-col  items-center	  max-w-xs  w-[22.25rem] pb-5	 bg-bg-formRegister	z-10 rounded-md">
           <nav className=" flex  flex-col">
@@ -32,6 +36,6 @@ export const RegisterPage = () => {
         </aside>
         <CircleAnimation />
       </main>
-    </>
+    </motion.div>
   );
 };
