@@ -33,6 +33,10 @@ export const CreateShapeModal = () => {
   const date = (data: object) => {
     console.log(data);
   };
+
+  const handleLibs = (elem: string) => {
+    console.log(elem);
+  };
   return (
     <Modal
       isOpen={isModal}
@@ -43,7 +47,7 @@ export const CreateShapeModal = () => {
       className="absolute"
     >
       <form
-        className="flex flex-col p-8 gap-5 bg-bg-form rounded-md"
+        className="flex flex-col p-8 gap-5 bg-bg-form rounded-md w-full"
         onSubmit={handleSubmit(date)}
       >
         <div className="flex items-center justify-between">
@@ -162,6 +166,7 @@ export const CreateShapeModal = () => {
               <li
                 className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
                 key={elem.name}
+                onClick={() => handleLibs(elem.name)}
               >
                 {elem.name}
               </li>
