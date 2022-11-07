@@ -42,7 +42,7 @@ const EditProfileModal = () => {
       className="absolute"
     >
       <form
-        className="flex items-start flex-col p-10 gap-5 bg-bg-form w-96 min-h-full rounded-md"
+        className="flex items-start flex-col p-8 gap-5 bg-bg-form w-96 min-h-full rounded-md"
         onSubmit={handleSubmit(editProfile)}
       >
         <div className="min-w-full flex justify-center">
