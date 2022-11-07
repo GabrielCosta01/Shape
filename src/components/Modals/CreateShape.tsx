@@ -1,7 +1,7 @@
 import  Modal  from "react-modal";
 import { createShapeContainer } from '../../stores/createShapeStore';
 import { librariesContainer } from '../../stores/libsData';
-// import { LibrarieLi } from '../BibliotecaLi/liBlioteca';
+// import { LiLibrarie } from '../librarieLi/lilibrarie';
 import { useForm } from "react-hook-form";
 
 
