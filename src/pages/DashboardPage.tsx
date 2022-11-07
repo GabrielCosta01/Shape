@@ -8,19 +8,15 @@ import { listShapesStore } from "../stores/listShapesStore";
 import { loginUserStore } from "../stores/loginUserStore";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { EditShapeModal } from "../components/Modals/EditShapeModal";
-
 import { createShapeContainer } from "../stores/createShapeStore";
-import { CreateShapeModal } from "../components/Modals/CreateShape"
-import { useState } from "react";
-
+import { CreateShapeModal } from "../components/Modals/CreateShape";
 import { CardShapes } from "../components/CardShapes/CardShapes";
 
-
 export const DashboardPage = () => {
-  const [ isOpenModal ,  isCloseModal] = createShapeContainer((state) => [
+  const [isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isOpenModal,
-    state.isCloseModal
-])
+    state.isCloseModal,
+  ]);
 
   const [isLoading, shapes, list] = listShapesStore((state) => [
     state.isLoading,
@@ -61,7 +57,6 @@ export const DashboardPage = () => {
                 <AnimationNotShapes />
               </>
             )}
-            <CreateShapeModal />
           </ContainerShapes>
           <ContainerShapes>
             <div className="mt-28 border-t-2 border-solid border-gray-900 w-full absolute bottom-0">
@@ -73,10 +68,12 @@ export const DashboardPage = () => {
           </ContainerShapes>
         </>
       )}
-      <IoMdAddCircleOutline onClick={isOpenModal}  className="text-purple-1 hover:text-grey-3 duration-300 text-5xl absolute right-0 bottom-0 m-5 cursor-pointer " />
+      <IoMdAddCircleOutline
+        onClick={isOpenModal}
+        className="text-purple-1 hover:text-grey-3 duration-300 text-5xl absolute right-0 bottom-0 m-5 cursor-pointer "
+      />
+      <CreateShapeModal />
       <EditShapeModal />
     </>
   );
 };
-
-
