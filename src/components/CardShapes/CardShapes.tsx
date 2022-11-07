@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
-import { IoClose } from "react-icons/io5";
 
 export interface IShape {
   command: string;

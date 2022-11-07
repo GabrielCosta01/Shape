@@ -38,6 +38,8 @@ module.exports = {
 
         "msg-error": "#8D1414",
         "btn-del": "#8D1414",
+
+        "icon-checked": "#087F5B"
       },
       visibility: ["group-hover"],
       margin: {
