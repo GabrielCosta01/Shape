@@ -2,7 +2,7 @@ import { AiFillCheckCircle } from "react-icons/ai"
 
 export const ToastCreateShape = (props: string) => {
     return (
-        <div className="bg-bg-formRegister w-96 pl-2 pt-1 pb-1">
+        <div className="bg-bg-formRegister w-96 pl-2 pt-1 pb-1 a">
             <p className="flex items-center text-icon-checked text-xl font-semibold mb-1">
                 <AiFillCheckCircle className="text-3xl mr-1" /> Shape criado com sucesso!
             </p>
