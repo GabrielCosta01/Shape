@@ -5,30 +5,25 @@ import { AnimationNotShapes } from "../components/AnimationNotShapes/AnimationNo
 import { ContainerShapes } from "../components/ContainerShapes/ContainerShapes";
 import { HeaderDashboard } from "../components/HeaderDashboard/HeaderDashboard";
 import { listShapesStore } from "../stores/listShapesStore";
-import { loginUserStore } from "../stores/loginUserStore";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { EditShapeModal } from "../components/Modals/EditShapeModal";
-
 import { createShapeContainer } from "../stores/createShapeStore";
-import { CreateShapeModal } from "../components/Modals/CreateShape"
-import { useState } from "react";
-
+import { CreateShapeModal } from "../components/Modals/CreateShape";
 import { CardShapes } from "../components/CardShapes/CardShapes";
-
+import { AnimateSharedLayout } from "framer-motion";
+import { motion } from "framer-motion";
 
 export const DashboardPage = () => {
-  const [ isOpenModal ,  isCloseModal] = createShapeContainer((state) => [
+  const [isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isOpenModal,
-    state.isCloseModal
-])
+    state.isCloseModal,
+  ]);
 
   const [isLoading, shapes, list] = listShapesStore((state) => [
     state.isLoading,
     state.shapes,
     state.list,
   ]);
-
-  const [user] = loginUserStore((state) => [state.user]);
 
   useEffect(() => {
     list();
@@ -43,11 +38,23 @@ export const DashboardPage = () => {
         <>
           <ContainerShapes>
             {shapes.length ? (
-              <ul className="mt-20 p-2 grid grid-cols-3 grid-flow-row gap-20 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
-                {shapes.map((element) => (
-                  <CardShapes key={element.id} shape={element} />
-                ))}
-              </ul>
+              <AnimateSharedLayout>
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  layout
+                  className="mt-20 p-2 grid grid-cols-3 grid-flow-row gap-20 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md "
+                >
+                  {shapes.map((element) => (
+                    <CardShapes
+                      key={element.id}
+                      shape={element}
+                      layoutId={element.id}
+                    />
+                  ))}
+                </motion.ul>
+              </AnimateSharedLayout>
             ) : (
               <>
                 <div className="mt-20">
@@ -61,7 +68,6 @@ export const DashboardPage = () => {
                 <AnimationNotShapes />
               </>
             )}
-            <CreateShapeModal />
           </ContainerShapes>
           <ContainerShapes>
             <div className="mt-28 border-t-2 border-solid border-gray-900 w-full absolute bottom-0">
@@ -73,10 +79,12 @@ export const DashboardPage = () => {
           </ContainerShapes>
         </>
       )}
-      <IoMdAddCircleOutline onClick={isOpenModal}  className="text-purple-1 hover:text-grey-3 duration-300 text-5xl absolute right-0 bottom-0 m-5 cursor-pointer " />
+      <IoMdAddCircleOutline
+        onClick={isOpenModal}
+        className="text-purple-1 hover:text-grey-3 duration-300 text-5xl absolute right-0 bottom-0 m-5 cursor-pointer "
+      />
+      <CreateShapeModal />
       <EditShapeModal />
     </>
   );
 };
-
-
