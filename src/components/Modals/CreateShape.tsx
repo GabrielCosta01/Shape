@@ -100,13 +100,13 @@ export const CreateShapeModal = () => {
         <div className="flex items-center flex-row gap-20 mt-8">
           <div className="flex flex-col">
             <label
-              htmlFor="package"
+              htmlFor="pack"
               className="text-grey-5 text-base mb-2 ml-1 pr-2"
             >
               Qual ferramente de construção?
             </label>
             <select
-              id="package"
+              id="pack"
               defaultValue={"bothOptions"}
               required
               {...register("tool")}
