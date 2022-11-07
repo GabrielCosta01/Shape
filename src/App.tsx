@@ -1,13 +1,13 @@
-import { DashboardPage } from "./pages/DashboardPage";
-import Modal from 'react-modal';
-import { root } from "postcss";
-
-
+import { ToastContainer } from "./components/ToastContainer/ToastContainer";
+import RoutesMain from "./routes/RoutesMain";
 
 function App() {
-  return <div>
-    <DashboardPage />
-  </div>;
+  return (
+    <>
+      <ToastContainer />
+      <RoutesMain />
+    </>
+  );
 }
 
 export default App;

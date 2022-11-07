@@ -5,49 +5,18 @@ import { AnimationNotShapes } from "../components/AnimationNotShapes/AnimationNo
 import { ContainerShapes } from "../components/ContainerShapes/ContainerShapes";
 import { HeaderDashboard } from "../components/HeaderDashboard/HeaderDashboard";
 import { listShapesStore } from "../stores/listShapesStore";
+import { loginUserStore } from "../stores/loginUserStore";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { EditShapeModal } from "../components/Modals/EditShapeModal";
 import { createShapeContainer } from "../stores/createShapeStore";
-import  Modal  from "react-modal";
+import { CreateShapeModal } from "../components/Modals/CreateShape"
 import { useState } from "react";
 
 export const DashboardPage = () => {
-  
-  const listLibs = [
-    {
-      'react-router-dom': {
-        javascript: 'react-router-dom',
-        typescript: '@types/router-dom'
-      },
-      'react-hook-form':{
-        javascript: 'react-hook-form',
-        typescript: 'react-hook-form'
-      }
-    },
-  
-  ]
-
   const [ isOpenModal ,  isCloseModal] = createShapeContainer((state) => [
     state.isOpenModal,
     state.isCloseModal
 ])
-
-  const customStyles = {
-    overlay: {backgroundColor: "rgba(69, 67, 67, 0.6)"},
-    content: {
-      width: '65vw',
-      height: '70vh',
-      backgroundColor: '#09061E',
-      display: 'flex',
-      alignItems: 'center',
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  }
-  const [ isModal, setIsModal ] = useState(false);
-  const toglleModal = () => {!setIsModal}
 
   const [isLoading, shapes, list] = listShapesStore((state) => [
     state.isLoading,
@@ -55,10 +24,10 @@ export const DashboardPage = () => {
     state.list,
   ]);
 
+  const [user] = loginUserStore((state) => [state.user]);
+
   useEffect(() => {
     list();
-    console.log(shapes);
-    console.log(isLoading);
   }, []);
 
   return (
@@ -70,12 +39,18 @@ export const DashboardPage = () => {
         <>
           <ContainerShapes>
             {shapes.length ? (
-              shapes.map((element) => (
-                // FAÇA A LOGICA PRA RENDERIZAR OS CARDS AQUI
-                <h1 key={element.id} className="text-purple-1">
-                  TENHO SHAPES
-                </h1>
-              ))
+              shapes.map((element) => {
+                return (
+                  <div key={element.id}>
+                    <h2>{element.command}</h2>
+                    <p>{element.libs}</p>
+                    <div>
+                      <button>Detalhes</button>
+                      <button>Deletar</button>
+                    </div>
+                  </div>
+                );
+              })
             ) : (
               <>
                 <div className="mt-20">
@@ -89,70 +64,7 @@ export const DashboardPage = () => {
                 <AnimationNotShapes />
               </>
             )}
-            <button onClick={toglleModal}></button>
-
-
-            <Modal isOpen  style={customStyles}>
-              <main className="w-full h-full flex flex-col justify-center gap-10 items-center">
-
-              <h1 className="text-white text-2xl		">Crie seu shape</h1>
-
-              <section className="w-full flex justify-center flex-wrap gap-3">
-                
-                <div className="w-5/12 gap-2 flex flex-col	items-center text-center">
-                  <label className="text-white w-11/12">Qual o nome do comando?</label>
-                  <input className="w-11/12 p-2 border-2  border-purple-1  rounded bg-inherit" placeholder="Nome do comando" type="text"/>
-                  <p className="text-red-900"></p>
-                </div>
-
-                <div className="w-5/12 gap-2 flex flex-col	items-center ">
-                  
-                  <label className="text-white">Qual o gerenciador de pacotes?</label>
-                  
-                  <select className="p-2 rounded text-white border-2 border-purple-1 w-11/12  bg-footer-landing-2">
-                    <option value="" disabled selected>NPM ou Yarn</option>
-                    <option value="npm">NPM</option>
-                    <option value="yarn">YARN</option>
-                  </select>
-
-                </div>
-
-                <div className="w-5/12 gap-2 flex flex-col	items-center ">
-                  <label className="text-white">Qual ferramenta de construção?</label>
-                  <select className="p-2 rounded text-white border-2 border-purple-1 w-11/12  bg-footer-landing-2" placeholder="">
-                    <option disabled selected>Create React App ou Vite</option>
-                    <option value="create react-app">Create React App</option>
-                    <option value="vite">Vite</option>
-                  </select>
-                </div>
-
-                <div className="w-5/12 gap-2 flex flex-col	items-center ">
-                  <label className="text-white">Qual linguagem de programação?</label>
-                  <select className="p-2 rounded text-white border-2 border-purple-1 w-11/12  bg-footer-landing-2">
-                    <option disabled selected>Javascript ou Typescript</option>
-                    <option value="javascript">Javascript</option>
-                    <option value="typescript">Typescript</option>
-                  </select>
-                </div>
-
-              </section>
-
-              <h4 className="text-white">Quais bibliotecas você deseja?</h4>
-
-              <section className="w-full flex justify-center flex-wrap">
-                <ul className="w-full flex justify-center">
-
-                </ul>
-              </section>
-
-              <button className="font-medium bg-gradient-to-r from-button-gradient-2 to-button-gradient-1 shadow-md hover:ease-in duration-200 hover:shadow-purple-1/50 px-3 py-1 rounded-lg flex items-center">Criar Shape</button>
-            
-              </main>
-            </Modal>
-
-
-
-
+            <CreateShapeModal />
           </ContainerShapes>
           <ContainerShapes>
             <div className="mt-28 border-t-2 border-solid border-gray-900 w-full ">
@@ -164,6 +76,8 @@ export const DashboardPage = () => {
           </ContainerShapes>
         </>
       )}
+      <IoMdAddCircleOutline onClick={isOpenModal}  className="text-purple-1 hover:text-grey-3 duration-300 text-5xl absolute right-0 bottom-0 m-5 cursor-pointer " />
+      <EditShapeModal />
     </>
   );
 };

@@ -13,5 +13,5 @@ export const createShapeContainer = create<iCreate> ((set)=> ({
     },
     isCloseModal: () => {
         set(() => ({isModal: false}))
-    }
+    },
 }));
