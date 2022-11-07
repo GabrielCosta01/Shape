@@ -1,5 +1,4 @@
 import logo from "../../assets/logo.png";
-import userImg from "../../assets/user-image.jpg";
 import estrela from "../../assets/estrela.svg";
 import lapis from "../../assets/lapis.svg";
 import saida from "../../assets/saida.svg";

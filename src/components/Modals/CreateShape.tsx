@@ -3,11 +3,11 @@ import { createShapeContainer } from "../../stores/createShapeStore";
 import { librariesContainer } from "../../stores/libsData";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
-  const [selectLibs, setSelectLibs] = useState();
+  const [selectLibs, setSelectLibs] = useState([]);
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
@@ -34,14 +34,16 @@ export const CreateShapeModal = () => {
 
   const { register, handleSubmit, formState } = useForm();
 
+  const handleLibs = (javascript: string) => {
+    setSelectLibs([...selectLibs, javascript]);
+    console.log(selectLibs);
+    register("libs", { deps: [] });
+  };
+
   const date = (data: object) => {
     console.log(data);
   };
 
-  const handleLibs = (javascript: string) => {
-    setSelectLibs([...selectLibs, javascript]);
-    console.log(selectLibs);
-  };
   return (
     <Modal
       isOpen={isModal}
@@ -59,7 +61,10 @@ export const CreateShapeModal = () => {
           <h3 className="text-white text-2xl text font-medium">
             Crie seu Shape
           </h3>
-          <IoClose onClick={isCloseModal} className="text-white text-3xl cursor-pointer" />
+          <IoClose
+            onClick={isCloseModal}
+            className="text-white text-3xl cursor-pointer"
+          />
         </div>
         <div className="flex items-center flex-row gap-20 mt-8">
           <div className="flex flex-col">
@@ -171,24 +176,23 @@ export const CreateShapeModal = () => {
 
           {selectLang === "javascript" ? (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
-              {listLibrarie.map(({ javascript }) => (
+              {listLibrarie.map(({ name, javascript }) => (
                 <li
                   className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
                   key={javascript}
-                  onClick={() => handleLibs(javascript)}
                 >
-                  <p>{javascript}</p>
+                  <p onClick={() => handleLibs(javascript)}>{name}</p>
                 </li>
               ))}
             </ul>
           ) : (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
-              {listLibrarie.map(({ typescript }) => (
+              {listLibrarie.map(({ name, typescript }) => (
                 <li
                   className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
                   key={typescript}
                 >
-                  <p>{typescript}</p>
+                  <p onClick={() => setSelectLibs(typescript)}>{name}</p>
                 </li>
               ))}
             </ul>
@@ -199,7 +203,10 @@ export const CreateShapeModal = () => {
           <button className="bg-button-register p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
             Criar
           </button>
-          <button onClick={isCloseModal} className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
+          <button
+            onClick={isCloseModal}
+            className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
+          >
             Fechar
           </button>
         </div>
