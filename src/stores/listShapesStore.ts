@@ -29,7 +29,7 @@ export const listShapesStore = create<IListShapeStore>((set) => ({
 
       api.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await api.get(`/600/users/${userId}/shapes`);
-      console.log(data);
+
       set(() => ({ shapes: data, isLoading: false }));
     } catch (error) {
       set(() => ({ isLoading: false }));
