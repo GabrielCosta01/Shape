@@ -59,7 +59,7 @@ export const CreateShapeModal = () => {
           <h3 className="text-white text-2xl text font-medium">
             Crie seu Shape
           </h3>
-          <IoClose className="text-white text-3xl" />
+          <IoClose onClick={isCloseModal} className="text-white text-3xl cursor-pointer" />
         </div>
         <div className="flex items-center flex-row gap-20 mt-8">
           <div className="flex flex-col">
@@ -199,7 +199,7 @@ export const CreateShapeModal = () => {
           <button className="bg-button-register p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
             Criar
           </button>
-          <button className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
+          <button onClick={isCloseModal} className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
             Fechar
           </button>
         </div>
