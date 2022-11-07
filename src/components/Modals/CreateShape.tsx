@@ -43,13 +43,16 @@ export const CreateShapeModal = () => {
   };
 
   const date = async (data: object) => {
+    register("libs", { value: selectLibs });
     try {
       const userId = localStorage.getItem("@shape:userId");
 
       const request = await api.post(`/600/users/${userId}/shapes`, data);
 
       console.log(request);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
 
     register("libs", { value: selectLibs });
     console.log(data);
