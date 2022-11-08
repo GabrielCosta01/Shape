@@ -1,40 +1,38 @@
 import Modal from "react-modal";
-import { createShapeContainer } from "../../stores/createShapeStore";
+import { createShapeStore } from "../../stores/createShapeStore";
 import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 import { librariesContainer } from "../../stores/libsData";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { commandStore } from "../../stores/commandStore";
+import { listShapesStore } from "../../stores/listShapesStore";
 
-interface IDataState {
-  command: any;
-  tool: any;
-  language: any;
-  libs: any;
-  package: any;
-}
+type IDateShapes = {
+  command: string;
+  language: string;
+  libs: string[];
+  package: string;
+  tool: string;
+  watch?: any;
+};
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
   const [selectLibs, setSelectLibs] = useState<string[]>([]);
   const [generateCommand, setGenerateCommand] = useState("");
-  const [command, setCommand] = commandStore((state) => [
-    state.command,
-    state.setCommand,
-  ]);
+  const [shapeData, setShapeData] = useState(null);
 
-  const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
+  const [isModal, isCloseModal] = createShapeStore((state) => [
     state.isModal,
-    state.isOpenModal,
     state.isCloseModal,
   ]);
 
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
-  const [toastCreate, removeToastCreate] = toastCreateShapeStore((state) => [
-    state.toastCreate,
-    state.removeToastCreate,
+  const [toastCreate] = toastCreateShapeStore((state) => [state.toastCreate]);
+  const [setShapes, shapes] = listShapesStore((state) => [
+    state.setShapes,
+    state.shapes,
   ]);
 
   const customStyles = {
@@ -52,7 +50,7 @@ export const CreateShapeModal = () => {
     },
   };
 
-  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
+  const { watch, register, handleSubmit, reset } = useForm<IDateShapes>();
 
   const handleLibs = (javascript: string) => {
     const select = selectLibs.includes(javascript);
@@ -64,12 +62,7 @@ export const CreateShapeModal = () => {
     }
   };
 
-  const date = async () => {
-    const data = watch<IDataState>({
-      ...register("libs", { value: selectLibs }),
-    });
-    console.log(data);
-
+  const treatCode = (data: IDateShapes) => {
     const comandoYarnVite = `alias ${data.command}="${data.package} create ${
       data.tool
     } nome-do-projeto --template react && cd nome-do-projeto && ${
@@ -103,31 +96,52 @@ export const CreateShapeModal = () => {
     )} && code . && ${data.package} dev"`;
 
     if (data.package === "yarn" && data.tool === "vite") {
-      setCommand(comandoYarnVite.replaceAll(",", ""));
+      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
     } else if (data.package === "yarn" && data.tool === "create-react-app") {
-      setCommand(comandoYarnCRA.replaceAll(",", ""));
+      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "vite") {
-      setCommand(comandoNPMVite.replaceAll(",", ""));
+      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "create-react-app") {
-      setCommand(comandoNPMCRA.replaceAll(",", ""));
+      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
     }
-
-    handleRequest(data);
   };
+
+  const createShape = async () => {
+    const data = watch({
+      ...register("libs", { value: selectLibs }),
+    } as any);
+
+    treatCode(data);
+    setShapeData(data);
+  };
+
+  useEffect(() => {
+    handleRequest(shapeData);
+    reset();
+  }, [shapeData]);
 
   const handleRequest = async (data: any) => {
     try {
-      const userId = localStorage.getItem("@shape:userId");
+      if (shapeData) {
+        const userId = localStorage.getItem("@shape:userId");
+        const { data: shape } = await api.post(
+          `/600/users/${userId}/shapes`,
+          data
+        );
 
-      const request = await api.post(`/600/users/${userId}/shapes`, data);
-
-      console.log(request);
-      console.log(command);
-      toastCreate(command);
+        toastCreate(generateCommand);
+        isCloseModal();
+        createdFilteredShapes(shape);
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const createdFilteredShapes = (shape: IDateShapes) => {
+    setShapes([...shapes, shape]);
+  };
+
   return (
     <Modal
       isOpen={isModal}
@@ -139,7 +153,7 @@ export const CreateShapeModal = () => {
     >
       <form
         className="flex flex-col p-8 gap-5 bg-bg-form rounded-md w-full"
-        onSubmit={handleSubmit(date)}
+        onSubmit={handleSubmit(createShape)}
       >
         <div className="flex items-center justify-between">
           <h3 className="text-white text-2xl text font-medium">
@@ -262,12 +276,12 @@ export const CreateShapeModal = () => {
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, javascript }) => (
                 <li
+                  key={javascript}
                   className={
                     selectLibs.includes(javascript)
                       ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
                       : "text-base text-grey-5 font-light cursor-pointer mw-14 p-2"
                   }
-                  key={javascript}
                 >
                   <p onClick={() => handleLibs(javascript)}>{name}</p>
                 </li>
@@ -297,7 +311,7 @@ export const CreateShapeModal = () => {
           </button>
           <button
             onClick={isCloseModal}
-            className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
+            className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300"
           >
             Fechar
           </button>
