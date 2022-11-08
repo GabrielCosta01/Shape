@@ -50,13 +50,19 @@ export const CreateShapeModal = () => {
   const { watch, register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
-    !selectLibs.includes(javascript)
-      ? setSelectLibs([...selectLibs, javascript])
-      : console.log("Tecnologia já adicionada");
+    const select = selectLibs.includes(javascript);
+    if (!select) {
+      setSelectLibs([...selectLibs, javascript]);
+      console.log("Lib adicionada", javascript);
+    } else {
+      const newLibRemove = selectLibs.filter((lib) => lib !== javascript);
+      console.log("Lib removida", javascript);
+      setSelectLibs(newLibRemove);
+    }
   };
 
   const date = async () => {
-    const data = watch<IDataState>({
+    const data = watch({
       ...register("libs", { value: selectLibs }),
     });
     console.log(data);
@@ -94,13 +100,13 @@ export const CreateShapeModal = () => {
     )} && code . && ${data.package} dev"`;
 
     if (data.package === "yarn" && data.tool === "vite") {
-      await setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
+      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
     } else if (data.package === "yarn" && data.tool === "create-react-app") {
-      await setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
+      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "vite") {
-      await setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
+      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "create-react-app") {
-      await setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
+      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
     }
     console.log(generateCommand);
 
@@ -249,7 +255,11 @@ export const CreateShapeModal = () => {
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, javascript }) => (
                 <li
-                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                  className={
+                    selectLibs.includes(javascript)
+                      ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
+                      : "text-base text-grey-5 font-light cursor-pointer mw-14 p-2"
+                  }
                   key={javascript}
                 >
                   <p onClick={() => handleLibs(javascript)}>{name}</p>
@@ -260,7 +270,11 @@ export const CreateShapeModal = () => {
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, typescript }) => (
                 <li
-                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                  className={
+                    selectLibs.includes(typescript)
+                      ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
+                      : "text-base font-light text-grey-5 cursor-pointer mw-14 p-2"
+                  }
                   key={typescript}
                 >
                   <p onClick={() => handleLibs(typescript)}>{name}</p>
