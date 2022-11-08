@@ -67,7 +67,7 @@ export const CreateShapeModal = () => {
     useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
-    // !selectLibs.includes(javascript)
+    //   !selectLibs.includes(javascript)
     //   ? setSelectLibs([...selectLibs, javascript])
     //   : console.log("Tecnologia já adicionada");
 
