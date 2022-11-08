@@ -9,20 +9,19 @@ import { api } from "../../services/api";
 import { listShapesStore } from "../../stores/listShapesStore";
 
 type IDateShapes = {
-  command: string,
-  language: string,
-  libs: string[],
-  package: string,
-  tool: string
-  watch?: any
-}
+  command: string;
+  language: string;
+  libs: string[];
+  package: string;
+  tool: string;
+  watch?: any;
+};
 
 export const CreateShapeModal = () => {
-
   const [selectLang, setSelectLang] = useState();
   const [selectLibs, setSelectLibs] = useState<string[]>([]);
   const [generateCommand, setGenerateCommand] = useState("");
-  const [shapeData, setShapeData] = useState(null)
+  const [shapeData, setShapeData] = useState(null);
 
   const [isModal, isCloseModal] = createShapeStore((state) => [
     state.isModal,
@@ -32,8 +31,8 @@ export const CreateShapeModal = () => {
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
   const [toastCreate] = toastCreateShapeStore((state) => [state.toastCreate]);
   const [setShapes, shapes] = listShapesStore((state) => [
-    state.setShapes, 
-    state.shapes
+    state.setShapes,
+    state.shapes,
   ]);
 
   const customStyles = {
@@ -54,10 +53,6 @@ export const CreateShapeModal = () => {
   const { watch, register, handleSubmit, reset } = useForm<IDateShapes>();
 
   const handleLibs = (javascript: string) => {
-    // !selectLibs.includes(javascript)
-    //   ? setSelectLibs([...selectLibs, javascript])
-    //   : console.log("Tecnologia já adicionada");
-
     const select = selectLibs.includes(javascript);
     if (!select) {
       setSelectLibs([...selectLibs, javascript]);
@@ -115,25 +110,28 @@ export const CreateShapeModal = () => {
     const data = watch({
       ...register("libs", { value: selectLibs }),
     } as any);
-    
-    treatCode(data)  
-    setShapeData(data)
-  }
+
+    treatCode(data);
+    setShapeData(data);
+  };
 
   useEffect(() => {
-      handleRequest(shapeData);
-      reset()
-  }, [shapeData])
+    handleRequest(shapeData);
+    reset();
+  }, [shapeData]);
 
   const handleRequest = async (data: any) => {
     try {
-      if(shapeData){
+      if (shapeData) {
         const userId = localStorage.getItem("@shape:userId");
-        const { data: shape}   = await api.post(`/600/users/${userId}/shapes`, data);
+        const { data: shape } = await api.post(
+          `/600/users/${userId}/shapes`,
+          data
+        );
 
         toastCreate(generateCommand);
-        isCloseModal()
-        createdFilteredShapes(shape)
+        isCloseModal();
+        createdFilteredShapes(shape);
       }
     } catch (error) {
       console.log(error);
@@ -141,8 +139,8 @@ export const CreateShapeModal = () => {
   };
 
   const createdFilteredShapes = (shape: IDateShapes) => {
-    setShapes([...shapes, shape])
-  }
+    setShapes([...shapes, shape]);
+  };
 
   return (
     <Modal
@@ -308,8 +306,7 @@ export const CreateShapeModal = () => {
         </div>
 
         <div className="flex flex-row justify-center gap-8">
-          <button 
-            className="bg-button-register p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
+          <button className="bg-button-register p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
             Criar
           </button>
           <button
