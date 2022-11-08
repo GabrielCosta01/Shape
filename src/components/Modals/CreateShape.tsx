@@ -1,9 +1,9 @@
 import Modal from "react-modal";
 import { createShapeContainer } from "../../stores/createShapeStore";
+import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 import { librariesContainer } from "../../stores/libsData";
-import { useFieldArray, useForm } from "react-hook-form";
-import { IoClose } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { api } from "../../services/api";
 
 interface IDataState {
@@ -15,7 +15,6 @@ interface IDataState {
 }
 
 export const CreateShapeModal = () => {
-  const [selectLang, setSelectLang] = useState();
   const [selectLibs, setSelectLibs] = useState([]);
   const [generateCommand, setGenerateCommand] = useState();
 
@@ -26,6 +25,10 @@ export const CreateShapeModal = () => {
   ]);
 
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
+  const [toastCreate, removeToastCreate] = toastCreateShapeStore((state) => [
+    state.toastCreate,
+    state.removeToastCreate,
+  ]);
 
   const customStyles = {
     overlay: { backgroundColor: "rgba(69, 67, 67, 0.6)" },
@@ -42,7 +45,7 @@ export const CreateShapeModal = () => {
     },
   };
 
-  const { watch, register, handleSubmit, formState } = useForm();
+  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
     !selectLibs.includes(javascript)
@@ -87,22 +90,22 @@ export const CreateShapeModal = () => {
     )} && code . && ${data.package} dev"`;
 
     if (data.package === "yarn" && data.tool === "vite") {
-      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
+      await setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
     } else if (data.package === "yarn" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
+      await setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "vite") {
-      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
+      await setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
+      await setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
     }
-
     console.log(generateCommand);
 
     try {
       const userId = localStorage.getItem("@shape:userId");
 
       const request = await api.post(`/600/users/${userId}/shapes`, data);
-      console.log(request);
+
+      toastCreate(generateCommand);
     } catch (error) {
       console.log(error);
     }
