@@ -14,7 +14,7 @@ interface IShapes {
 interface IListShapeStore {
   isLoading: boolean;
   shapes: IShapes[];
-  setShapes: (data: IShapes[]) => void,
+  setShapes: (data: any) => void,
   list: () => void;
 }
 
