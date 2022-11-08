@@ -7,20 +7,17 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 
 interface IDataState {
-  command: string;
-  tool: string;
-  language: string;
-  libs: [];
-  package: string;
+  command?: string | undefined;
+  tool?: string | undefined;
+  language?: string | undefined;
+  libs?: string[] | undefined;
+  package?: string | undefined;
 }
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
-  const [selectLibs, setSelectLibs] = useState<string[]>([]);
-  const [yarnVite, setYarnVite] = useState();
-  const [yarnCRA, setYarnCRA] = useState("");
-  const [npmVite, setNpmVite] = useState("");
-  const [npmCRA, setNpmCRA] = useState("");
+  const [selectLibs, setSelectLibs] = useState([]);
+  const [generateCommand, setGenerateCommand] = useState();
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
@@ -45,13 +42,12 @@ export const CreateShapeModal = () => {
     },
   };
 
-  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
+  const { watch, register, handleSubmit, formState } = useForm();
 
   const handleLibs = (javascript: string) => {
     !selectLibs.includes(javascript)
       ? setSelectLibs([...selectLibs, javascript])
       : console.log("Tecnologia já adicionada");
-    // console.log(selectLibs);
   };
 
   const date = async () => {
@@ -91,8 +87,16 @@ export const CreateShapeModal = () => {
     )} && code . && ${data.package} dev"`;
 
     if (data.package === "yarn" && data.tool === "vite") {
-      setYarnVite(comandoYarnVite.replaceAll(",", ""));
+      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
+    } else if (data.package === "yarn" && data.tool === "create-react-app") {
+      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
+    } else if (data.package === "npm" && data.tool === "vite") {
+      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
+    } else if (data.package === "npm" && data.tool === "create-react-app") {
+      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
     }
+
+    console.log(generateCommand);
 
     try {
       const userId = localStorage.getItem("@shape:userId");
@@ -102,8 +106,6 @@ export const CreateShapeModal = () => {
     } catch (error) {
       console.log(error);
     }
-
-    console.log(comandoYarnVite);
   };
 
   return (
