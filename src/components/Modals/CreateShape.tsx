@@ -1,11 +1,11 @@
 import Modal from "react-modal";
 import { createShapeContainer } from "../../stores/createShapeStore";
+import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 import { librariesContainer } from "../../stores/libsData";
 import { useForm } from "react-hook-form";
+import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { api } from "../../services/api";
-import { listShapesStore } from "../../stores/listShapesStore";
-import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 
 interface IDataState {
   command?: string | undefined;
@@ -16,6 +16,7 @@ interface IDataState {
 }
 
 export const CreateShapeModal = () => {
+  const [selectLang, setSelectLang] = useState();
   const [selectLibs, setSelectLibs] = useState([]);
   const [generateCommand, setGenerateCommand] = useState();
 
@@ -24,7 +25,6 @@ export const CreateShapeModal = () => {
     state.isOpenModal,
     state.isCloseModal,
   ]);
-  const [list] = listShapesStore((state) => [state.list]);
 
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
   const [toastCreate, removeToastCreate] = toastCreateShapeStore((state) => [
@@ -33,7 +33,7 @@ export const CreateShapeModal = () => {
   ]);
 
   const customStyles = {
-    overlay: { backgroundColor: "rgba(0, 0, 0, 0.75)" },
+    overlay: { backgroundColor: "rgba(69, 67, 67, 0.6)" },
     content: {
       backgroundColor: "#09061E",
       display: "flex",
@@ -47,18 +47,7 @@ export const CreateShapeModal = () => {
     },
   };
 
-  useEffect(() => {
-    btnLibToggle
-      ? setBtnLibStyle(
-          "text-purple-2 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-        )
-      : setBtnLibStyle(
-          "text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-        );
-  }, [btnLibToggle]);
-
-  const { watch, register, handleSubmit, reset, formState } =
-    useForm<IDataState>();
+  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
     !selectLibs.includes(javascript)
@@ -67,7 +56,10 @@ export const CreateShapeModal = () => {
   };
 
   const date = async () => {
-    const data = watch({ ...register("libs", { value: selectLibs }) });
+    const data = watch<IDataState>({
+      ...register("libs", { value: selectLibs }),
+    });
+    console.log(data);
 
     const comandoYarnVite = `alias ${data.command}="${data.package} create ${
       data.tool
@@ -256,7 +248,10 @@ export const CreateShapeModal = () => {
           {selectLang === "javascript" ? (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, javascript }) => (
-                <li className={btnLibStyle} key={javascript}>
+                <li
+                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                  key={javascript}
+                >
                   <p onClick={() => handleLibs(javascript)}>{name}</p>
                 </li>
               ))}
@@ -264,7 +259,10 @@ export const CreateShapeModal = () => {
           ) : (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, typescript }) => (
-                <li className={btnLibStyle} key={typescript}>
+                <li
+                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                  key={typescript}
+                >
                   <p onClick={() => handleLibs(typescript)}>{name}</p>
                 </li>
               ))}
