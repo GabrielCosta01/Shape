@@ -1,19 +1,21 @@
 import create from "zustand";
 import { api } from "../services/api";
 
+type IID = null | number
+
 interface iCreate {
     isModal: boolean;
     idShape: null | number;
-    idShapeNew: (id: null | number) => void,
+    idShapeNew: (id: IID) => void,
     isOpenModalDelete: () => void;
     isCloseModalDelete: () => void;
-    deleteShape: (id: null | number) => void;
+    deleteShape: (id: IID) => void;
 }
 
 export const deleteShapeStore = create<iCreate>((set) => ({
     isModal: false,
     idShape: null,
-    idShapeNew: (id: null | number) => {
+    idShapeNew: (id: IID) => {
         set(() => ({ idShape: id }));
     },
     isOpenModalDelete: () => {
@@ -23,11 +25,9 @@ export const deleteShapeStore = create<iCreate>((set) => ({
         set(() => ({ isModal: false }));
     },
 
-    deleteShape: async (id: null | number) => {
+    deleteShape: async (id: IID) => {
         try {
-            const request = await api.delete(`/600/shapes/${id}`);
-            console.log(id)
-            console.log(request)
+            await api.delete(`/600/shapes/${id}`);
         } catch (error) {
             console.error(error)
         }

@@ -34,7 +34,7 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
       {!details && (
         <>
           <li 
-            onClick={() => <DeleteShape layoutId={layoutId} />} 
+            onClick={() => <DeleteShape />} 
             className="bg-bg-form rounded-md p-4 h-36 w-56">
             <div className="">
               <>
@@ -64,7 +64,7 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
                 </div>
               </>
             </div>
-            <DeleteShape layoutId={layoutId} />
+            <DeleteShape />
           </li>
         </>
       )}
