@@ -1,12 +1,12 @@
 import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
-import { editShapeStore } from "../../stores/editShapeStore";
 import { motion } from "framer-motion";
+import { deleteShapeStore } from "../../stores/deleteShapeStore";
 
 export const DeleteShape = () => {
     const customStyles = {
         overlay: {
-        backgroundColor: "rgba(0, 0, 0, 0.75)",
+            backgroundColor: "rgba(0, 0, 0, 0.125)",
         },
         content: {
         top: "50%",
@@ -20,15 +20,17 @@ export const DeleteShape = () => {
         },
     };
 
-    const [isModal, isCloseModal] = editShapeStore((state) => [
+    const [isModal, isCloseModalDelete, deleteShape, idShape] = deleteShapeStore((state) => [
         state.isModal,
-        state.isCloseModal,
+        state.isCloseModalDelete,
+        state.deleteShape,
+        state.idShape
     ]);
 
     return (
         <Modal
         isOpen={isModal}
-        onRequestClose={isCloseModal}
+        onRequestClose={isCloseModalDelete}
         style={customStyles}
         contentLabel="Example Modal"
         ariaHideApp={false}
@@ -40,12 +42,25 @@ export const DeleteShape = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 0.2 }}
         >
-            <h2>Deletar Shape</h2>
-            <IoClose />
-            <p>Deseja mesmo deletar este Shape?</p>
-            <div>
-                <button>Deletar</button>
-                <button>Cancelar</button>
+            <div className="bg-bg-form px-4 py-2 gap-6 flex flex-col items-center">
+                <div className="w-full flex justify-between items-center">
+                    <h2 className="text-purple-1 text-xl font-semibold">Deletar Shape</h2>
+                    <IoClose className="text-red-600 text-2xl"/>
+                </div>
+                <p className="text-grey-2 text-xl text-center">Deseja mesmo deletar <br /> este Shape?</p>
+                <div className="flex gap-4">
+                    <button 
+                        onClick={() => {
+                            deleteShape(idShape)
+                            isCloseModalDelete()
+                        }}
+                        className="text-white px-1.5 py-1.5 bg-btn-del w-36 rounded">Deletar
+                    </button>
+                    <button 
+                        onClick={() => isCloseModalDelete()}
+                        className="text-white px-1.5 py-1.5 bg-grey-1 w-36 rounded">Cancelar
+                    </button>
+                </div>
             </div>
         </motion.div>
         </Modal>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { editShapeStore } from "../../stores/editShapeStore";
+import { deleteShapeStore } from "../../stores/deleteShapeStore";
+import { DeleteShape } from "../Modals/DeleteShape";
 
 export interface IShape {
   command: string;
@@ -21,35 +23,50 @@ interface ICardProps {
 export const CardShapes = ({ shape, layoutId }: ICardProps) => {
   const [details, setDetails] = useState(null);
   const [isOpenModal] = editShapeStore((state) => [state.isOpenModal]);
+  const [isModal, isOpenModalDelete, idShapeNew] = deleteShapeStore((state) => [
+    state.isModal,
+    state.isOpenModalDelete,
+    state.idShapeNew
+]);
 
   return (
     <>
       {!details && (
-        <li className="bg-bg-form rounded-md p-4 h-36 w-56">
-          <div className="">
-            <>
-              <div>
-                <h3 className="text-purple-1 font-semibold text-lg">
-                  {shape.command}
-                </h3>
-                <p className="text-grey-2 w-48 whitespace-nowrap overflow-hidden text-ellipsis">
-                  {shape.libs}
-                </p>
-              </div>
-              <div className="mt-4 flex flex-row gap-4 justify-center">
-                <button
-                  onClick={() => setDetails(layoutId)}
-                  className="bg-button-register p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
-                >
-                  Detalhes
-                </button>
-                <button className="bg-grey-1 p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300">
-                  Deletar
-                </button>
-              </div>
-            </>
-          </div>
-        </li>
+        <>
+          <li 
+            onClick={() => <DeleteShape layoutId={layoutId} />} 
+            className="bg-bg-form rounded-md p-4 h-36 w-56">
+            <div className="">
+              <>
+                <div>
+                  <h3 className="text-purple-1 font-semibold text-lg">
+                    {shape.command}
+                  </h3>
+                  <p className="text-grey-2 w-48 whitespace-nowrap overflow-hidden text-ellipsis">
+                    {shape.libs}
+                  </p>
+                </div>
+                <div className="mt-4 flex flex-row gap-4 justify-center">
+                  <button
+                    onClick={() => setDetails(layoutId)}
+                    className="bg-button-register p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
+                  >
+                    Detalhes
+                  </button>
+                  <button 
+                    onClick={() => {
+                      isOpenModalDelete()
+                      idShapeNew(layoutId)
+                    }}
+                    className="bg-grey-1 p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300">
+                    Deletar
+                  </button>
+                </div>
+              </>
+            </div>
+            <DeleteShape layoutId={layoutId} />
+          </li>
+        </>
       )}
       {details && (
         <AnimatePresence>

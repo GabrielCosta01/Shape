@@ -1,45 +1,44 @@
 import Modal from "react-modal";
 import { createShapeContainer } from "../../stores/createShapeStore";
+import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 import { librariesContainer } from "../../stores/libsData";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { listShapesStore } from "../../stores/listShapesStore";
-import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
+import { commandStore } from "../../stores/commandStore";
 
 interface IDataState {
-  command: string;
-  tool: string;
-  language: string;
-  libs: [];
-  package: string;
+  command: any;
+  tool: any;
+  language: any;
+  libs: any;
+  package: any;
 }
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
   const [selectLibs, setSelectLibs] = useState<string[]>([]);
-  const [yarnVite, setYarnVite] = useState();
-  const [yarnCRA, setYarnCRA] = useState("");
-  const [npmVite, setNpmVite] = useState("");
-  const [npmCRA, setNpmCRA] = useState("");
-  const [btnLibToggle, setBtnLibToggle] = useState(false);
-  const [btnLibStyle, setBtnLibStyle] = useState(
-    "text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-  );
+  const [generateCommand, setGenerateCommand] = useState("");
+  const [command, setCommand] = commandStore((state) => [
+    state.command,
+    state.setCommand,
+  ]);
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
     state.isOpenModal,
     state.isCloseModal,
   ]);
-  const [list] = listShapesStore((state) => [state.list]);
 
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
-  const [toastCreate] = toastCreateShapeStore((state) => [state.toastCreate]);
+  const [toastCreate, removeToastCreate] = toastCreateShapeStore((state) => [
+    state.toastCreate,
+    state.removeToastCreate,
+  ]);
 
   const customStyles = {
-    overlay: { backgroundColor: "rgba(0, 0, 0, 0.75)" },
+    overlay: { backgroundColor: "rgba(69, 67, 67, 0.6)" },
     content: {
       backgroundColor: "#09061E",
       display: "flex",
@@ -53,39 +52,27 @@ export const CreateShapeModal = () => {
     },
   };
 
-  useEffect(() => {
-    btnLibToggle
-      ? setBtnLibStyle(
-          "text-purple-2 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-        )
-      : setBtnLibStyle(
-          "text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-        );
-  }, [btnLibToggle]);
-
-  const { watch, register, handleSubmit, reset, formState } =
-    useForm<IDataState>();
+  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
-    //   !selectLibs.includes(javascript)
+    // !selectLibs.includes(javascript)
     //   ? setSelectLibs([...selectLibs, javascript])
     //   : console.log("Tecnologia já adicionada");
 
     const select = selectLibs.includes(javascript);
     if (!select) {
       setSelectLibs([...selectLibs, javascript]);
-      console.log("Lib adicionada", javascript);
-      setBtnLibToggle(true);
     } else {
       const newLibRemove = selectLibs.filter((lib) => lib !== javascript);
-      console.log("Lib removida", javascript);
       setSelectLibs(newLibRemove);
-      setBtnLibToggle(false);
     }
   };
 
   const date = async () => {
-    const data = watch({ ...register("libs", { value: selectLibs }) });
+    const data = watch<IDataState>({
+      ...register("libs", { value: selectLibs }),
+    });
+    console.log(data);
 
     const comandoYarnVite = `alias ${data.command}="${data.package} create ${
       data.tool
@@ -120,27 +107,31 @@ export const CreateShapeModal = () => {
     )} && code . && ${data.package} dev"`;
 
     if (data.package === "yarn" && data.tool === "vite") {
-      setYarnVite(comandoYarnVite.replaceAll(",", ""));
+      setCommand(comandoYarnVite.replaceAll(",", ""));
+    } else if (data.package === "yarn" && data.tool === "create-react-app") {
+      setCommand(comandoYarnCRA.replaceAll(",", ""));
+    } else if (data.package === "npm" && data.tool === "vite") {
+      setCommand(comandoNPMVite.replaceAll(",", ""));
+    } else if (data.package === "npm" && data.tool === "create-react-app") {
+      setCommand(comandoNPMCRA.replaceAll(",", ""));
     }
 
+    handleRequest(data);
+  };
+
+  const handleRequest = async (data: any) => {
     try {
       const userId = localStorage.getItem("@shape:userId");
 
       const request = await api.post(`/600/users/${userId}/shapes`, data);
+
       console.log(request);
+      console.log(command);
+      toastCreate(command);
     } catch (error) {
       console.log(error);
     }
-
-    console.log(comandoYarnVite);
-    reset();
-    isCloseModal();
-    list();
-    toastCreate("PASSA O COMANDO AQ BIXO");
-    setBtnLibToggle(false);
-    setSelectLibs([]);
   };
-
   return (
     <Modal
       isOpen={isModal}
@@ -274,7 +265,14 @@ export const CreateShapeModal = () => {
           {selectLang === "javascript" ? (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, javascript }) => (
-                <li className={btnLibStyle} key={javascript}>
+                <li
+                  className={
+                    selectLibs.includes(javascript)
+                      ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
+                      : "text-base text-grey-5 font-light cursor-pointer mw-14 p-2"
+                  }
+                  key={javascript}
+                >
                   <p onClick={() => handleLibs(javascript)}>{name}</p>
                 </li>
               ))}
@@ -282,7 +280,14 @@ export const CreateShapeModal = () => {
           ) : (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, typescript }) => (
-                <li className={btnLibStyle} key={typescript}>
+                <li
+                  className={
+                    selectLibs.includes(typescript)
+                      ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
+                      : "text-base font-light text-grey-5 cursor-pointer mw-14 p-2"
+                  }
+                  key={typescript}
+                >
                   <p onClick={() => handleLibs(typescript)}>{name}</p>
                 </li>
               ))}
