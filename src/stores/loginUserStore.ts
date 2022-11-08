@@ -11,6 +11,7 @@ interface ILoginStore {
   logout: () => void;
   user: IUser | null;
   requestUser: () => void;
+  isLoadingUser: boolean;
 }
 
 interface IUser {
@@ -54,8 +55,10 @@ export const loginUserStore = create<ILoginStore>((set) => ({
   },
 
   user: null,
+  isLoadingUser: true,
 
   requestUser: async () => {
+    set(() => ({ isLoadingUser: true }));
     const userId = localStorage.getItem("@shape:userId");
     const token = localStorage.getItem("@shape:token");
 
@@ -65,10 +68,12 @@ export const loginUserStore = create<ILoginStore>((set) => ({
 
         const { data } = await api.get(`/600/users/${userId}`);
 
-        set(() => ({ user: data }));
+        set(() => ({ user: data, isLoadingUser: false }));
       } catch (error) {
         console.error(error);
+        set(() => ({ isLoadingUser: false }));
       }
     }
+    set(() => ({ isLoadingUser: false }));
   },
 }));
