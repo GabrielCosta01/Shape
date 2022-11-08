@@ -6,7 +6,7 @@ interface iCreate {
     isCloseModal: () => void,
 }
 
-export const createShapeContainer = create<iCreate> ((set)=> ({
+export const createShapeStore = create<iCreate> ((set)=> ({    
     isModal: false,
     isOpenModal: () => {
         set(() => ({isModal: true}))

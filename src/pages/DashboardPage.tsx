@@ -7,14 +7,14 @@ import { HeaderDashboard } from "../components/HeaderDashboard/HeaderDashboard";
 import { listShapesStore } from "../stores/listShapesStore";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { EditShapeModal } from "../components/Modals/EditShapeModal";
-import { createShapeContainer } from "../stores/createShapeStore";
+import { createShapeStore } from "../stores/createShapeStore";
 import { CreateShapeModal } from "../components/Modals/CreateShape";
 import { CardShapes } from "../components/CardShapes/CardShapes";
 import { AnimateSharedLayout } from "framer-motion";
 import { motion } from "framer-motion";
 
 export const DashboardPage = () => {
-  const [isOpenModal, isCloseModal] = createShapeContainer((state) => [
+  const [isOpenModal, isCloseModal] = createShapeStore((state) => [
     state.isOpenModal,
     state.isCloseModal,
   ]);
