@@ -57,30 +57,29 @@ const EditAvaliabeModal = () => {
         <div className="min-w-full flex justify-center">
           <h1 className="text-xl text-white">Avalie o Shape!</h1>
         </div>
-        <div className="flex">
+        <div className="flex items-center w-full">
 
           {[...Array(5)].map((star, i) => {
             let ratingValue = i + 1;
               return (
-                <label>
-                  <input
-                    className="hidden" type="radio" name="rating"
-                    value={ratingValue}
-                    onClick={()=> setRatingStar(ratingValue)}
-                  />
-                  <FaStar
-                    className="cursor-pointer duration-200"
-                    color={ ratingValue <= ( ratingStar || hoverRating ) ? '#ffc107' : '#e4e5e9' } size={30}
-                    onMouseEnter={()=> setHoverRating(ratingValue)}
-                    onMouseLeave={()=> setHoverRating(null)}
+                <div className="w-full">
+                  <label>
+                    <input
+                      className="hidden" type="radio" name="rating"
+                      value={ratingValue}
+                      onClick={()=> setRatingStar(ratingValue)}/>
 
-                  />
-                
-                </label>)
+                    <FaStar
+                      className="cursor-pointer duration-200 "
+                      color={ ratingValue <= ( ratingStar || hoverRating ) ? '#ffc107' : '#e4e5e9' } size={30}
+                      onMouseEnter={()=> setHoverRating(ratingValue)}
+                      onMouseLeave={()=> setHoverRating(null)} />
+
+                  </label>
+                </div>)
           })}
 
         </div>
-
         
         <label htmlFor="user" className="text-grey-4 text-xs">
           Qual seu feedback?
