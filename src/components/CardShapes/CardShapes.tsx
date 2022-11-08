@@ -26,16 +26,17 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
   const [isModal, isOpenModalDelete, idShapeNew] = deleteShapeStore((state) => [
     state.isModal,
     state.isOpenModalDelete,
-    state.idShapeNew
-]);
+    state.idShapeNew,
+  ]);
 
   return (
     <>
       {!details && (
         <>
-          <li 
-            onClick={() => <DeleteShape />} 
-            className="bg-bg-form rounded-md p-4 h-36 w-56">
+          <li
+            onClick={() => <DeleteShape />}
+            className="bg-bg-form rounded-md p-4 h-36 w-56"
+          >
             <div className="">
               <>
                 <div>
@@ -53,12 +54,13 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
                   >
                     Detalhes
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
-                      isOpenModalDelete()
-                      idShapeNew(layoutId)
+                      isOpenModalDelete();
+                      idShapeNew(layoutId);
                     }}
-                    className="bg-grey-1 p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300">
+                    className="bg-grey-1 p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300"
+                  >
                     Deletar
                   </button>
                 </div>
@@ -104,7 +106,7 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
               </div>
               <div className="mt-4 flex flex-row gap-4 justify-center">
                 <button
-                  onClick={() => isOpenModal()}
+                  onClick={() => isOpenModal(shape)}
                   className="bg-button-register p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
                 >
                   Editar

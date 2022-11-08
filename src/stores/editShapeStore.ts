@@ -1,15 +1,27 @@
 import create from "zustand";
 
-interface iCreate {
-  isModal: boolean;
-  isOpenModal: () => void;
-  isCloseModal: () => void;
+interface IEditShapeProps {
+  command: string;
+  id: number;
+  language: string;
+  libs: string[];
+  package: string;
+  tool: string;
+  userId: string | number;
 }
 
-export const editShapeStore = create<iCreate>((set) => ({
+interface ICreate {
+  isModal: boolean;
+  isOpenModal: (shape: IEditShapeProps) => void;
+  isCloseModal: () => void;
+  handleClickCard: IEditShapeProps;
+}
+
+export const editShapeStore = create<ICreate>((set) => ({
+  handleClickCard: <IEditShapeProps>{},
   isModal: false,
-  isOpenModal: () => {
-    set(() => ({ isModal: true }));
+  isOpenModal: (shape) => {
+    set(() => ({ isModal: true, handleClickCard: shape }));
   },
   isCloseModal: () => {
     set(() => ({ isModal: false }));
