@@ -32,7 +32,7 @@ export const HeaderDashboard = () => {
         <img src={logo} alt="shape-logo" className=" w-21 h-7" />
         <div className="flex flex-col items-end gap-0 group h-12 justify-center relative">
           <img
-            src={!user?.image.includes("http") && userImage}
+            src={user?.image.includes("http") ? user?.image : userImage}
             alt="usuário-foto"
             className=" w-8 h-8 rounded-full border-2 border-solid border-button-gradient-1 cursor-pointer z-10"
           />

@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { createShapeContainer } from "../../stores/createShapeStore";
 import { librariesContainer } from "../../stores/libsData";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
@@ -45,17 +45,18 @@ export const CreateShapeModal = () => {
     },
   };
 
-  const { register, handleSubmit, formState } = useForm<IDataState>();
+  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
     !selectLibs.includes(javascript)
       ? setSelectLibs([...selectLibs, javascript])
       : console.log("Tecnologia já adicionada");
-    console.log(selectLibs);
+    // console.log(selectLibs);
   };
 
-  const date = async (data) => {
-    register("libs", { value: selectLibs });
+  const date = async () => {
+    const data = watch({ ...register("libs", { value: selectLibs }) });
+    console.log(data);
 
     const comandoYarnVite = `alias ${data.command}="${data.package} create ${
       data.tool
