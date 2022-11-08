@@ -7,6 +7,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import { motion } from "framer-motion";
+import Instruction from "../components/Instruction/Instruction";
 
 export const LandingPage = () => {
   useEffect(() => {
@@ -62,15 +63,17 @@ export const LandingPage = () => {
               data-aos="zoom-in"
               data-aos-duration="800"
             >
-              Uma ferramenta comum que pode poupar muito tempo seu.
+              O seu melhor amigo na configuração do seu ambiente! Seja um
+              shapado, configure seu ambiente de desenvolvimento com velocidade
+              e facilidade.
             </h3>
             <CircleAnimation />
             <div
               data-aos="fade-up"
               className="max-w-2xl mx-80 mt-52 flex flex-row self-start items-center justify-center gap-1 text-purple-2 text-lg"
             >
-              <img src={books} alt="icone livros juntos" />
-              <h4 className="text-center">Bibliotecas</h4>
+              <img src={books} alt="icone livros juntos" className="mb-2" />
+              <h4 className="text-center mb-2">Bibliotecas</h4>
             </div>
           </section>
           <section
@@ -140,6 +143,8 @@ export const LandingPage = () => {
                 </li>
               </ul>
             </div>
+
+            <Instruction />
           </section>
 
           <footer className="h-40	 flex gap-4 justify-around items-center">
