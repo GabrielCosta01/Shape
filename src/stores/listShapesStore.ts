@@ -14,12 +14,16 @@ interface IShapes {
 interface IListShapeStore {
   isLoading: boolean;
   shapes: IShapes[];
+  setShapes: (data: IShapes[]) => void,
   list: () => void;
 }
 
 export const listShapesStore = create<IListShapeStore>((set) => ({
   isLoading: false,
   shapes: [],
+  setShapes: (data) => {
+    set(() => ({ shapes: data }));
+  },
   list: async () => {
     const userId = localStorage.getItem("@shape:userId");
     const token = localStorage.getItem("@shape:token");
