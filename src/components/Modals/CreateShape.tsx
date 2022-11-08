@@ -2,23 +2,28 @@ import Modal from "react-modal";
 import { createShapeContainer } from "../../stores/createShapeStore";
 import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 import { librariesContainer } from "../../stores/libsData";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { commandStore } from "../../stores/commandStore";
 
 interface IDataState {
-  command?: string | undefined;
-  tool?: string | undefined;
-  language?: string | undefined;
-  libs?: string[] | undefined;
-  package?: string | undefined;
+  command: any;
+  tool: any;
+  language: any;
+  libs: any;
+  package: any;
 }
 
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
-  const [selectLibs, setSelectLibs] = useState([]);
-  const [generateCommand, setGenerateCommand] = useState();
+  const [selectLibs, setSelectLibs] = useState<string[]>([]);
+  const [generateCommand, setGenerateCommand] = useState("");
+  const [command, setCommand] = commandStore((state) => [
+    state.command,
+    state.setCommand,
+  ]);
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
@@ -53,16 +58,14 @@ export const CreateShapeModal = () => {
     const select = selectLibs.includes(javascript);
     if (!select) {
       setSelectLibs([...selectLibs, javascript]);
-      console.log("Lib adicionada", javascript);
     } else {
       const newLibRemove = selectLibs.filter((lib) => lib !== javascript);
-      console.log("Lib removida", javascript);
       setSelectLibs(newLibRemove);
     }
   };
 
   const date = async () => {
-    const data = watch({
+    const data = watch<IDataState>({
       ...register("libs", { value: selectLibs }),
     });
     console.log(data);
@@ -100,27 +103,31 @@ export const CreateShapeModal = () => {
     )} && code . && ${data.package} dev"`;
 
     if (data.package === "yarn" && data.tool === "vite") {
-      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
+      setCommand(comandoYarnVite.replaceAll(",", ""));
     } else if (data.package === "yarn" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
+      setCommand(comandoYarnCRA.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "vite") {
-      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
+      setCommand(comandoNPMVite.replaceAll(",", ""));
     } else if (data.package === "npm" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
+      setCommand(comandoNPMCRA.replaceAll(",", ""));
     }
-    console.log(generateCommand);
 
+    handleRequest(data);
+  };
+
+  const handleRequest = async (data: any) => {
     try {
       const userId = localStorage.getItem("@shape:userId");
 
       const request = await api.post(`/600/users/${userId}/shapes`, data);
 
-      toastCreate(generateCommand);
+      console.log(request);
+      console.log(command);
+      toastCreate(command);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <Modal
       isOpen={isModal}
