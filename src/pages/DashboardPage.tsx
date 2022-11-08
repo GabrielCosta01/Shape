@@ -48,6 +48,7 @@ export const DashboardPage = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
+                  transition={{ delay: 0.4 }}
                   layout
                   className="mt-20 p-2 grid grid-cols-3 grid-flow-row gap-20 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md "
                 >

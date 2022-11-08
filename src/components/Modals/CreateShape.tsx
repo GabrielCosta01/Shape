@@ -6,6 +6,7 @@ import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { listShapesStore } from "../../stores/listShapesStore";
+import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
 
 interface IDataState {
   command: string;
@@ -35,9 +36,10 @@ export const CreateShapeModal = () => {
   const [list] = listShapesStore((state) => [state.list]);
 
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
+  const [toastCreate] = toastCreateShapeStore((state) => [state.toastCreate]);
 
   const customStyles = {
-    overlay: { backgroundColor: "rgba(69, 67, 67, 0.6)" },
+    overlay: { backgroundColor: "rgba(0, 0, 0, 0.75)" },
     content: {
       backgroundColor: "#09061E",
       display: "flex",
@@ -61,7 +63,8 @@ export const CreateShapeModal = () => {
         );
   }, [btnLibToggle]);
 
-  const { watch, register, handleSubmit, formState } = useForm<IDataState>();
+  const { watch, register, handleSubmit, reset, formState } =
+    useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
     // !selectLibs.includes(javascript)
@@ -83,7 +86,6 @@ export const CreateShapeModal = () => {
 
   const date = async () => {
     const data = watch({ ...register("libs", { value: selectLibs }) });
-    console.log(data);
 
     const comandoYarnVite = `alias ${data.command}="${data.package} create ${
       data.tool
@@ -131,7 +133,12 @@ export const CreateShapeModal = () => {
     }
 
     console.log(comandoYarnVite);
+    reset();
+    isCloseModal();
     list();
+    toastCreate("PASSA O COMANDO AQ BIXO");
+    setBtnLibToggle(false);
+    setSelectLibs([]);
   };
 
   return (
