@@ -5,6 +5,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { listShapesStore } from "../../stores/listShapesStore";
 
 interface IDataState {
   command: string;
@@ -21,12 +22,17 @@ export const CreateShapeModal = () => {
   const [yarnCRA, setYarnCRA] = useState("");
   const [npmVite, setNpmVite] = useState("");
   const [npmCRA, setNpmCRA] = useState("");
+  const [btnLibToggle, setBtnLibToggle] = useState(false);
+  const [btnLibStyle, setBtnLibStyle] = useState(
+    "text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+  );
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
     state.isOpenModal,
     state.isCloseModal,
   ]);
+  const [list] = listShapesStore((state) => [state.list]);
 
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
 
@@ -45,13 +51,34 @@ export const CreateShapeModal = () => {
     },
   };
 
+  useEffect(() => {
+    btnLibToggle
+      ? setBtnLibStyle(
+          "text-purple-2 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+        )
+      : setBtnLibStyle(
+          "text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+        );
+  }, [btnLibToggle]);
+
   const { watch, register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
-    !selectLibs.includes(javascript)
-      ? setSelectLibs([...selectLibs, javascript])
-      : console.log("Tecnologia já adicionada");
-    // console.log(selectLibs);
+    // !selectLibs.includes(javascript)
+    //   ? setSelectLibs([...selectLibs, javascript])
+    //   : console.log("Tecnologia já adicionada");
+
+    const select = selectLibs.includes(javascript);
+    if (!select) {
+      setSelectLibs([...selectLibs, javascript]);
+      console.log("Lib adicionada", javascript);
+      setBtnLibToggle(true);
+    } else {
+      const newLibRemove = selectLibs.filter((lib) => lib !== javascript);
+      console.log("Lib removida", javascript);
+      setSelectLibs(newLibRemove);
+      setBtnLibToggle(false);
+    }
   };
 
   const date = async () => {
@@ -104,6 +131,7 @@ export const CreateShapeModal = () => {
     }
 
     console.log(comandoYarnVite);
+    list();
   };
 
   return (
@@ -239,10 +267,7 @@ export const CreateShapeModal = () => {
           {selectLang === "javascript" ? (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, javascript }) => (
-                <li
-                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-                  key={javascript}
-                >
+                <li className={btnLibStyle} key={javascript}>
                   <p onClick={() => handleLibs(javascript)}>{name}</p>
                 </li>
               ))}
@@ -250,10 +275,7 @@ export const CreateShapeModal = () => {
           ) : (
             <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
               {listLibrarie.map(({ name, typescript }) => (
-                <li
-                  className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
-                  key={typescript}
-                >
+                <li className={btnLibStyle} key={typescript}>
                   <p onClick={() => handleLibs(typescript)}>{name}</p>
                 </li>
               ))}
