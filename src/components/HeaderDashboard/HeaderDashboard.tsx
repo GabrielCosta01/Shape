@@ -7,6 +7,7 @@ import EditAvaliabeModal from "../Modals/EditAvaliabeModal";
 import { Link } from "react-router-dom";
 import handleModalStore from "../../stores/handleModalStore";
 import { loginUserStore } from "../../stores/loginUserStore";
+import userImage from "../../assets/user-image.jpg";
 
 export const HeaderDashboard = () => {
   const [openModal] = handleModalStore((state) => [state.openModal]);
@@ -31,16 +32,16 @@ export const HeaderDashboard = () => {
         <img src={logo} alt="shape-logo" className=" w-21 h-7" />
         <div className="flex flex-col items-end gap-0 group h-12 justify-center relative">
           <img
-            src={user?.image}
+            src={!user?.image.includes("http") && userImage}
             alt="usuário-foto"
             className=" w-8 h-8 rounded-full border-2 border-solid border-button-gradient-1 cursor-pointer z-10"
           />
 
-          <div className="bg-grey-4 w-44 rounded-md absolute mt-40 invisible group-hover:visible group">
+          <div className="bg-grey-4 w-44 rounded-md absolute mt-40 invisible group-hover:visible group z-10">
             <div className="p-2">
               <span className="text-xs font-medium">{`@${user?.username}`}</span>
             </div>
-            <div className=" flex flex-col bg-grey-4 rounded-md">
+            <div className=" flex flex-col bg-grey-4 rounded-md ">
               <figure className="flex p-1.5">
                 <img src={lapis} alt="Editar Perfil" />
                 <span

@@ -42,14 +42,14 @@ export const librariesContainer = create<iLibraries>((set) => ({
       typescript: "@types/react-joyride",
     },
     {
-      name: "Style-components",
-      javascript: "style-components",
-      typescript: "@types/style-components",
+      name: "Styled-components",
+      javascript: "styled-components",
+      typescript: "@types/styled-components",
     },
     {
       name: "Tailwindcss",
-      javascript: "tailwindcss postcss autoprefixer",
-      typescript: "tailwindcss postcss autoprefixer",
+      javascript: "tailwindcsspostcssautoprefixer",
+      typescript: "tailwindcsspostcssautoprefixer",
     },
   ],
 }));

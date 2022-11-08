@@ -6,9 +6,21 @@ import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 
+interface IDataState {
+  command: string;
+  tool: string;
+  language: string;
+  libs: [];
+  package: string;
+}
+
 export const CreateShapeModal = () => {
   const [selectLang, setSelectLang] = useState();
-  const [selectLibs, setSelectLibs] = useState([]);
+  const [selectLibs, setSelectLibs] = useState<string[]>([]);
+  const [yarnVite, setYarnVite] = useState();
+  const [yarnCRA, setYarnCRA] = useState("");
+  const [npmVite, setNpmVite] = useState("");
+  const [npmCRA, setNpmCRA] = useState("");
 
   const [isModal, isOpenModal, isCloseModal] = createShapeContainer((state) => [
     state.isModal,
@@ -33,7 +45,7 @@ export const CreateShapeModal = () => {
     },
   };
 
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm<IDataState>();
 
   const handleLibs = (javascript: string) => {
     !selectLibs.includes(javascript)
@@ -42,20 +54,55 @@ export const CreateShapeModal = () => {
     console.log(selectLibs);
   };
 
-  const date = async (data: object) => {
+  const date = async (data) => {
     register("libs", { value: selectLibs });
+
+    const comandoYarnVite = `alias ${data.command}="${data.package} create ${
+      data.tool
+    } nome-do-projeto --template react && cd nome-do-projeto && ${
+      data.package
+    } && ${data.package} add ${data.libs?.filter(
+      (element) => element
+    )} && code . && ${data.package} dev"`;
+
+    const comandoYarnCRA = `alias ${data.command}="${data.package} create ${
+      data.tool
+    } nome-do-projeto --template react && cd nome-do-projeto && ${
+      data.package
+    } && ${data.package} add ${data.libs?.filter(
+      (element) => element
+    )} && code . && ${data.package} dev"`;
+
+    const comandoNPMVite = `alias ${data.command}="${data.package} install ${
+      data.tool
+    }nome-do-projeto --template react && cd nome-do-projeto && ${
+      data.package
+    } && ${data.package} add ${data.libs?.filter(
+      (element) => element
+    )} && code . && ${data.package} dev"`;
+
+    const comandoNPMCRA = `alias ${data.command}="${data.package} install ${
+      data.tool
+    }nome-do-projeto --template react && cd nome-do-projeto && ${
+      data.package
+    } && ${data.package} add ${data.libs?.filter(
+      (element) => element
+    )} && code . && ${data.package} dev"`;
+
+    if (data.package === "yarn" && data.tool === "vite") {
+      setYarnVite(comandoYarnVite.replaceAll(",", ""));
+    }
+
     try {
       const userId = localStorage.getItem("@shape:userId");
 
       const request = await api.post(`/600/users/${userId}/shapes`, data);
-
       console.log(request);
     } catch (error) {
       console.log(error);
     }
 
-    register("libs", { value: selectLibs });
-    console.log(data);
+    console.log(comandoYarnVite);
   };
 
   return (
@@ -131,7 +178,7 @@ export const CreateShapeModal = () => {
               htmlFor="pack"
               className="text-grey-5 text-base mb-2 ml-1 pr-2"
             >
-              Qual ferramente de construção?
+              Qual ferramenta de construção?
             </label>
             <select
               id="pack"
