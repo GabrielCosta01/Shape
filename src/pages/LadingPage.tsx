@@ -8,6 +8,7 @@ import "aos/dist/aos.css";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import { motion } from "framer-motion";
 import Instruction from "../components/Instruction/Instruction";
+import { librariesContainer } from "../stores/libsData";
 
 export const LandingPage = () => {
   useEffect(() => {
@@ -15,6 +16,8 @@ export const LandingPage = () => {
       duration: 1500,
     });
   }, []);
+
+  const [listLibraries] = librariesContainer((state) => [state.listLibraries]);
 
   return (
     <motion.div
@@ -96,69 +99,33 @@ export const LandingPage = () => {
               data-aos="zoom-in"
             >
               <ul className="mx-40 flex flex-wrap gap-16 justify-center items-center text-2xl w-3/5">
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    React Modal
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    Styled Components
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    Axios
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    React Hook Form
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    React Toastify
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    React hook Toast
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    React Router Dom
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    Framer Motion
-                  </h1>
-                </li>
-                <li className="w-2/12 text-center">
-                  <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
-                    React Icons
-                  </h1>
-                </li>
+                {listLibraries.map((elem) => (
+                  <li
+                    className="w-2/12 text-center cursor-default"
+                    key={elem.name}
+                  >
+                    <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
+                      {elem.name}
+                    </h1>
+                  </li>
+                ))}
               </ul>
             </div>
-
-            <Instruction />
           </section>
-
-          <footer className="h-40	 flex gap-4 justify-around items-center">
-            <img className="w-15 h-7" src={shapeLogo} alt="Logo Shape" />
-            <h4 className="text-center text-xs text-grey-3 w-60">
-              Projeto criado por estudantes da Kenzie Academy Brasil, como
-              finalização do módulo de Front-End.
-            </h4>
-            <h4 className="text-center text-xs text-grey-3 w-60">
-              Criadores: Luis Gabriel Modena - Gabriel Costa - Gabriel Carriel -
-              Breno Leite - Wesley Carvalho - Talles Simão
-            </h4>
-          </footer>
+          <Instruction />
         </main>
+
+        <footer className="h-40	 flex gap-4 justify-around items-center relative">
+          <img className="w-15 h-7" src={shapeLogo} alt="Logo Shape" />
+          <h4 className="text-center text-xs text-grey-3 w-60">
+            Projeto criado por estudantes da Kenzie Academy Brasil, como
+            finalização do módulo de Front-End.
+          </h4>
+          <h4 className="text-center text-xs text-grey-3 w-60">
+            Criadores: Luis Gabriel Modena - Gabriel Costa - Gabriel Carriel -
+            Breno Leite - Wesley Carvalho - Talles Simão
+          </h4>
+        </footer>
       </div>
     </motion.div>
   );
