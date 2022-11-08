@@ -56,7 +56,8 @@ const EditProfileModal = () => {
           type="text"
           id="user"
           placeholder="Usuário"
-          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
+          required
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("username")}
         />
 
@@ -67,7 +68,8 @@ const EditProfileModal = () => {
           type="text"
           id="email"
           placeholder="Email"
-          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
+          required
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("email")}
         />
 
@@ -78,7 +80,8 @@ const EditProfileModal = () => {
           type="password"
           id="password"
           placeholder="Senha"
-          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
+          required
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("password")}
         />
 
@@ -89,7 +92,8 @@ const EditProfileModal = () => {
           type="text"
           id="img"
           placeholder="Imagem"
-          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
+          required
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("image")}
         />
 

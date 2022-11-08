@@ -55,7 +55,8 @@ const EditAvaliabeModal = () => {
           type="text"
           id="user"
           placeholder="Feedback"
-          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-purple-1"
+          required
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("rate")}
         />
 
