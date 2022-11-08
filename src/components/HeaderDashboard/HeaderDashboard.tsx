@@ -28,7 +28,7 @@ export const HeaderDashboard = () => {
   };
   return (
     <>
-      <header className="flex h-20 justify-around gap-40 items-center border-b-2 border-solid border-gray-900">
+      <header className="flex h-20 justify-between gap-40 items-center border-b-2 border-solid border-gray-900">
         <img src={logo} alt="shape-logo" className=" w-21 h-7" />
         <div className="flex flex-col items-end gap-0 group h-12 justify-center relative">
           <img

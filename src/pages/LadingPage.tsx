@@ -24,7 +24,7 @@ export const LandingPage = () => {
     >
       <div className="bg-bg-page w-auto h-auto min-h-screen text-white  flex flex-col gap-10">
         <header
-          className="h-20 px-40 flex flex-row justify-around items-center border-b-2 border-solid border-gray-900"
+          className="h-20 px-40 flex flex-row justify-between items-center border-b-2 border-solid border-gray-900"
           data-aos="fade-down"
         >
           <img className="w-15 h-7" src={shapeLogo} alt="Logo Shape" />
