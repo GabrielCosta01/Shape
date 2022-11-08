@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { editShapeStore } from "../../stores/editShapeStore";
 
 export interface IShape {
   command: string;
@@ -19,6 +20,7 @@ interface ICardProps {
 
 export const CardShapes = ({ shape, layoutId }: ICardProps) => {
   const [details, setDetails] = useState(null);
+  const [isOpenModal] = editShapeStore((state) => [state.isOpenModal]);
 
   return (
     <>
@@ -53,14 +55,14 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
         <AnimatePresence>
           <motion.li
             layout
-            className="bg-bg-form rounded-md w-56 relative "
+            className="bg-bg-form h- rounded-md w-56 relative "
             key={shape.id}
             initial={{ opacity: 0, translateY: -100 }}
             animate={{ opacity: 1, translateY: 0 }}
             exit={{ opacity: 0, translateY: -500 }}
             transition={{ delay: 0.1 }}
           >
-            <div className="absolute bg-bg-form rounded-md p-4 w-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.7)]">
+            <div className="absolute bg-bg-form rounded-md p-4 w-full h-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.7)]">
               <div>
                 <h3 className="text-purple-1 font-semibold text-lg">
                   {shape.command}
@@ -85,7 +87,7 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
               </div>
               <div className="mt-4 flex flex-row gap-4 justify-center">
                 <button
-                  onClick={() => setDetails(layoutId)}
+                  onClick={() => isOpenModal()}
                   className="bg-button-register p-2 pl-4 pr-4 text-sm  font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
                 >
                   Editar
