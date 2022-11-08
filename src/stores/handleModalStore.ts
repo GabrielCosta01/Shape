@@ -1,3 +1,4 @@
+import { object } from "yup";
 import create from "zustand";
 import { IAvaliable } from "../components/Modals/EditAvaliabeModal";
 import { IEditProfile } from "../components/Modals/EditProfileModal";
