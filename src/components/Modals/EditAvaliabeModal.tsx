@@ -3,6 +3,7 @@ import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import Modal from "react-modal";
 import handleModalStore from "../../stores/handleModalStore";
+import { IoClose } from "react-icons/io5";
 export interface IAvaliable {
   rate: string;
 }
@@ -55,8 +56,13 @@ const EditAvaliabeModal = () => {
         className="flex items-start flex-col p-8 gap-5 bg-bg-form w-96 min-h-full rounded-md"
         onSubmit={handleSubmit(newDataRate)}
       >
-        <div className="min-w-full flex justify-center">
+        <div className="min-w-full flex justify-between">
           <h1 className="text-xl text-white">Avalie o Shape!</h1>
+
+          <IoClose
+            onClick={closeModalAvaliable}
+            className="text-white text-3xl cursor-pointer"
+          />
         </div>
         <div className="flex items-center w-full">
           {[...Array(5)].map((_, i) => {

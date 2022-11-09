@@ -15,6 +15,7 @@ type IDateShapes = {
   package: string;
   tool: string;
   watch?: any;
+  projectName: string;
 };
 
 export const CreateShapeModal = () => {
@@ -175,7 +176,7 @@ export const CreateShapeModal = () => {
       className="absolute"
     >
       <form
-        className="flex flex-col p-8 gap-5 bg-bg-form rounded-md w-full"
+        className="flex flex-col  p-8 gap-5 bg-bg-form rounded-md w-full"
         onSubmit={handleSubmit(createShape)}
       >
         <div className="flex items-center justify-between">
@@ -288,6 +289,25 @@ export const CreateShapeModal = () => {
                 Typescript
               </option>
             </select>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center flex-row gap-20 mt-8">
+          <div className="flex flex-col">
+            <label
+              htmlFor="projectName"
+              className="text-grey-5 text-base mb-2 ml-1"
+            >
+              Qual o nome do seu projeto?
+            </label>
+            <input
+              type="text"
+              id="projectName"
+              required
+              className="text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-purple-1 hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+              placeholder="Nome do projeto"
+              {...register("projectName")}
+            />
           </div>
         </div>
         <div className="flex flex-col items-center mt-8">

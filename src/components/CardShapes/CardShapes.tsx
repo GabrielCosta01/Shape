@@ -29,13 +29,15 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
     state.idShapeNew,
   ]);
 
+  const treadShapeLibs = shape.libs.join(", ");
+
   return (
     <>
       {!details && (
         <>
           <li
             onClick={() => <DeleteShape />}
-            className="bg-bg-form rounded-md p-4 h-36 w-56"
+            className="bg-bg-form rounded-md p-4 h-36 w-72"
           >
             <div className="">
               <>
@@ -44,7 +46,7 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
                     {shape.command}
                   </h3>
                   <p className="text-grey-2 w-48 whitespace-nowrap overflow-hidden text-ellipsis">
-                    {shape.libs}
+                    {treadShapeLibs}
                   </p>
                 </div>
                 <div className="mt-4 flex flex-row gap-4 justify-center">
@@ -74,14 +76,14 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
         <AnimatePresence>
           <motion.li
             layout
-            className="bg-bg-form h- rounded-md w-56 relative "
+            className=" bg-bg-form rounded-md w-72 "
             key={shape.id}
             initial={{ opacity: 0, translateY: -100 }}
             animate={{ opacity: 1, translateY: 0 }}
             exit={{ opacity: 0, translateY: -500 }}
             transition={{ delay: 0.1 }}
           >
-            <div className="absolute bg-bg-form rounded-md p-4 w-full h-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.7)]">
+            <div className="flex gap-1 flex-col bg-bg-form rounded-md p-4 w-full h-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.7)] relative ">
               <div>
                 <h3 className="text-purple-1 font-semibold text-lg">
                   {shape.command}
@@ -99,9 +101,12 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
                 <p className="text-purple-1 font-medium">Linguagem:</p>
                 <p className="text-grey-2">{shape.language}</p>
               </div>
-              <div className="flex gap-2 mt-1">
+              <div className="flex gap-2 mt-1 h-20 overflow-auto p-1 scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
                 <p className="text-purple-1 font-medium">
-                  Bibliotecas: <span className="text-grey-2">{shape.libs}</span>
+                  Bibliotecas:{" "}
+                  <span className="text-grey-2 max-w-full ">
+                    {treadShapeLibs}
+                  </span>
                 </p>
               </div>
               <div className="mt-4 flex flex-row gap-4 justify-center">
