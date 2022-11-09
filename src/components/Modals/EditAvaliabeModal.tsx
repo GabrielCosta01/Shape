@@ -23,6 +23,7 @@ const EditAvaliabeModal = () => {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       background: "none",
+      outline: "none",
     },
   };
 
@@ -58,7 +59,7 @@ const EditAvaliabeModal = () => {
           <h1 className="text-xl text-white">Avalie o Shape!</h1>
         </div>
         <div className="flex items-center w-full">
-          {[...Array(5)].map(( _, i) => {
+          {[...Array(5)].map((_, i) => {
             let ratingValue = i + 1;
             return (
               <div className="w-full" key={i}>
