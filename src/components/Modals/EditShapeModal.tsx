@@ -5,6 +5,9 @@ import { editShapeStore } from "../../stores/editShapeStore";
 import { motion } from "framer-motion";
 import { librariesContainer } from "../../stores/libsData";
 import { useEffect, useState } from "react";
+import { ToastEditShape } from "../ToastEditShape/ToastEditShape";
+import { toastEditShapeStore } from "../../stores/toastEditShapeStore";
+import { api } from "../../services/api";
 
 type IDateShapes = {
   command: string;
@@ -34,12 +37,14 @@ export const EditShapeModal = () => {
 
   const [selectLang, setSelectLang] = useState();
   const [editLibs, setEditLibs] = useState<string[]>([]);
+  const [generateCommand, setGenerateCommand] = useState("");
 
   const [isModal, isCloseModal, handleClickCard] = editShapeStore((state) => [
     state.isModal,
     state.isCloseModal,
     state.handleClickCard,
   ]);
+  const [toastCreate] = toastEditShapeStore((state) => [state.toastCreate]);
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
 
   const { register, handleSubmit, reset } = useForm<IDateShapes>();
@@ -54,6 +59,16 @@ export const EditShapeModal = () => {
     }
   };
 
+  const handleLibsTs = (typescript: string) => {
+    const select = editLibs.includes(typescript);
+    if (!select) {
+      setEditLibs([...editLibs, typescript]);
+    } else {
+      const newLibRemove = editLibs.filter((lib) => lib !== typescript);
+      setEditLibs(newLibRemove);
+    }
+  };
+
   const closeModal = () => {
     isCloseModal();
     reset();
@@ -61,7 +76,12 @@ export const EditShapeModal = () => {
 
   useEffect(() => {
     reset();
+    setEditLibs(handleClickCard.libs);
   }, [isModal]);
+
+  useEffect(() => {
+    console.log(editLibs);
+  }, [editLibs]);
 
   return (
     <Modal
@@ -166,6 +186,7 @@ export const EditShapeModal = () => {
                 id="language"
                 defaultValue={handleClickCard.language}
                 required
+                disabled
                 className={
                   "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
                 }
@@ -191,7 +212,7 @@ export const EditShapeModal = () => {
                 {listLibrarie.map(({ name, javascript }) => (
                   <li
                     className={
-                      editLibs.includes(javascript)
+                      editLibs?.includes(javascript)
                         ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
                         : "text-base font-light text-grey-5 cursor-pointer mw-14 p-2"
                     }
@@ -206,13 +227,13 @@ export const EditShapeModal = () => {
                 {listLibrarie.map(({ name, typescript }) => (
                   <li
                     className={
-                      editLibs.includes(typescript)
+                      editLibs?.includes(typescript)
                         ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
                         : "text-base font-light text-grey-5 cursor-pointer mw-14 p-2"
                     }
                     key={typescript}
                   >
-                    <p onClick={() => handleLibs(typescript)}>{name}</p>
+                    <p onClick={() => handleLibsTs(typescript)}>{name}</p>
                   </li>
                 ))}
               </ul>
