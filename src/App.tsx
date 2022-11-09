@@ -1,5 +1,6 @@
 import { ToastContainer } from "./components/ToastContainer/ToastContainer";
 import { ToastContainerCreate } from "./components/ToastContainer/ToastContainerCreate";
+import { ToastContainerEdit } from "./components/ToastContainer/ToastContainerEdit";
 import RoutesMain from "./routes/RoutesMain";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <ToastContainerCreate />
       <ToastContainer />
+      <ToastContainerEdit />
       <RoutesMain />
     </>
   );
