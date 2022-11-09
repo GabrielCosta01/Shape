@@ -7,10 +7,6 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import { motion } from "framer-motion";
-<<<<<<< HEAD
-import Instruction from "../components/Instruction/Instruction";
-=======
->>>>>>> 67e4c28ff122bdf36cc117f29ee3bae823b5bd77
 import { librariesContainer } from "../stores/libsData";
 
 export const LandingPage = () => {
@@ -103,7 +99,6 @@ export const LandingPage = () => {
             >
               <ul className="mx-40 flex flex-wrap gap-16 justify-center items-center text-2xl w-3/5">
                 {listLibraries.map((elem) => (
-<<<<<<< HEAD
                   <li
                     className="w-2/12 text-center cursor-default"
                     key={elem.name}
@@ -111,18 +106,11 @@ export const LandingPage = () => {
                     <h1 className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200">
                       {elem.name}
                     </h1>
-=======
-                  <li className="w-2/12 text-center">
-                    <p className="text-grey-2 hover:text-purple-2 hover:ease-in duration-200 cursor-default">
-                      {elem.name}
-                    </p>
->>>>>>> 67e4c28ff122bdf36cc117f29ee3bae823b5bd77
                   </li>
                 ))}
               </ul>
             </div>
           </section>
-          <Instruction />
         </main>
 
         <footer className="h-40	 flex gap-4 justify-around items-center relative">
