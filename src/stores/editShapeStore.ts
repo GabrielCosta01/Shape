@@ -7,6 +7,7 @@ interface IEditShapeProps {
   libs: string[];
   package: string;
   tool: string;
+  projectName: string;
   userId: string | number;
 }
 

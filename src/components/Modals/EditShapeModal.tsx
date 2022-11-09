@@ -12,6 +12,7 @@ import { listShapesStore } from "../../stores/listShapesStore";
 import { ToastContainerEdit } from "../ToastContainer/ToastContainerEdit";
 
 type IDateShapes = {
+  projectName: string;
   command: string;
   language: string;
   libs: string[];
@@ -91,18 +92,19 @@ export const EditShapeModal = () => {
   const treatCode = (data: IDateShapes) => {
     const treatLibs = data.libs.join(" ");
     const treatNameComand = data.command.replaceAll(" ", "").trim();
+    const treatNameProject = data.projectName.replaceAll(" ", "").trim();
 
-    const comandoYarnViteJS = `alias ${treatNameComand}="${data.package} create vite my-project --template react && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
-    const comandoYarnViteTS = `alias ${treatNameComand}="${data.package} create vite my-project --template react-ts && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
+    const comandoYarnViteJS = `alias ${treatNameComand}="${data.package} create vite ${treatNameProject} --template react && cd ${treatNameProject} && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
+    const comandoYarnViteTS = `alias ${treatNameComand}="${data.package} create vite ${treatNameProject} --template react-ts && cd ${treatNameProject} && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
 
-    const comandoNPMViteJS = `alias ${treatNameComand}="${data.package} create vite@latest my-project -- --template react && cd my-project && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
-    const comandoNPMViteTS = `alias ${treatNameComand}="${data.package} create vite@latest my-project -- --template react-ts && cd my-project && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
+    const comandoNPMViteJS = `alias ${treatNameComand}="${data.package} create vite@latest ${treatNameProject} -- --template react && cd ${treatNameProject} && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
+    const comandoNPMViteTS = `alias ${treatNameComand}="${data.package} create vite@latest ${treatNameProject} -- --template react-ts && cd ${treatNameProject} && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
 
-    const comandoYarnCRAJS = `alias ${treatNameComand}="${data.package} create react-app my-project && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
-    const comandoYarnCRATS = `alias ${treatNameComand}="${data.package} create react-app my-project --template typescript && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
+    const comandoYarnCRAJS = `alias ${treatNameComand}="${data.package} create react-app ${treatNameProject} && cd ${treatNameProject} && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
+    const comandoYarnCRATS = `alias ${treatNameComand}="${data.package} create react-app ${treatNameProject} --template typescript && cd ${treatNameProject} && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
 
-    const comandoNPMCRAJS = `alias ${treatNameComand}="${data.package} init react-app my-project && cd my-project && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
-    const comandoNPMCRATS = `alias ${treatNameComand}="${data.package} init react-app my-project --template typescript && cd my-project && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
+    const comandoNPMCRAJS = `alias ${treatNameComand}="${data.package} init react-app ${treatNameProject} && cd ${treatNameProject} && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
+    const comandoNPMCRATS = `alias ${treatNameComand}="${data.package} init react-app ${treatNameProject} --template typescript && cd ${treatNameProject} && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
 
     if (
       data.package === "yarn" &&
@@ -160,6 +162,7 @@ export const EditShapeModal = () => {
     const data = watch({
       ...register("libs", { value: editLibs }),
       ...register("userId", { value: userId }),
+      ...register("projectName", { value: handleClickCard.projectName }),
     } as any);
 
     treatCode(data);
