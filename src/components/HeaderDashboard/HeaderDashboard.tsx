@@ -29,7 +29,9 @@ export const HeaderDashboard = () => {
   return (
     <>
       <header className="h-20 px-40 flex flex-row justify-between items-center border-b-2 border-solid border-gray-900">
-        <img src={logo} alt="shape-logo" className=" w-21 h-7" />
+        <Link to={"/"}>
+          <img src={logo} alt="shape-logo" className=" w-21 h-7" />
+        </Link>
         <div className="flex flex-col items-end gap-0 group h-12 justify-center relative">
           <img
             src={user?.image.includes("http") ? user?.image : userImage}

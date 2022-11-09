@@ -16,8 +16,10 @@ export const TutorialPage = () => {
   }, []);
   return (
     <>
-      <header className="h-20 px-40 flex flex-row justify-between items-center border-b-2 border-solid bg-bg-page border-gray-900  top-0 right-0 left-0">
-        <img src={logo} alt="shape" className=" w-21 h-7" />
+      <header className="h-20 px-40 flex flex-row justify-between items-center border-b-2 border-solid bg-bg-page border-gray-900 fixed z-10 top-0 right-0 left-0">
+        <Link to={"/"}>
+          <img src={logo} alt="shape" className=" w-21 h-7" />
+        </Link>
         <div className="flex gap-5 items-center">
           <a
             className="text-grey-5 font-medium hover:text-purple-2"
