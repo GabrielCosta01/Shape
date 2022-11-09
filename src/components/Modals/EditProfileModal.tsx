@@ -2,6 +2,7 @@ import handleModalStore from "../../stores/handleModalStore";
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { loginUserStore } from "../../stores/loginUserStore";
+import { IoClose } from "react-icons/io5";
 
 export interface IEditProfile {
   email: string;
@@ -47,8 +48,12 @@ const EditProfileModal = () => {
         className="flex items-start flex-col p-8 gap-5 bg-bg-form w-96 min-h-full rounded-md"
         onSubmit={handleSubmit(editProfile)}
       >
-        <div className="min-w-full flex justify-center">
+        <div className="min-w-full flex justify-between">
           <h1 className="text-xl text-white">Editar Perfil</h1>
+          <IoClose
+            onClick={closeModal}
+            className="text-white text-3xl cursor-pointer"
+          />
         </div>
 
         <label htmlFor="user" className="text-grey-4 text-xs">
