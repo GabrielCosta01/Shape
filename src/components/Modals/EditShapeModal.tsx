@@ -4,7 +4,20 @@ import { IoClose } from "react-icons/io5";
 import { editShapeStore } from "../../stores/editShapeStore";
 import { motion } from "framer-motion";
 import { librariesContainer } from "../../stores/libsData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ToastEditShape } from "../ToastEditShape/ToastEditShape";
+import { toastEditShapeStore } from "../../stores/toastEditShapeStore";
+import { api } from "../../services/api";
+
+type IDateShapes = {
+  command: string;
+  language: string;
+  libs: string[];
+  package: string;
+  tool: string;
+  watch?: any;
+};
+
 export const EditShapeModal = () => {
   const customStyles = {
     overlay: {
@@ -23,14 +36,52 @@ export const EditShapeModal = () => {
   };
 
   const [selectLang, setSelectLang] = useState();
+  const [editLibs, setEditLibs] = useState<string[]>([]);
+  const [generateCommand, setGenerateCommand] = useState("");
 
-  const [isModal, isCloseModal] = editShapeStore((state) => [
+  const [isModal, isCloseModal, handleClickCard] = editShapeStore((state) => [
     state.isModal,
     state.isCloseModal,
+    state.handleClickCard,
   ]);
+  const [toastCreate] = toastEditShapeStore((state) => [state.toastCreate]);
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm<IDateShapes>();
+
+  const handleLibs = (javascript: string) => {
+    const select = editLibs.includes(javascript);
+    if (!select) {
+      setEditLibs([...editLibs, javascript]);
+    } else {
+      const newLibRemove = editLibs.filter((lib) => lib !== javascript);
+      setEditLibs(newLibRemove);
+    }
+  };
+
+  const handleLibsTs = (typescript: string) => {
+    const select = editLibs.includes(typescript);
+    if (!select) {
+      setEditLibs([...editLibs, typescript]);
+    } else {
+      const newLibRemove = editLibs.filter((lib) => lib !== typescript);
+      setEditLibs(newLibRemove);
+    }
+  };
+
+  const closeModal = () => {
+    isCloseModal();
+    reset();
+  };
+
+  useEffect(() => {
+    reset();
+    setEditLibs(handleClickCard.libs);
+  }, [isModal]);
+
+  useEffect(() => {
+    console.log(editLibs);
+  }, [editLibs]);
 
   return (
     <Modal
@@ -54,7 +105,7 @@ export const EditShapeModal = () => {
             </h3>
             <IoClose
               className="text-white text-3xl cursor-pointer"
-              onClick={() => isCloseModal()}
+              onClick={() => closeModal()}
             />
           </div>
           <div className="flex items-center flex-row gap-20 mt-8">
@@ -68,7 +119,7 @@ export const EditShapeModal = () => {
               <input
                 type="text"
                 id="command"
-                defaultValue={"RENDERIZAR AQ O COMANDO DO SHAPE CLICADO"}
+                defaultValue={handleClickCard.command}
                 required
                 className="text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
                 {...register("command")}
@@ -83,7 +134,7 @@ export const EditShapeModal = () => {
               </label>
               <select
                 id="package"
-                defaultValue={"yarn"}
+                defaultValue={handleClickCard.package}
                 required
                 {...register("package")}
                 className={
@@ -102,14 +153,14 @@ export const EditShapeModal = () => {
           <div className="flex items-center flex-row gap-20 mt-8">
             <div className="flex flex-col">
               <label
-                htmlFor="package"
+                htmlFor="tool"
                 className="text-grey-5 text-base mb-2 ml-1 pr-2"
               >
-                Qual ferramente de construção?
+                Qual ferramenta de construção?
               </label>
               <select
-                id="package"
-                defaultValue={"vite"}
+                id="tool"
+                defaultValue={handleClickCard.tool}
                 required
                 {...register("tool")}
                 className={
@@ -133,8 +184,9 @@ export const EditShapeModal = () => {
               </label>
               <select
                 id="language"
-                defaultValue={"typescript"}
+                defaultValue={handleClickCard.language}
                 required
+                disabled
                 className={
                   "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
                 }
@@ -159,10 +211,14 @@ export const EditShapeModal = () => {
               <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
                 {listLibrarie.map(({ name, javascript }) => (
                   <li
-                    className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                    className={
+                      editLibs?.includes(javascript)
+                        ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
+                        : "text-base font-light text-grey-5 cursor-pointer mw-14 p-2"
+                    }
                     key={javascript}
                   >
-                    <p>{name}</p>
+                    <p onClick={() => handleLibs(javascript)}>{name}</p>
                   </li>
                 ))}
               </ul>
@@ -170,10 +226,14 @@ export const EditShapeModal = () => {
               <ul className="grid grid-rows-2 grid-flow-col gap-4 mt-6 overflow-x-auto max-w-xl p-2 text-center scrollbar-thin scrollbar-thumb-purple-1 scrollbar-track-border-Inputs pb-5 scrollbar-thumb-rounded-md ">
                 {listLibrarie.map(({ name, typescript }) => (
                   <li
-                    className="text-grey-5 text-base font-light hover:text-purple-2 cursor-pointer mw-14 p-2"
+                    className={
+                      editLibs?.includes(typescript)
+                        ? "text-base font-light text-purple-2 cursor-pointer mw-14 p-2"
+                        : "text-base font-light text-grey-5 cursor-pointer mw-14 p-2"
+                    }
                     key={typescript}
                   >
-                    <p>{name}</p>
+                    <p onClick={() => handleLibsTs(typescript)}>{name}</p>
                   </li>
                 ))}
               </ul>
@@ -184,7 +244,10 @@ export const EditShapeModal = () => {
             <button className="bg-button-register p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
               Editar
             </button>
-            <button className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
+            <button
+              onClick={() => closeModal()}
+              className="bg-grey-1 p-3 pl-16 pr-16 text-base font-medium text-white rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
+            >
               Fechar
             </button>
           </div>
