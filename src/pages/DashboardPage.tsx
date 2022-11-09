@@ -23,7 +23,7 @@ export const DashboardPage = () => {
     state.isLoading,
     state.shapes,
     state.list,
-  ]);  
+  ]);
 
   useEffect(() => {
     list();

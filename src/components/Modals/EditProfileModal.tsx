@@ -1,6 +1,7 @@
 import handleModalStore from "../../stores/handleModalStore";
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
+import { loginUserStore } from "../../stores/loginUserStore";
 
 export interface IEditProfile {
   email: string;
@@ -31,6 +32,7 @@ const EditProfileModal = () => {
     state.modalIsOpen,
     state.closeModal,
   ]);
+  const [user] = loginUserStore((state) => [state.user]);
 
   return (
     <Modal
@@ -56,7 +58,7 @@ const EditProfileModal = () => {
           type="text"
           id="user"
           placeholder="Usuário"
-          required
+          defaultValue={user?.username}
           className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("username")}
         />
@@ -68,11 +70,22 @@ const EditProfileModal = () => {
           type="text"
           id="email"
           placeholder="Email"
-          required
+          defaultValue={user?.email}
           className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
           {...register("email")}
         />
 
+        <label htmlFor="img" className="text-grey-4 text-xs">
+          Imagem
+        </label>
+        <input
+          type="text"
+          id="img"
+          placeholder="Imagem"
+          defaultValue={user?.image}
+          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+          {...register("image")}
+        />
         <label htmlFor="password" className="text-grey-4 text-xs">
           Senha
         </label>
@@ -85,25 +98,16 @@ const EditProfileModal = () => {
           {...register("password")}
         />
 
-        <label htmlFor="img" className="text-grey-4 text-xs">
-          Imagem
-        </label>
-        <input
-          type="text"
-          id="img"
-          placeholder="Imagem"
-          required
-          className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
-          {...register("image")}
-        />
         <div className="w-2/4 flex items-center gap-1">
           <button className="min-w-full bg-purple-1 h-10 rounded text-grey-4 text-xs mt-2 hover:animate-pulse">
             Editar
           </button>
-          <button onClick={closeModal} className="min-w-full h-10 mt-2 bg-grey-1  text-base font-medium text-white rounded shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300">
-                Fechar
+          <button
+            onClick={closeModal}
+            className="min-w-full h-10 mt-2 bg-grey-1  text-base font-medium text-white rounded shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
+          >
+            Fechar
           </button>
-
         </div>
       </form>
     </Modal>
