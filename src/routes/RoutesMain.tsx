@@ -5,6 +5,7 @@ import { DashboardPage } from "../pages/DashboardPage";
 import { LandingPage } from "../pages/LadingPage";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { TutorialPage } from "../pages/TutorialPage";
 
 const RoutesMain = () => {
   return (
@@ -17,7 +18,7 @@ const RoutesMain = () => {
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
-
+        <Route path="/tutorial" element={<TutorialPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

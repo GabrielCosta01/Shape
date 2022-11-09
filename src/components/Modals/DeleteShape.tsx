@@ -53,7 +53,7 @@ export const DeleteShape = () => {
         exit={{ opacity: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <div className="bg-bg-form px-5 py-3 gap-6 flex flex-col items-center">
+        <div className="bg-bg-form px-5 py-3 gap-6 flex flex-col items-center rounded-md">
           <div className="w-full flex justify-between items-center">
             <h2 className="text-purple-1 text-2xl font-semibold">
               Deletar Shape
@@ -73,13 +73,13 @@ export const DeleteShape = () => {
                 filteredShapes(idShape);
                 isCloseModalDelete();
               }}
-              className="text-white px-1.5 py-1.5 bg-btn-del w-36 rounded shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300"
+              className="text-white  px-1.5 py-1.5 bg-btn-del w-36 rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-btn-del/100 duration-300"
             >
               Deletar
             </button>
             <button
               onClick={() => isCloseModalDelete()}
-              className="text-white px-1.5 py-1.5 bg-grey-1 w-36 rounded shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
+              className="text-white px-1.5 py-1.5 bg-grey-1 w-36 rounded-md shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
             >
               Cancelar
             </button>
