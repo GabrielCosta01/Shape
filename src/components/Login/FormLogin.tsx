@@ -43,7 +43,7 @@ const FormLogin = () => {
   }, [isOk]);
 
   return (
-    <section>
+    <>
       <form
         className="flex justify-center flex-col"
         onSubmit={handleSubmit(registerUser)}
@@ -94,7 +94,7 @@ const FormLogin = () => {
           loading={isLoading}
         />
       </form>
-    </section>
+    </>
   );
 };
 

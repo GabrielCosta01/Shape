@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from ".././assets/logo.png";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import { ButtonLoginRegister } from "../components/Button/ButtonLoginRegister";
@@ -6,6 +6,13 @@ import FormLogin from "../components/Login/FormLogin";
 import { UserLogged } from "../components/IsLogged/UserLogged";
 
 const LoginPage = () => {
+
+  const navigate = useNavigate()
+
+  function toRegister (){
+    navigate('/register')
+  }
+
   return (
     <>
       <main className="w-screen	h-screen flex items-center	justify-center 	flex-col bg-radial bg-center bg-no-repeat bg-888px		">
@@ -23,15 +30,15 @@ const LoginPage = () => {
             </p>
           </nav>
           <FormLogin />
-          <p className="text-grey-1 text-base	 mb-3 mt-3	">Não possui conta?</p>
-          <Link
-            to="/register"
+          <p className="text-grey-1 text-base	 mb-3 mt-3">Não possui conta?</p>
+          <button
+            onClick={toRegister}
             className={
               "bg-grey-1 flex justify-center items-center w-[17.188rem] h-[2.563rem] text-xs  rounded-md	font-semibold shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 hover:ease-out	duration-300 text-white	"
             }
           >
-            Cadastrar
-          </Link>
+            Cadastre-se
+          </button>
         </aside>
         <CircleAnimation />
       </main>
