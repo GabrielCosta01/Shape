@@ -223,9 +223,9 @@ export const EditShapeModal = () => {
             <div className="flex flex-col">
               <label
                 htmlFor="command"
-                className="text-grey-5 text-base mb-2 ml-1"
+                className="text-grey-5 text-base mb-2 ml-1 pr-20"
               >
-                Qual comando você deseja usar?
+                Qual o nome do shape?
               </label>
               <input
                 type="text"

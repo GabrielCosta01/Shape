@@ -201,16 +201,16 @@ export const CreateShapeModal = () => {
             <div className="flex flex-col">
               <label
                 htmlFor="command"
-                className="text-grey-5 text-base mb-2 ml-1"
+                className="text-grey-5 text-base mb-2 ml-1 pr-20"
               >
-                Qual comando você deseja usar?
+                Qual o nome do shape?
               </label>
               <input
                 type="text"
                 id="command"
                 required
                 className="text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-purple-1 hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
-                placeholder="Comando"
+                placeholder="Shape"
                 {...register("command")}
               />
             </div>
