@@ -19,7 +19,7 @@ export const RegisterPage = () => {
           </nav>
           <FormRegister />
           <p className="text-grey-1 text-base	 mb-3 mt-3	">
-            Ja possui uma conta?
+            Já possui uma conta?
           </p>
           <Link
             to={"/login"}
