@@ -6,6 +6,9 @@
   html {
     font-family: "Inter", sans-serif;
   }
+  html::-webkit-scrollbar-track{
+    background: orange; 
+  }
 }
 
 input[type="text"]:focus ~ .input-text,
