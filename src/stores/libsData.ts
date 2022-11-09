@@ -12,19 +12,19 @@ interface iLibrarie {
 export const librariesContainer = create<iLibraries>((set) => ({
   listLibraries: [
     {
-      name: "React router-dom",
+      name: "React Router Dom",
       javascript: "react-router-dom@6",
       typescript: "react-router-dom@6",
     },
     {
-      name: "React hook/form",
-      javascript: "react-hook-form",
-      typescript: "react-hook-form",
+      name: "React Hook Form",
+      javascript: "react-hook-form @hookform/resolvers",
+      typescript: "react-hook-form @hookform/resolvers",
     },
     {
-      name: "React hook/formYup",
-      javascript: "@hookform/resolvers",
-      typescript: "@hookform/resolvers",
+      name: "Yup",
+      javascript: "yup",
+      typescript: "yup",
     },
     {
       name: "Zustand",
@@ -32,24 +32,54 @@ export const librariesContainer = create<iLibraries>((set) => ({
       typescript: "zustand",
     },
     {
-      name: "React modal",
+      name: "React Modal",
       javascript: "react-modal",
       typescript: "@types/react-modal",
     },
     {
-      name: "React joyride",
+      name: "React Joyride",
       javascript: "react-joyride",
       typescript: "@types/react-joyride",
     },
     {
-      name: "Styled-components",
+      name: "Styled Components",
       javascript: "styled-components",
       typescript: "@types/styled-components",
     },
     {
-      name: "Tailwindcss",
-      javascript: "tailwindcsspostcssautoprefixer",
-      typescript: "tailwindcsspostcssautoprefixer",
+      name: "Animate On Scroll",
+      javascript: "aos",
+      typescript: "@types/aos",
+    },
+    {
+      name: "Framer Motion",
+      javascript: "framer-motion",
+      typescript: "framer-motion",
+    },
+    {
+      name: "React Icons",
+      javascript: "react-icons",
+      typescript: "react-icons",
+    },
+    {
+      name: "React Lottie",
+      javascript: "react-lottie",
+      typescript: "@types/react-lottie",
+    },
+    {
+      name: "Axios",
+      javascript: "axios",
+      typescript: "axios",
+    },
+    {
+      name: "Redux",
+      javascript: "react-redux",
+      typescript: "react-redux",
+    },
+    {
+      name: "Material UI",
+      javascript: "@mui/material @emotion/react @emotion/styled",
+      typescript: "@mui/material @emotion/react @emotion/styled",
     },
   ],
 }));

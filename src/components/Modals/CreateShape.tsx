@@ -63,46 +63,69 @@ export const CreateShapeModal = () => {
   };
 
   const treatCode = (data: IDateShapes) => {
-    const comandoYarnVite = `alias ${data.command}="${data.package} create ${
-      data.tool
-    } nome-do-projeto --template react && cd nome-do-projeto && ${
-      data.package
-    } && ${data.package} add ${data.libs?.filter(
-      (element) => element
-    )} && code . && ${data.package} dev"`;
+    const treatLibs = data.libs.join(" ");
+    const treatNameComand = data.command.replaceAll(" ", "").trim();
 
-    const comandoYarnCRA = `alias ${data.command}="${data.package} create ${
-      data.tool
-    } nome-do-projeto --template react && cd nome-do-projeto && ${
-      data.package
-    } && ${data.package} add ${data.libs?.filter(
-      (element) => element
-    )} && code . && ${data.package} dev"`;
+    const comandoYarnViteJS = `alias ${treatNameComand}="${data.package} create vite my-project --template react && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
+    const comandoYarnViteTS = `alias ${treatNameComand}="${data.package} create vite my-project --template react-ts && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
 
-    const comandoNPMVite = `alias ${data.command}="${data.package} install ${
-      data.tool
-    }nome-do-projeto --template react && cd nome-do-projeto && ${
-      data.package
-    } && ${data.package} add ${data.libs?.filter(
-      (element) => element
-    )} && code . && ${data.package} dev"`;
+    const comandoNPMViteJS = `alias ${treatNameComand}="${data.package} create vite@latest my-project -- --template react && cd my-project && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
+    const comandoNPMViteTS = `alias ${treatNameComand}="${data.package} create vite@latest my-project -- --template react-ts && cd my-project && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
 
-    const comandoNPMCRA = `alias ${data.command}="${data.package} install ${
-      data.tool
-    }nome-do-projeto --template react && cd nome-do-projeto && ${
-      data.package
-    } && ${data.package} add ${data.libs?.filter(
-      (element) => element
-    )} && code . && ${data.package} dev"`;
+    const comandoYarnCRAJS = `alias ${treatNameComand}="${data.package} create react-app my-project && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
+    const comandoYarnCRATS = `alias ${treatNameComand}="${data.package} create react-app my-project --template typescript && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
 
-    if (data.package === "yarn" && data.tool === "vite") {
-      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
-    } else if (data.package === "yarn" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
-    } else if (data.package === "npm" && data.tool === "vite") {
-      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
-    } else if (data.package === "npm" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
+    const comandoNPMCRAJS = `alias ${treatNameComand}="${data.package} init react-app my-project && cd my-project && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
+    const comandoNPMCRATS = `alias ${treatNameComand}="${data.package} init react-app my-project --template typescript && cd my-project && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
+
+    if (
+      data.package === "yarn" &&
+      data.tool === "create-react-app" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoYarnCRAJS.replaceAll(",", ""));
+    } else if (
+      data.package === "yarn" &&
+      data.tool === "create-react-app" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoYarnCRATS.replaceAll(",", ""));
+    } else if (
+      data.package === "yarn" &&
+      data.tool === "vite" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoYarnViteJS.replaceAll(",", ""));
+    } else if (
+      data.package === "yarn" &&
+      data.tool === "vite" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoYarnViteTS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "vite" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoNPMViteJS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "vite" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoNPMViteTS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "create-react-app" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoNPMCRAJS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "create-react-app" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoNPMCRATS.replaceAll(",", ""));
     }
   };
 
