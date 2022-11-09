@@ -1,8 +1,7 @@
-import { object } from "yup";
 import create from "zustand";
+import { api } from "../services/api";
 import { IAvaliable } from "../components/Modals/EditAvaliabeModal";
 import { IEditProfile } from "../components/Modals/EditProfileModal";
-import { api } from "../services/api";
 
 interface IModal {
   modalIsOpen: boolean;
@@ -15,7 +14,7 @@ interface IModal {
   editProfile: (data: IEditProfile) => void;
 }
 
-const handleModalStore = create<IModal>((set) => ({
+export const handleModalStore = create<IModal>((set) => ({
   modalIsOpen: false,
   modalAvaliableIsOpen: false,
 
@@ -38,16 +37,18 @@ const handleModalStore = create<IModal>((set) => ({
   avaliableShape: async (data) => {
     try {
       const userId = localStorage.getItem("@shape:userId");
-      const request = await api.post(`/600/users/${userId}/rates`, data);
-    } catch (error) {}
+      await api.post(`/600/users/${userId}/rates`, data);
+    } catch (error) {
+      console.error(error)
+    }
   },
 
   editProfile: async (data) => {
     try {
       const userId = localStorage.getItem("@shape:userId");
-      const request = await api.patch(`/600/users/${userId}`, data);
-    } catch (error) {}
+      await api.patch(`/600/users/${userId}`, data);
+    } catch (error) {
+      console.error(error)
+    }
   },
 }));
-
-export default handleModalStore;

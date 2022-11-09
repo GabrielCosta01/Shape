@@ -1,10 +1,11 @@
+import { ToastCreateShape } from "./ToastCreateShape";
 import { toastCreateShapeStore } from "../../stores/toastCreateShapeStore";
-import { ToastCreateShape } from "../ToastCreateShape/ToastCreateShape";
 
 export const ToastContainerCreate = () => {
   const [listToastCreate] = toastCreateShapeStore((state) => [
     state.listToastCreate,
   ]);
+
   return (
     <ul>
       {listToastCreate?.map((toast) => (

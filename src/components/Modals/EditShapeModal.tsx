@@ -1,13 +1,11 @@
-import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import { IoClose } from "react-icons/io5";
-import { editShapeStore } from "../../stores/editShapeStore";
 import { motion } from "framer-motion";
-import { librariesContainer } from "../../stores/libsData";
+import { useForm } from "react-hook-form";
+import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { ToastEditShape } from "../ToastEditShape/ToastEditShape";
+import { librariesContainer } from "../../stores/libsData";
+import { editShapeStore } from "../../stores/editShapeStore";
 import { toastEditShapeStore } from "../../stores/toastEditShapeStore";
-import { api } from "../../services/api";
 
 type IDateShapes = {
   command: string;
@@ -19,6 +17,7 @@ type IDateShapes = {
 };
 
 export const EditShapeModal = () => {
+  
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",

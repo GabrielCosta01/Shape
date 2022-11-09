@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
 import logo from ".././assets/logo.png";
-import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
-import FormLogin from "../components/Login/FormLogin";
+import { Link } from "react-router-dom";
+import { CircleAnimation } from "../components/AnimationsComp/AnimationCircles";
+import { FormLogin } from "../components/FormLogin/FormLogin";
 import { motion } from "framer-motion";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -42,5 +42,3 @@ const LoginPage = () => {
     </motion.div>
   );
 };
-
-export default LoginPage;

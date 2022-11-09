@@ -1,6 +1,6 @@
-import { AnimationNotFound } from "../components/AnimationNotFound/AnimationNotFound";
 import logo from "../assets/logo.png";
 import { motion } from "framer-motion";
+import { AnimationNotFound } from "../components/AnimationsComp/AnimationNotFound";
 
 export const NotFoundPage = () => {
   return (

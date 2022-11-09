@@ -1,12 +1,13 @@
+import { LoginPage } from "../pages/LoginPage";
 import { Route, Routes } from "react-router-dom";
-import { RegisterPage } from "../pages/RegisterPage";
-import LoginPage from "../pages/LoginPage";
-import { DashboardPage } from "../pages/DashboardPage";
 import { LandingPage } from "../pages/LadingPage";
-import ProtectedRoutes from "./ProtectedRoutes";
+import { ProtectedRoutes } from "./ProtectedRoutes";
+import { RegisterPage } from "../pages/RegisterPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { DashboardPage } from "../pages/DashboardPage";
 
-const RoutesMain = () => {
+export const RoutesMain = () => {
+
   return (
     <>
       <Routes>
@@ -23,5 +24,3 @@ const RoutesMain = () => {
     </>
   );
 };
-
-export default RoutesMain;

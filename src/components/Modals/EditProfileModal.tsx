@@ -1,6 +1,6 @@
-import handleModalStore from "../../stores/handleModalStore";
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
+import { handleModalStore } from "../../stores/handleModalStore";
 
 export interface IEditProfile {
   email: string;
@@ -9,7 +9,8 @@ export interface IEditProfile {
   password: string;
 }
 
-const EditProfileModal = () => {
+export const EditProfileModal = () => {
+
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",
@@ -109,5 +110,3 @@ const EditProfileModal = () => {
     </Modal>
   );
 };
-
-export default EditProfileModal;

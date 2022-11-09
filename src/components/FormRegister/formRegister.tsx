@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
-import { ButtonLoginRegister } from "../../Button/ButtonLoginRegister";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaRegister } from "../../../schemas/registerSchema";
-import { registerUserStore } from "../../../stores/registerUserStore";
 import { useEffect } from "react";
-import { toastStore } from "../../../stores/toastStore";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toastStore } from "../../stores/toastStore";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaRegister } from "../../schemas/registerSchema";
+import { registerUserStore } from "../../stores/registerUserStore";
+import { ButtonLoginRegister } from "../Button/ButtonLoginRegister";
 
 export interface IData {
   username: string;
@@ -14,7 +14,7 @@ export interface IData {
   password: string;
 }
 
-export default function FormRegister() {
+export function FormRegister() {
   const [toast] = toastStore((state) => [state.toast]);
   const {
     register,
@@ -47,9 +47,8 @@ export default function FormRegister() {
         <label className=" flex flex-col mb-8 relative">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
-             border-border-Inputs bg-transparent rounded focus:border-button-register outline-none
-             transition duration-250 valid:border-button-register
-             "
+            border-border-Inputs bg-transparent rounded focus:border-button-register outline-none
+            transition duration-250 valid:border-button-register"
             type="text"
             required
             {...register("username")}
@@ -102,9 +101,8 @@ export default function FormRegister() {
         <label className=" flex flex-col mb-8 relative">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
-             border-border-Inputs bg-transparent rounded focus:border-button-register valid:border-button-register outline-none
-             transition duration-250 input-active
-             "
+            border-border-Inputs bg-transparent rounded focus:border-button-register valid:border-button-register outline-none
+            transition duration-250 input-active"
             type="password"
             required
             {...register("password")}

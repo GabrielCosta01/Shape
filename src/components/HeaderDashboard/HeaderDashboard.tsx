@@ -1,22 +1,22 @@
 import logo from "../../assets/logo.png";
-import estrela from "../../assets/estrela.svg";
 import lapis from "../../assets/lapis.svg";
 import saida from "../../assets/saida.svg";
-import EditProfileModal from "../Modals/EditProfileModal";
-import EditAvaliabeModal from "../Modals/EditAvaliabeModal";
-import { Link } from "react-router-dom";
-import handleModalStore from "../../stores/handleModalStore";
-import { loginUserStore } from "../../stores/loginUserStore";
+import estrela from "../../assets/estrela.svg";
 import userImage from "../../assets/user-image.jpg";
+import { Link } from "react-router-dom";
+import { loginUserStore } from "../../stores/loginUserStore";
+import { EditProfileModal } from "../Modals/EditProfileModal";
+import { EditAvaliabeModal } from "../Modals/EditAvaliabeModal";
+import { handleModalStore } from "../../stores/handleModalStore";
 
 export const HeaderDashboard = () => {
+
   const [openModal] = handleModalStore((state) => [state.openModal]);
   const [openModalAvaliable] = handleModalStore((state) => [
     state.openModalAvaliable,
   ]);
 
-  const [isOk, logout, user] = loginUserStore((state) => [
-    state.isOk,
+  const [logout, user] = loginUserStore((state) => [
     state.logout,
     state.user,
   ]);
@@ -26,6 +26,7 @@ export const HeaderDashboard = () => {
 
     logout();
   };
+  
   return (
     <>
       <header className="flex h-20 justify-around gap-40 items-center border-b-2 border-solid border-gray-900">

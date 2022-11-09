@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import logo from ".././assets/logo.png";
-import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
-import FormRegister from "../components/Register/Form/formRegister";
-
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { FormRegister } from "../components/FormRegister/formRegister";
+import { CircleAnimation } from "../components/AnimationsComp/AnimationCircles";
 
 export const RegisterPage = () => {
   return (

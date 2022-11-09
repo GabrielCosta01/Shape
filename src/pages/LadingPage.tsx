@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import shapeLogo from "../assets/logo.png";
-import books from "../assets/Vector.svg";
-import { ReactLogo } from "../components/ReactLogo/ReactLogo";
-import { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import books from "../assets/Vector.svg";
+import shapeLogo from "../assets/logo.png";
 import { librariesContainer } from "../stores/libsData";
+import { CircleAnimation } from "../components/AnimationsComp/AnimationCircles";
+import { ReactLogo } from "../components/AnimationsComp/AnimationReactLogo";
 
 export const LandingPage = () => {
   useEffect(() => {

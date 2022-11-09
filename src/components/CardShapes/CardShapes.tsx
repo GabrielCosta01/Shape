@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { DeleteShape } from "../Modals/DeleteShape";
 import { editShapeStore } from "../../stores/editShapeStore";
 import { deleteShapeStore } from "../../stores/deleteShapeStore";
-import { DeleteShape } from "../Modals/DeleteShape";
 
 export interface IShape {
   command: string;
@@ -21,10 +21,10 @@ interface ICardProps {
 }
 
 export const CardShapes = ({ shape, layoutId }: ICardProps) => {
+
   const [details, setDetails] = useState(null);
   const [isOpenModal] = editShapeStore((state) => [state.isOpenModal]);
-  const [isModal, isOpenModalDelete, idShapeNew] = deleteShapeStore((state) => [
-    state.isModal,
+  const [isOpenModalDelete, idShapeNew] = deleteShapeStore((state) => [
     state.isOpenModalDelete,
     state.idShapeNew,
   ]);
@@ -33,10 +33,7 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
     <>
       {!details && (
         <>
-          <li
-            onClick={() => <DeleteShape />}
-            className="bg-bg-form rounded-md p-4 h-36 w-56"
-          >
+          <li className="bg-bg-form rounded-md p-4 h-36 w-56">
             <div className="">
               <>
                 <div>

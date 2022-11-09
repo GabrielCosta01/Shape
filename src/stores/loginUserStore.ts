@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import create from "zustand";
-import { IData } from "../components/Login/FormLogin";
 import { api } from "../services/api";
+import { IData } from "../components/FormLogin/FormLogin";
 
 interface ILoginStore {
   isOk: number | null;
@@ -26,6 +25,9 @@ export const loginUserStore = create<ILoginStore>((set) => ({
   isOk: null,
   isLogged: false,
   isLoading: false,
+  user: null,
+  isLoadingUser: true,
+
   loginUser: async (data: IData) => {
     try {
       set(() => ({ isLoading: true }));
@@ -53,9 +55,6 @@ export const loginUserStore = create<ILoginStore>((set) => ({
       isOk: null,
     }));
   },
-
-  user: null,
-  isLoadingUser: true,
 
   requestUser: async () => {
     set(() => ({ isLoadingUser: true }));

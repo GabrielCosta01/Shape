@@ -1,16 +1,15 @@
-import { useForm } from "react-hook-form";
-import { FaStar } from "react-icons/fa";
-import { useState } from "react";
 import Modal from "react-modal";
-import handleModalStore from "../../stores/handleModalStore";
+import { useState } from "react";
+import { FaStar } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { handleModalStore } from "../../stores/handleModalStore";
+
 export interface IAvaliable {
   rate: string;
 }
-interface iRating {
-  rating: number;
-  setRating: () => void;
-}
-const EditAvaliabeModal = () => {
+
+export const EditAvaliabeModal = () => {
+  
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",
@@ -41,6 +40,7 @@ const EditAvaliabeModal = () => {
     const newData = { ...data, ratingStar };
     avaliableShape(newData);
   };
+
   return (
     <Modal
       isOpen={modalAvaliableIsOpen}
@@ -107,7 +107,6 @@ const EditAvaliabeModal = () => {
             onClick={closeModalAvaliable}
             className="min-w-full h-10 mt-2 bg-grey-1  text-base font-medium text-white rounded shadow-[0_2px_30px_-10px_rgba(0,0,0,0.3)]  hover:shadow-button-register/100 duration-300"
           >
-            {/* min-w-full bg-purple-1 h-10 rounded text-grey-4 text-xs mt-2 hover:animate-pulse */}
             Fechar
           </button>
         </div>
@@ -115,4 +114,3 @@ const EditAvaliabeModal = () => {
     </Modal>
   );
 };
-export default EditAvaliabeModal;

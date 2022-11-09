@@ -1,14 +1,14 @@
-import { NavLink } from "react-router-dom";
 import { Snackbar } from "@mui/material";
+import { IoClose } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 import {
   IToastCreate,
   toastCreateShapeStore,
 } from "../../stores/toastCreateShapeStore";
-import { IoClose } from "react-icons/io5";
-import { ToastTransitionCreate } from "../ToastTransition/ToastTransitionCreate";
-import { AnimationChecked } from "../AnimationChecked/AnimationChecked";
+import { AnimationChecked } from "../AnimationsComp/AnimationChecked";
+import { ToastTransitionCreate } from "./ToastTransitionCreate";
 
-export const ToastEditShape = ({ commandCreate, id }: IToastCreate) => {
+export const ToastCreateShape = ({ commandCreate, id }: IToastCreate) => {
   const [removeToastCreate] = toastCreateShapeStore((state) => [
     state.removeToastCreate,
   ]);
@@ -25,7 +25,7 @@ export const ToastEditShape = ({ commandCreate, id }: IToastCreate) => {
             <div className="flex gap-2">
               <AnimationChecked />
               <p className="flex items-center text-icon-checked text-xl font-semibold mb-1">
-                Shape editado com sucesso!
+                Shape criado com sucesso!
               </p>
             </div>
             <IoClose

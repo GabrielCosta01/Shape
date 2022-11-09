@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { AnimationLoading } from "../components/AnimationLoading/AnimationLoading";
-import { AnimationNotLib } from "../components/AnimationNotLib/AnimationNotLib";
-import { AnimationNotShapes } from "../components/AnimationNotShapes/AnimationNotShapes";
+import { AnimationLoading } from "../components/AnimationsComp/AnimationLoading";
+import { AnimationNotLib } from "../components/AnimationsComp/AnimationNotLib";
+import { AnimationNotShapes } from "../components/AnimationsComp/AnimationNotShapes";
 import { ContainerShapes } from "../components/ContainerShapes/ContainerShapes";
 import { HeaderDashboard } from "../components/HeaderDashboard/HeaderDashboard";
 import { listShapesStore } from "../stores/listShapesStore";
@@ -14,9 +14,8 @@ import { AnimateSharedLayout } from "framer-motion";
 import { motion } from "framer-motion";
 
 export const DashboardPage = () => {
-  const [isOpenModal, isCloseModal] = createShapeStore((state) => [
+  const [isOpenModal] = createShapeStore((state) => [
     state.isOpenModal,
-    state.isCloseModal,
   ]);
 
   const [isLoading, shapes, list] = listShapesStore((state) => [

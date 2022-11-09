@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { loginUserStore } from "../../stores/loginUserStore";
-import { schemaLogin } from "../../schemas/loginSchema";
-import { ButtonLoginRegister } from "../Button/ButtonLoginRegister";
-import { toastStore } from "../../stores/toastStore";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toastStore } from "../../stores/toastStore";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaLogin } from "../../schemas/loginSchema";
+import { loginUserStore } from "../../stores/loginUserStore";
+import { ButtonLoginRegister } from "../Button/ButtonLoginRegister";
 
 export interface IData {
   username: string;
@@ -14,7 +14,8 @@ export interface IData {
   password: string;
 }
 
-const FormLogin = () => {
+export const FormLogin = () => {
+
   const {
     register,
     handleSubmit,
@@ -70,9 +71,9 @@ const FormLogin = () => {
         <label className=" flex flex-col mb-8 relative">
           <input
             className="w-[17.188rem] h-[2.438rem] text-white   border-2 px-4
-             border-border-Inputs bg-transparent rounded focus:border-button-register valid:border-button-register outline-none
-             transition duration-250 input-active
-             "
+            border-border-Inputs bg-transparent rounded focus:border-button-register valid:border-button-register outline-none
+            transition duration-250 input-active
+            "
             type="password"
             required
             {...register("password")}
@@ -97,5 +98,3 @@ const FormLogin = () => {
     </section>
   );
 };
-
-export default FormLogin;

@@ -1,6 +1,6 @@
-import { ToastContainer } from "./components/ToastContainer/ToastContainer";
-import { ToastContainerCreate } from "./components/ToastContainer/ToastContainerCreate";
-import RoutesMain from "./routes/RoutesMain";
+import { RoutesMain } from "./routes/RoutesMain";
+import { ToastContainer } from "./components/ToastsComp/ToastContainer";
+import { ToastContainerCreate } from "./components/ToastsComp/ToastContainerCreate";
 
 function App() {
   return (

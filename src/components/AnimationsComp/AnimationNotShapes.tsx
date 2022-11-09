@@ -1,13 +1,7 @@
 import Lottie from "react-lottie";
 import animationData from "../../animations/animationNotShapes.json";
-import { useAnimationInfiniteStore } from "../../stores/animationInfiniteStore";
 
 export const AnimationNotShapes = () => {
-  const [isPaused, isStopped] = useAnimationInfiniteStore((state) => [
-    state.isPaused,
-    state.isStopped,
-  ]);
-
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -23,8 +17,8 @@ export const AnimationNotShapes = () => {
         options={defaultOptions}
         height={260}
         width={600}
-        isStopped={isStopped}
-        isPaused={isPaused}
+        isStopped={false}
+        isPaused={false}
       />
     </div>
   );

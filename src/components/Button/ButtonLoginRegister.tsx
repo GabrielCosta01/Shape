@@ -3,11 +3,12 @@ import { VscLoading } from "react-icons/vsc";
 
 interface IBtnProps {
   text: ReactNode;
-  style: any;
+  style: string;
   loading: boolean | undefined;
 }
 
 export const ButtonLoginRegister = ({ text, style, loading }: IBtnProps) => {
+  
   return (
     <>
       {loading ? (

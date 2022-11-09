@@ -1,9 +1,10 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { AnimationLoading } from "../components/AnimationLoading/AnimationLoading";
+import { AnimationLoading } from "../components/AnimationsComp/AnimationLoading";
 import { loginUserStore } from "../stores/loginUserStore";
 
-const ProtectedRoutes = ({ children }: any) => {
+export const ProtectedRoutes = () => {
+
   const [user, requestUser, isLoadingUser] = loginUserStore((state) => [
     state.user,
     state.requestUser,
@@ -24,5 +25,3 @@ const ProtectedRoutes = ({ children }: any) => {
     <Navigate to="/" replace state={{ from: location }} />
   );
 };
-
-export default ProtectedRoutes;

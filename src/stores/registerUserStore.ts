@@ -1,6 +1,7 @@
 import create from "zustand";
-import { IData } from "../components/Register/Form/formRegister";
 import { api } from "../services/api";
+import { IData } from "../components/FormRegister/formRegister";
+
 interface IRegisterStore {
   isOk: number | null;
   isLoading: boolean;

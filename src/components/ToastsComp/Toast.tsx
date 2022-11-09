@@ -1,7 +1,7 @@
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Alert, Snackbar } from "@mui/material";
 import { IToast, toastStore } from "../../stores/toastStore";
-import { ToastTransition } from "../ToastTransition/ToastTransition";
+import { ToastTransition } from "./ToastTransition";
 
 interface IToastProps {
   toast: IToast;
