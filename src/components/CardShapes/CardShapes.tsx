@@ -29,6 +29,8 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
     state.idShapeNew,
   ]);
 
+  const treadShapeLibs = shape.libs.join(", ");
+
   return (
     <>
       {!details && (
@@ -101,7 +103,8 @@ export const CardShapes = ({ shape, layoutId }: ICardProps) => {
               </div>
               <div className="flex gap-2 mt-1">
                 <p className="text-purple-1 font-medium">
-                  Bibliotecas: <span className="text-grey-2">{shape.libs}</span>
+                  Bibliotecas:{" "}
+                  <span className="text-grey-2">{treadShapeLibs}</span>
                 </p>
               </div>
               <div className="mt-4 flex flex-row gap-4 justify-center">
