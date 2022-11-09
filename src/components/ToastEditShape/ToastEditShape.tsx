@@ -7,9 +7,10 @@ import {
 import { IoClose } from "react-icons/io5";
 import { ToastTransitionCreate } from "../ToastTransition/ToastTransitionCreate";
 import { AnimationChecked } from "../AnimationChecked/AnimationChecked";
+import { toastEditShapeStore } from "../../stores/toastEditShapeStore";
 
 export const ToastEditShape = ({ commandCreate, id }: IToastCreate) => {
-  const [removeToastCreate] = toastCreateShapeStore((state) => [
+  const [removeToastCreate] = toastEditShapeStore((state) => [
     state.removeToastCreate,
   ]);
 

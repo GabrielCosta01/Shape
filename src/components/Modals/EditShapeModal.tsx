@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { ToastEditShape } from "../ToastEditShape/ToastEditShape";
 import { toastEditShapeStore } from "../../stores/toastEditShapeStore";
 import { api } from "../../services/api";
+import { listShapesStore } from "../../stores/listShapesStore";
+import { ToastContainerEdit } from "../ToastContainer/ToastContainerEdit";
 
 type IDateShapes = {
   command: string;
@@ -16,6 +18,7 @@ type IDateShapes = {
   package: string;
   tool: string;
   watch?: any;
+  userId: number | string | null;
 };
 
 export const EditShapeModal = () => {
@@ -35,21 +38,24 @@ export const EditShapeModal = () => {
     },
   };
 
-  const [selectLang, setSelectLang] = useState();
+  const [selectLang, setSelectLang] = useState("");
   const [editLibs, setEditLibs] = useState<string[]>([]);
   const [generateCommand, setGenerateCommand] = useState("");
+  const [shapeData, setShapeData] = useState(null);
 
   const [isModal, isCloseModal, handleClickCard] = editShapeStore((state) => [
     state.isModal,
     state.isCloseModal,
     state.handleClickCard,
   ]);
+
+  const [list] = listShapesStore((state) => [state.list]);
   const [toastCreate] = toastEditShapeStore((state) => [state.toastCreate]);
   const [listLibrarie] = librariesContainer((state) => [state.listLibraries]);
 
-  const { register, handleSubmit, reset } = useForm<IDateShapes>();
+  const { register, handleSubmit, watch, reset } = useForm<IDateShapes>();
 
-  const handleLibs = (javascript: string) => {
+  const handleLibsJs = (javascript: string) => {
     const select = editLibs.includes(javascript);
     if (!select) {
       setEditLibs([...editLibs, javascript]);
@@ -77,11 +83,67 @@ export const EditShapeModal = () => {
   useEffect(() => {
     reset();
     setEditLibs(handleClickCard.libs);
+    setSelectLang(handleClickCard.language);
   }, [isModal]);
 
+  useEffect(() => {}, [editLibs]);
+
+  const treatCode = (data: IDateShapes) => {
+    const treatCommand = data.libs.join(" ");
+    const treatNameComand = data.command.replaceAll(" ", "").trim();
+
+    const comandoYarnVite = `alias ${treatNameComand}="${data.package} create ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+
+    const comandoYarnCRA = `alias ${treatNameComand}="${data.package} create ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+
+    const comandoNPMVite = `alias ${treatNameComand}="${data.package} install ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+
+    const comandoNPMCRA = `alias ${treatNameComand}="${data.package} init ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+
+    if (data.package === "yarn" && data.tool === "vite") {
+      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
+    } else if (data.package === "yarn" && data.tool === "create-react-app") {
+      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
+    } else if (data.package === "npm" && data.tool === "vite") {
+      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
+    } else if (data.package === "npm" && data.tool === "create-react-app") {
+      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
+    }
+    console.log(generateCommand);
+  };
+
+  const createShape = async () => {
+    const userId = localStorage.getItem("@shape:userId");
+    const data = watch({
+      ...register("libs", { value: editLibs }),
+      ...register("userId", { value: userId }),
+    } as any);
+
+    treatCode(data);
+    setShapeData(data);
+  };
+
   useEffect(() => {
-    console.log(editLibs);
-  }, [editLibs]);
+    handleRequest(shapeData);
+    reset();
+  }, [shapeData]);
+
+  const handleRequest = async (data: any) => {
+    try {
+      if (shapeData) {
+        const request = await api.patch(
+          `/600/shapes/${handleClickCard.id}`,
+          data
+        );
+
+        list();
+        toastCreate(generateCommand);
+        isCloseModal();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Modal
@@ -98,7 +160,10 @@ export const EditShapeModal = () => {
         exit={{ opacity: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <form className="flex flex-col p-8 gap-5 bg-bg-form rounded-md">
+        <form
+          onSubmit={handleSubmit(createShape)}
+          className="flex flex-col p-8 gap-5 bg-bg-form rounded-md"
+        >
           <div className="flex items-center justify-between">
             <h3 className="text-white text-2xl text font-medium">
               Edite seu Shape
@@ -190,9 +255,6 @@ export const EditShapeModal = () => {
                 className={
                   "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
                 }
-                {...register("language", {
-                  onChange: (e) => setSelectLang(e.target.value),
-                })}
               >
                 <option value="javascript" className="bg-bg-form">
                   JavaScript
@@ -218,7 +280,7 @@ export const EditShapeModal = () => {
                     }
                     key={javascript}
                   >
-                    <p onClick={() => handleLibs(javascript)}>{name}</p>
+                    <p onClick={() => handleLibsJs(javascript)}>{name}</p>
                   </li>
                 ))}
               </ul>
