@@ -8,6 +8,7 @@ import "aos/dist/aos.css";
 import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import { motion } from "framer-motion";
 import { librariesContainer } from "../stores/libsData";
+import Pitch from "../components/Pitch/Pitch";
 
 export const LandingPage = () => {
   useEffect(() => {
@@ -27,7 +28,7 @@ export const LandingPage = () => {
     >
       <div className="bg-bg-page w-auto h-auto min-h-screen text-white  flex flex-col gap-10">
         <header
-          className="h-20 px-40 flex flex-row justify-between items-center border-b-2 border-solid border-gray-900"
+          className="h-20 px-40 w-full bg-bg-page flex flex-row justify-between items-center border-b-2 border-solid border-gray-900 fixed z-10"
           data-aos="fade-down"
         >
           <img className="w-15 h-7" src={shapeLogo} alt="Logo Shape" />
@@ -56,12 +57,14 @@ export const LandingPage = () => {
             >
               <ReactLogo />
               <div className="flex flex-col justify-center items-center gap-1">
+                <CircleAnimation />
                 <img className="w-5/12" src={shapeLogo} alt="logo React" />
+
                 <h3 className="text-lg">for React</h3>
               </div>
             </div>
             <h3
-              className="text-lg text-grey-2"
+              className="text-lg text-grey-2 w-5/12 flex-wrap text-center"
               data-aos="zoom-in"
               data-aos-duration="800"
             >
@@ -69,7 +72,8 @@ export const LandingPage = () => {
               shapado, configure seu ambiente de desenvolvimento com velocidade
               e facilidade.
             </h3>
-            <CircleAnimation />
+
+            <Pitch />
             <div
               data-aos="fade-up"
               className="max-w-2xl mx-80 mt-52 flex flex-row self-start items-center justify-center gap-1 text-purple-2 text-lg"
@@ -78,8 +82,9 @@ export const LandingPage = () => {
               <h4 className="text-center mb-2">Bibliotecas</h4>
             </div>
           </section>
+
           <section
-            className="mt-1 h-heightSection border-b-2 border-t-2 border-solid border-gray-900 flex flex-col"
+            className="mt-1 h-heightSection border-t-2 border-solid border-gray-900 flex flex-col"
             data-aos="fade-up"
           >
             <div className=" flex items-center justify-evenly mt-12">
@@ -113,7 +118,7 @@ export const LandingPage = () => {
           </section>
         </main>
 
-        <footer className="h-40	 flex gap-4 justify-around items-center relative">
+        <footer className="h-40	 flex gap-4 justify-around items-center relative border-t-2 border-solid border-gray-900">
           <img className="w-15 h-7" src={shapeLogo} alt="Logo Shape" />
           <h4 className="text-center text-xs text-grey-3 w-60">
             Projeto criado por estudantes da Kenzie Academy Brasil, como
