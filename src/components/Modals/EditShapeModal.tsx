@@ -89,27 +89,70 @@ export const EditShapeModal = () => {
   useEffect(() => {}, [editLibs]);
 
   const treatCode = (data: IDateShapes) => {
-    const treatCommand = data.libs.join(" ");
+    const treatLibs = data.libs.join(" ");
     const treatNameComand = data.command.replaceAll(" ", "").trim();
 
-    const comandoYarnVite = `alias ${treatNameComand}="${data.package} create ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+    const comandoYarnViteJS = `alias ${treatNameComand}="${data.package} create vite my-project --template react && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
+    const comandoYarnViteTS = `alias ${treatNameComand}="${data.package} create vite my-project --template react-ts && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} dev"`;
 
-    const comandoYarnCRA = `alias ${treatNameComand}="${data.package} create ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+    const comandoNPMViteJS = `alias ${treatNameComand}="${data.package} create vite@latest my-project -- --template react && cd my-project && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
+    const comandoNPMViteTS = `alias ${treatNameComand}="${data.package} create vite@latest my-project -- --template react-ts && cd my-project && ${data.package} install && ${data.package} i ${treatLibs} && code . && ${data.package} run dev"`;
 
-    const comandoNPMVite = `alias ${treatNameComand}="${data.package} install ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+    const comandoYarnCRAJS = `alias ${treatNameComand}="${data.package} create react-app my-project && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
+    const comandoYarnCRATS = `alias ${treatNameComand}="${data.package} create react-app my-project --template typescript && cd my-project && ${data.package} && ${data.package} add ${treatLibs} && code . && ${data.package} start"`;
 
-    const comandoNPMCRA = `alias ${treatNameComand}="${data.package} init ${data.tool} nome-do-projeto --template react && cd nome-do-projeto && ${data.package} && ${data.package} add ${treatCommand} && code . && ${data.package} dev"`;
+    const comandoNPMCRAJS = `alias ${treatNameComand}="${data.package} init react-app my-project && cd my-project && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
+    const comandoNPMCRATS = `alias ${treatNameComand}="${data.package} init react-app my-project --template typescript && cd my-project && ${data.package} run build && ${data.package} i ${treatLibs} && code . && ${data.package} start"`;
 
-    if (data.package === "yarn" && data.tool === "vite") {
-      setGenerateCommand(comandoYarnVite.replaceAll(",", ""));
-    } else if (data.package === "yarn" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoYarnCRA.replaceAll(",", ""));
-    } else if (data.package === "npm" && data.tool === "vite") {
-      setGenerateCommand(comandoNPMVite.replaceAll(",", ""));
-    } else if (data.package === "npm" && data.tool === "create-react-app") {
-      setGenerateCommand(comandoNPMCRA.replaceAll(",", ""));
+    if (
+      data.package === "yarn" &&
+      data.tool === "create-react-app" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoYarnCRAJS.replaceAll(",", ""));
+    } else if (
+      data.package === "yarn" &&
+      data.tool === "create-react-app" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoYarnCRATS.replaceAll(",", ""));
+    } else if (
+      data.package === "yarn" &&
+      data.tool === "vite" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoYarnViteJS.replaceAll(",", ""));
+    } else if (
+      data.package === "yarn" &&
+      data.tool === "vite" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoYarnViteTS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "vite" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoNPMViteJS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "vite" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoNPMViteTS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "create-react-app" &&
+      data.language === "javascript"
+    ) {
+      setGenerateCommand(comandoNPMCRAJS.replaceAll(",", ""));
+    } else if (
+      data.package === "npm" &&
+      data.tool === "create-react-app" &&
+      data.language === "typescript"
+    ) {
+      setGenerateCommand(comandoNPMCRATS.replaceAll(",", ""));
     }
-    console.log(generateCommand);
   };
 
   const createShape = async () => {
@@ -243,26 +286,19 @@ export const EditShapeModal = () => {
             <div className="flex flex-col">
               <label
                 htmlFor="language"
-                className="text-grey-5 text-base mb-2 ml-1 "
+                className="text-grey-5 text-base mb-2 ml-1"
               >
-                Qual linguagem de programação?
+                Qual comando você deseja usar?
               </label>
-              <select
+              <input
+                type="text"
                 id="language"
                 defaultValue={handleClickCard.language}
-                required
                 disabled
-                className={
-                  "text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
-                }
-              >
-                <option value="javascript" className="bg-bg-form">
-                  JavaScript
-                </option>
-                <option value="typescript" className="bg-bg-form">
-                  TypeScript
-                </option>
-              </select>
+                required
+                className="text-grey-4  h-10  rounded p-2 text-xs bg-transparent border-solid border-2 outline-none border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
+                {...register("language", { value: handleClickCard.language })}
+              />
             </div>
           </div>
           <div className="flex flex-col items-center mt-8">
