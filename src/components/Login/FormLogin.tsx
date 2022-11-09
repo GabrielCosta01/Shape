@@ -23,10 +23,11 @@ const FormLogin = () => {
     resolver: yupResolver(schemaLogin),
   });
 
-  const [registerUser, isLoading, isOk] = loginUserStore((state) => [
+  const [registerUser, isLoading, isOk, logout] = loginUserStore((state) => [
     state.loginUser,
     state.isLoading,
     state.isOk,
+    state.logout,
   ]);
 
   const [toast] = toastStore((state) => [state.toast]);
@@ -37,8 +38,10 @@ const FormLogin = () => {
     if (isOk === 1) {
       toast("Login realizado com sucesso", "success", 2500);
       navigate("/dashboard");
+      logout();
     } else if (isOk === 2) {
       toast("Opss... Ocorreu um problema", "error", 2500);
+      logout();
     }
   }, [isOk]);
 

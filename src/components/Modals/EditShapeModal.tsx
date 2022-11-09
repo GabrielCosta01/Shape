@@ -184,7 +184,7 @@ export const EditShapeModal = () => {
         isCloseModal();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -24,11 +24,9 @@ export default function FormRegister() {
     resolver: yupResolver(schemaRegister),
   });
 
-  const [registerUser, isLoading, isOk] = registerUserStore((state) => [
-    state.registerUser,
-    state.isLoading,
-    state.isOk,
-  ]);
+  const [registerUser, isLoading, isOk, setNull] = registerUserStore(
+    (state) => [state.registerUser, state.isLoading, state.isOk, state.setNull]
+  );
 
   const navigate = useNavigate();
 
@@ -36,8 +34,10 @@ export default function FormRegister() {
     if (isOk === 1) {
       toast("Cadastro realizado com sucesso!", "success", 2500);
       navigate("/login");
+      setNull();
     } else if (isOk === 2) {
       toast("Opss... Ocorreu um problema", "error", 2500);
+      setNull();
     }
   }, [isOk]);
 

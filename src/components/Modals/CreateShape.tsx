@@ -160,7 +160,7 @@ export const CreateShapeModal = () => {
         createdFilteredShapes(shape);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
