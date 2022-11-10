@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Inter", sans-serif;
+  }
+  html::-webkit-scrollbar-track{
+    background: orange; 
+  }
+}
+
+input[type="text"]:focus ~ .input-text,
+input[type="text"]:valid ~ .input-text,
+input[type="password"]:valid ~ .input-text,
+input[type="password"]:focus ~ .input-text {
+  @apply text-button-register bg-bg-formRegister -translate-y-5  -translate-x-0 px-1 transition duration-300;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #0d0f19 inset;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: white;
+}
