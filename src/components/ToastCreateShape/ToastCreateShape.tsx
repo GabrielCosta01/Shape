@@ -46,9 +46,7 @@ export const ToastCreateShape = ({ commandCreate, id }: IToastCreate) => {
           <p className="text-white">
             Se tiver alguma duvida de como utilizar, clique{" "}
             <span className="text-button-register cursor-pointer font-semibold">
-              <Link to={"/tutorial"} target="_blank">
-                aqui
-              </Link>
+              <Link to={"/tutorial"}>aqui</Link>
             </span>{" "}
             para ver o tutorial.
           </p>
