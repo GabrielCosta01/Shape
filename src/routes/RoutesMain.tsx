@@ -14,11 +14,11 @@ const RoutesMain = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/tutorial" element={<TutorialPage />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
-        <Route path="/tutorial" element={<TutorialPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
