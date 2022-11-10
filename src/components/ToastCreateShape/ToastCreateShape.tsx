@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Snackbar } from "@mui/material";
 import {
   IToastCreate,
@@ -46,9 +46,9 @@ export const ToastCreateShape = ({ commandCreate, id }: IToastCreate) => {
           <p className="text-white">
             Se tiver alguma duvida de como utilizar, clique{" "}
             <span className="text-button-register cursor-pointer font-semibold">
-              <NavLink to={"/tutorial"} target="_blank">
+              <Link to={"/tutorial"} target="_blank">
                 aqui
-              </NavLink>
+              </Link>
             </span>{" "}
             para ver o tutorial.
           </p>

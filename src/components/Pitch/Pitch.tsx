@@ -73,7 +73,7 @@ const Pitch = () => {
             Basta você se cadastrar e logar na plataforma do shape, digitar o
             nome do comando, suas configurações, gerar o seu shape e colar no
             terminal. Ficou com dúvida?{" "}
-            <Link className="text-purple-2" to={"/tutorial"}>
+            <Link className="text-purple-2" to={"/tutorial"} target="_blank">
               Assista aqui um vídeo tutorial!
             </Link>
           </span>
