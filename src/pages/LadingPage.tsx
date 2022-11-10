@@ -69,7 +69,7 @@ export const LandingPage = () => {
               data-aos-duration="800"
             >
               O seu melhor amigo na configuração do seu ambiente! Seja um
-              shapado, configure seu ambiente de desenvolvimento com velocidade
+              sheipado, configure seu ambiente de desenvolvimento com velocidade
               e facilidade.
             </h3>
 
