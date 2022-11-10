@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 
 const Pitch = () => {
   useEffect(() => {
@@ -72,9 +73,9 @@ const Pitch = () => {
             Basta você se cadastrar e logar na plataforma do shape, digitar o
             nome do comando, suas configurações, gerar o seu shape e colar no
             terminal. Ficou com dúvida?{" "}
-            <a className="text-purple-2" href="/tutorial">
+            <Link className="text-purple-2" to={"/tutorial"}>
               Assista aqui um vídeo tutorial!
-            </a>
+            </Link>
           </span>
         </li>
 
