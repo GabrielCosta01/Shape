@@ -3,6 +3,8 @@ import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { deleteShapeStore } from "../../stores/deleteShapeStore";
 import { listShapesStore } from "../../stores/listShapesStore";
+import { useEffect } from "react";
+import { toastStore } from "../../stores/toastStore";
 
 export const DeleteShape = () => {
   const customStyles = {

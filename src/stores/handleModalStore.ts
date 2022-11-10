@@ -13,6 +13,8 @@ interface IModal {
   closeModalAvaliable: () => void;
   avaliableShape: (data: IAvaliable) => void;
   editProfile: (data: IEditProfile) => void;
+  setNull: () => void;
+  isOk: number | null;
 }
 
 const handleModalStore = create<IModal>((set) => ({
@@ -35,18 +37,42 @@ const handleModalStore = create<IModal>((set) => ({
     set(() => ({ modalAvaliableIsOpen: false }));
   },
 
+  isOk: null,
+
+  setNull: () => {
+    set(() => ({
+      isOk: null,
+    }));
+  },
+
   avaliableShape: async (data) => {
     try {
       const userId = localStorage.getItem("@shape:userId");
       const request = await api.post(`/600/users/${userId}/rates`, data);
-    } catch (error) {}
+      set(() => ({
+        isOk: 3,
+      }));
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        isOk: 2,
+      }));
+    }
   },
 
   editProfile: async (data) => {
     try {
       const userId = localStorage.getItem("@shape:userId");
       const request = await api.patch(`/600/users/${userId}`, data);
-    } catch (error) {}
+      set(() => ({
+        isOk: 1,
+      }));
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        isOk: 2,
+      }));
+    }
   },
 }));
 

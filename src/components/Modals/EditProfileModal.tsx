@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { loginUserStore } from "../../stores/loginUserStore";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { toastStore } from "../../stores/toastStore";
 
 export interface IEditProfile {
   email: string;
@@ -29,13 +31,30 @@ const EditProfileModal = () => {
     },
   };
 
-  const { register, handleSubmit } = useForm<IEditProfile>();
-  const [editProfile, modalIsOpen, closeModal] = handleModalStore((state) => [
-    state.editProfile,
-    state.modalIsOpen,
-    state.closeModal,
-  ]);
+  const { register, handleSubmit, reset } = useForm<IEditProfile>();
+  const [editProfile, modalIsOpen, closeModal, isOk, setNull] =
+    handleModalStore((state) => [
+      state.editProfile,
+      state.modalIsOpen,
+      state.closeModal,
+      state.isOk,
+      state.setNull,
+    ]);
   const [user] = loginUserStore((state) => [state.user]);
+  const [toast] = toastStore((state) => [state.toast]);
+
+  useEffect(() => {
+    if (isOk === 1) {
+      toast("Perfil editado com sucesso!", "success", 2500);
+      setNull();
+      reset();
+      closeModal();
+    } else if (isOk === 2) {
+      toast("Opss... Ocorreu um problema", "error", 2500);
+      setNull();
+      reset();
+    }
+  }, [isOk]);
 
   return (
     <Modal
@@ -106,7 +125,6 @@ const EditProfileModal = () => {
             type="password"
             id="password"
             placeholder="Senha"
-            required
             className="text-grey-4 min-w-full h-10 rounded p-2 text-xs bg-transparent border-solid border-2 border-border-Inputs hover:border-purple-1 focus:border-purple-1 valid:border-purple-1"
             {...register("password")}
           />

@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import handleModalStore from "../../stores/handleModalStore";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { toastStore } from "../../stores/toastStore";
 export interface IAvaliable {
   rate: string;
 }
@@ -29,21 +30,41 @@ const EditAvaliabeModal = () => {
     },
   };
 
-  const [avaliableShape, closeModalAvaliable, modalAvaliableIsOpen] =
-    handleModalStore((state) => [
-      state.avaliableShape,
-      state.closeModalAvaliable,
-      state.modalAvaliableIsOpen,
-    ]);
+  const [
+    avaliableShape,
+    closeModalAvaliable,
+    modalAvaliableIsOpen,
+    isOk,
+    setNull,
+  ] = handleModalStore((state) => [
+    state.avaliableShape,
+    state.closeModalAvaliable,
+    state.modalAvaliableIsOpen,
+    state.isOk,
+    state.setNull,
+  ]);
 
   const { register, handleSubmit } = useForm<IAvaliable>();
   const [ratingStar, setRatingStar] = useState<number | null>(null);
   const [hoverRating, setHoverRating] = useState<any>(null);
+  const [toast] = toastStore((state) => [state.toast]);
 
   const newDataRate = (data: IAvaliable) => {
     const newData = { ...data, ratingStar };
     avaliableShape(newData);
   };
+
+  useEffect(() => {
+    if (isOk === 3) {
+      toast("Obrigado por nos avaliar :)", "success", 2500);
+      setNull();
+      closeModalAvaliable();
+    } else if (isOk === 2) {
+      toast("Opss... Ocorreu um problema", "error", 2500);
+      setNull();
+    }
+  }, [isOk]);
+
   return (
     <Modal
       isOpen={modalAvaliableIsOpen}

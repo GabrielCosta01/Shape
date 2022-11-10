@@ -10,12 +10,15 @@ interface IRegisterStore {
 
 export const registerUserStore = create<IRegisterStore>((set, get) => ({
   isOk: null,
+
   isLoading: false,
+
   setNull: () => {
     set(() => ({
       isOk: null,
     }));
   },
+
   registerUser: async (data: IData) => {
     try {
       set(() => ({ isLoading: true }));
