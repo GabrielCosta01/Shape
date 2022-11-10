@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import logo from ".././assets/logo.png";
-import { CircleAnimation } from "../components/CirclesAnimation/CirclesAnimation";
 import FormRegister from "../components/Register/Form/formRegister";
 
 import { motion } from "framer-motion";
+import { CircleAnimationForms } from "../components/CircleAnimationForms/CirclesAnimation";
 
 export const RegisterPage = () => {
   return (
@@ -13,14 +13,14 @@ export const RegisterPage = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="w-screen	h-screen flex items-center	justify-center 	flex-col bg-radial bg-center bg-no-repeat bg-888px		">
-        <aside className="flex flex-col  items-center	  max-w-xs  w-[22.25rem] pb-5	 bg-bg-formRegister	z-10 rounded-md">
-          <nav className=" flex  flex-col">
+      <main className="flex items-center h-screen	justify-center 	flex-col bg-radial bg-center bg-no-repeat bg-888px ">
+        <div className="flex flex-col  items-center	  max-w-xs  w-[22.25rem] pb-5	 bg-bg-formRegister	z-10 rounded-md">
+          <figure className=" flex  flex-col">
             <Link to="/">
               <img src={logo} alt="Logo" className=" h-7 ml-3 mt-7		mb-2	" />
             </Link>
             <p className="text-grey-1 text-base	 mb-6	">Crie sua conta</p>
-          </nav>
+          </figure>
           <FormRegister />
           <p className="text-grey-1 text-base	 mb-3 mt-3	">
             Ja possui uma conta?
@@ -33,8 +33,8 @@ export const RegisterPage = () => {
           >
             Entrar
           </Link>
-        </aside>
-        <CircleAnimation />
+        </div>
+        <CircleAnimationForms />
       </main>
     </motion.div>
   );
