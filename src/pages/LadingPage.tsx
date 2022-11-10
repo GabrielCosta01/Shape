@@ -68,9 +68,9 @@ export const LandingPage = () => {
               data-aos="zoom-in"
               data-aos-duration="800"
             >
-              O seu melhor amigo na configuração do seu ambiente! Seja um
-              shapado, configure seu ambiente de desenvolvimento com velocidade
-              e facilidade.
+              O seu melhor amigo na configuração do seu ambiente! Entre no
+              shape, configure seu ambiente de desenvolvimento com velocidade e
+              facilidade.
             </h3>
 
             <Pitch />

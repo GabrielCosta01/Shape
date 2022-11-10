@@ -13,6 +13,7 @@ export interface IShape {
   package: string;
   tool: string;
   userId: string | number;
+  projectName: string;
 }
 
 interface ICardProps {
