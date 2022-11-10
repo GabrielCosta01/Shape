@@ -79,11 +79,45 @@ export const DashboardPage = () => {
             )}
           </ContainerShapes>
           <ContainerShapes>
-            <div className="mt-28 border-t-2 border-solid border-gray-900 w-full absolute bottom-0">
-              <h3 className="text-purple-1 text-lg font-semibold text-center mt-6 ">
-                Suas bibliotecas mais utilizadas
-              </h3>
-              <AnimationNotLib />
+            <div className="w-full h-1/5 flex flex-col gap-5 items-center mt-28 border-t-2 border-solid border-gray-900  absolute bottom-0 mb-5">
+              <h1 className="text-purple-1 mt-3 font-semibold text-lg ">
+                Bibliotecas mais utilizadas
+              </h1>
+              <ul className="w-9/12  m-auto grid grid-cols-3 grid-flow-row gap-10 text-white ">
+                <li className="text-center text-grey-4 font-thin hover:text-purple-2">
+                  <a href="https://mui.com/pt/" target={"_blank"}>
+                    Material UI
+                  </a>
+                </li>
+                <li className="text-center text-grey-4 font-thin hover:text-purple-2">
+                  <a href="https://styled-components.com/" target={"_blank"}>
+                    Styled Components
+                  </a>
+                </li>
+                <li className="text-center text-grey-4 font-thin hover:text-purple-2">
+                  <a href="https://mobx.js.org/README.html" target={"_blank"}>
+                    MobX
+                  </a>
+                </li>
+                <li className="text-center text-grey-4 font-thin hover:text-purple-2">
+                  <a
+                    href="https://enzymejs.github.io/enzyme/"
+                    target={"_blank"}
+                  >
+                    Enzyme
+                  </a>
+                </li>
+                <li className="text-center text-grey-4 font-thin hover:text-purple-2">
+                  <a href="https://redux.js.org/" target={"_blank"}>
+                    Redux
+                  </a>
+                </li>
+                <li className="text-center text-grey-4 font-thin hover:text-purple-2">
+                  <a href="#" target={"_blank"}>
+                    React Virtualized
+                  </a>
+                </li>
+              </ul>
             </div>
           </ContainerShapes>
         </>
