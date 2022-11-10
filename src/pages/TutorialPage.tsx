@@ -57,9 +57,7 @@ export const TutorialPage = () => {
               src="https://player.vimeo.com/video/769156842?h=c6080a1757&loop=1&title=0&byline=0&portrait=0"
               width="640"
               height="360"
-              frameborder="0"
               allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
             ></iframe>
             <p className="text-grey-5 mt-3">
               Video de demonstração de como se utilizar o Shape.
