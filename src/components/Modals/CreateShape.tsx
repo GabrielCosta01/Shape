@@ -145,6 +145,7 @@ export const CreateShapeModal = () => {
   useEffect(() => {
     handleRequest(shapeData);
     reset();
+    setSelectLibs([]);
   }, [shapeData]);
 
   const handleRequest = async (data: any) => {

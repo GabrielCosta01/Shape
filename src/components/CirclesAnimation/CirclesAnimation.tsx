@@ -18,7 +18,7 @@ export const CircleAnimation = () => {
   };
 
   return (
-    <div className="pointer-events-none absolute opacity-5">
+    <div className="pointer-events-none absolute opacity-10">
       <Lottie
         options={defaultOptions}
         height={1000}
