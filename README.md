@@ -6,6 +6,6 @@
 ##
 #### Dentro do shape você irá encontrar tutorial de como mexer na aplicação sem nenhum problema, com o shape 
 #### você consegue criar um comando que ira instalar as bibliotecas que você deseja usar
-#### no shape foi utilizadas essas tecnologias: React.Js - hooks do React.Js - Yup - Typescript - Zustand - TailwindCss - ApiFake = heroku
+#### no shape foi utilizadas essas tecnologias: React.Js - hooks do React.Js - Yup - Typescript - Zustand - TailwindCss - ApiFake - heroku
 #### Espero que gostem! 💖
 #### link do vercel: https://shapeforreact.vercel.app/
